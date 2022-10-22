@@ -1,0 +1,12 @@
+.signup-container {
+  display: flex;
+  width: 70vw;
+  height: 70vh;
+  border: 1px solid white;
+}
+
+.signup-section {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+}
