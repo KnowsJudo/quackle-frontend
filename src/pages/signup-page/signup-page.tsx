@@ -13,10 +13,10 @@ export const SignUpPage: React.FC = () => {
       .post(
         '//localhost:3001/api/user',
         {
-          name: 'Tom',
-          username: 'BKHZ',
-          password: 'tom123',
-          email: 'tomfjohn@hotmail.com',
+          name: 'AFS',
+          username: 'EXCUSE ME',
+          password: 'DID YOU KNOW we can call them',
+          email: 'somethings@forshort.com',
         },
         {
           headers: {
