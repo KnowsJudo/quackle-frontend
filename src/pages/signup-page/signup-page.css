@@ -5,6 +5,11 @@
   border: 1px solid white;
 }
 
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .signup-section {
   display: flex;
   margin: auto;
