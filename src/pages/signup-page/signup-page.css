@@ -1,13 +1,14 @@
 .signup-container {
   display: flex;
-  width: 70vw;
-  height: 70vh;
+  width: 80vw;
+  height: 80vh;
   border: 1px solid white;
 }
 
 .signup-form {
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 
 .signup-section {

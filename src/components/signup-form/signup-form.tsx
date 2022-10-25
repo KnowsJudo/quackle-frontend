@@ -7,36 +7,36 @@ export const SignUpForm: React.FC = () => {
   return (
     <form className="signup-form">
       <label>
-        Name
+        Name*
         <input
           placeholder="Name"
           onChange={(e) => setUserInfo(e, "name")}
           value={userData.name}
-        ></input>
+        />
       </label>
       <label>
-        Username
+        Username*
         <input
           placeholder="Username"
           onChange={(e) => setUserInfo(e, "username")}
           value={userData.username}
-        ></input>
+        />
       </label>
       <label>
-        Password
+        Password*
         <input
           placeholder="Password (min. 7 characters)"
           onChange={(e) => setUserInfo(e, "password")}
           value={userData.password}
-        ></input>
+        />
       </label>
       <label>
-        Email
+        Email*
         <input
           placeholder="Email address"
           onChange={(e) => setUserInfo(e, "email")}
           value={userData.email}
-        ></input>
+        />
       </label>
     </form>
   );

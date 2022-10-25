@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
+import { Button } from "@mantine/core";
 import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {
@@ -44,9 +45,9 @@ export const SignUpPage: React.FC = () => {
         <h1>Quackle</h1>
         <h3>Join the avian world&apos;s largest social network</h3>
         <SignUpForm />
-        <button onClick={() => signUp()}>Sign up</button>
+        <Button onClick={() => signUp()}>Sign up</Button>
         <h5>Existing user?</h5>
-        <button onClick={() => login()}>LOGIN</button>
+        <Button onClick={() => login()}>LOGIN</Button>
       </section>
     </div>
   );
