@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { QuackleContext } from "../../context/user-context";
+import { ISignUp } from "../../types/signup-types";
 
-export const SignUpForm: React.FC = () => {
+export const SignUpForm: React.FC<ISignUp> = (props) => {
   const { userData, setUserInfo } = useContext(QuackleContext);
 
   return (
@@ -25,9 +26,19 @@ export const SignUpForm: React.FC = () => {
       <label>
         Password*
         <input
-          placeholder="Password (min. 7 characters)"
+          type="password"
+          placeholder="Password"
           onChange={(e) => setUserInfo(e, "password")}
           value={userData.password}
+        />
+      </label>
+      <label>
+        Confirm Password*
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => props.handleConfirm(e)}
+          value={props.confirmPass}
         />
       </label>
       <label>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { initialUserData, QuackleContext } from "./context/user-context";
-import { SignUpPage } from "./pages/signup-page/signup-page";
+import { SignUpPage } from "./pages/signup-page";
 import { IUser } from "./types/user-types";
 import { MantineProvider } from "@mantine/core";
 import "./App.css";
