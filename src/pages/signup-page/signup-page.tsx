@@ -19,6 +19,10 @@ export const SignUpPage: React.FC = () => {
       console.log("Password doesnt match");
       return;
     }
+    if (!userData.email.includes("@")) {
+      console.log("Invalid email");
+      return;
+    }
     await axios
       .post(
         "//localhost:3001/api/user",
@@ -35,7 +39,7 @@ export const SignUpPage: React.FC = () => {
         },
       )
       .then((res) => console.log(res.data, "users"))
-      .catch((e) => console.error(e.response.data));
+      .catch((e) => console.error(e.response.data.message));
   };
 
   const login = () => {

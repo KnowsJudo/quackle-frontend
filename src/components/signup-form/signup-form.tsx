@@ -44,6 +44,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
       <label>
         Email*
         <input
+          type="email"
           placeholder="Email address"
           onChange={(e) => setUserInfo(e, "email")}
           value={userData.email}
