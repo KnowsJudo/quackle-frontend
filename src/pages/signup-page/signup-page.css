@@ -15,4 +15,11 @@
   display: flex;
   margin: auto;
   flex-direction: column;
+  height: 100%;
+}
+
+@media (max-width: 750px) {
+  .signup-container {
+    height: 95vh;
+  }
 }

@@ -11,8 +11,8 @@ export const initialUserData: IUser = {
   createdAt: new Date(),
   quacks: 0,
   reQuacks: 0,
-  userFriends: [],
-  userBlocked: [],
+  friends: [],
+  usersBlocked: [],
 };
 
 export const QuackleContext = createContext({

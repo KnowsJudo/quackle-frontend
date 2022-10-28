@@ -5,12 +5,12 @@ export interface IUser {
   username: string;
   password: string;
   email: string;
-  quacks: number;
-  reQuacks: number;
   dateOfBirth: Date;
   createdAt: Date;
-  userFriends: IUser[];
-  userBlocked: IUser[];
+  quacks: number;
+  reQuacks: number;
+  friends: IUser[];
+  usersBlocked: IUser[];
 }
 export interface IUserState {
   userData: IUser;
