@@ -4,9 +4,11 @@ import { SignUpPage } from "./pages/signup-page";
 import { IUser } from "./types/user-types";
 import { MantineProvider } from "@mantine/core";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { ProfilePage } from "./pages/profile-page/profile-page";
+import { SettingsPage } from "./pages/settings-page/settings-page";
 import { NotFoundPage } from "./pages/not-found-page/not-found-page";
+import { ProfilePage } from "./pages/profile-page/profile-page";
 import "./App.css";
+import { LoginPage } from "./pages/login-page/login-page";
 
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);
@@ -26,7 +28,9 @@ const App: () => JSX.Element = () => {
           <HashRouter>
             <Routes>
               <Route path="/" element={<SignUpPage />}></Route>
-              <Route path="/profile" element={<ProfilePage />}></Route>
+              <Route path="/login" element={<LoginPage />}></Route>
+              <Route path=":username" element={<ProfilePage />}></Route>
+              <Route path="/settings" element={<SettingsPage />}></Route>
               <Route path="*" element={<NotFoundPage />}></Route>
             </Routes>
           </HashRouter>

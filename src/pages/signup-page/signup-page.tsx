@@ -4,6 +4,7 @@ import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
 import { Button } from "@mantine/core";
 import "./signup-page.css";
+import { Link } from "react-router-dom";
 
 export const SignUpPage: React.FC = () => {
   const { userData } = useContext(QuackleContext);
@@ -42,17 +43,6 @@ export const SignUpPage: React.FC = () => {
       .catch((e) => console.error(e.response.data.message));
   };
 
-  const login = () => {
-    axios
-      .get("//localhost:3001/api/user", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => console.log(res.data, "users"))
-      .catch((e) => console.error(e));
-  };
-
   return (
     <div className="signup-container">
       <section className="signup-section">
@@ -61,7 +51,9 @@ export const SignUpPage: React.FC = () => {
         <SignUpForm handleConfirm={handleConfirm} confirmPass={confirmPass} />
         <Button onClick={() => signUp()}>Sign up</Button>
         <h5>Existing user?</h5>
-        <Button onClick={() => login()}>LOGIN</Button>
+        <Link to="/login">
+          <Button>LOGIN</Button>
+        </Link>
       </section>
     </div>
   );

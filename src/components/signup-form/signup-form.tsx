@@ -11,6 +11,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         Name*
         <input
           placeholder="Name"
+          autoComplete=""
           onChange={(e) => setUserInfo(e, "name")}
           value={userData.name}
         />
@@ -26,6 +27,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
       <label>
         Password*
         <input
+          autoComplete="off"
           type="password"
           placeholder="Password"
           onChange={(e) => setUserInfo(e, "password")}
@@ -35,6 +37,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
       <label>
         Confirm Password*
         <input
+          autoComplete="off"
           type="password"
           placeholder="Password"
           onChange={(e) => props.handleConfirm(e)}
