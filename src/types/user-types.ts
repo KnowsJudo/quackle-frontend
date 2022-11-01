@@ -7,6 +7,7 @@ export interface IUser {
   email: string;
   dateOfBirth: Date;
   createdAt: Date;
+  tagline: string;
   quacks: number;
   reQuacks: number;
   friends: IUser[];
