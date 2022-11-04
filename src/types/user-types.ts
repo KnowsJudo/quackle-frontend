@@ -3,7 +3,6 @@ export interface IUser {
   displayPic: string;
   name: string;
   username: string;
-  password: string;
   email: string;
   dateOfBirth: Date;
   createdAt: Date;

@@ -5,7 +5,6 @@ export const initialUserData: IUser = {
   displayPic: "",
   name: "",
   username: "",
-  password: "",
   email: "",
   dateOfBirth: new Date(),
   createdAt: new Date(),

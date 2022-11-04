@@ -1,22 +1,33 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
 import { Button } from "@mantine/core";
-import "./signup-page.css";
 import { Link } from "react-router-dom";
+import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {
   const { userData } = useContext(QuackleContext);
+  const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const navigate = useNavigate();
 
-  const handleConfirm = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleConfirm = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    field: string,
+  ) => {
     event.preventDefault();
-    setConfirmPass(event.target.value);
+    if (field === "confirm") setConfirmPass(event.target.value);
+    if (field === "pass") setPass(event.target.value);
   };
 
   const signUp = async () => {
-    if (confirmPass !== userData.password) {
+    if (!userData.name || !userData.username || !pass || !userData.email) {
+      console.log("Fields missing");
+      return;
+    }
+    if (confirmPass !== pass) {
       console.log("Password doesnt match");
       return;
     }
@@ -30,7 +41,7 @@ export const SignUpPage: React.FC = () => {
         {
           name: userData.name,
           username: userData.username,
-          password: userData.password,
+          password: pass,
           email: userData.email,
         },
         {
@@ -39,8 +50,13 @@ export const SignUpPage: React.FC = () => {
           },
         },
       )
-      .then((res) => console.log(res.data, "users"))
-      .catch((e) => console.error(e.response.data.message));
+      .then((res) => {
+        console.log(res.data, "users");
+        navigate("/login");
+      })
+      .catch((e) => {
+        console.error(e.response.data.message);
+      });
   };
 
   return (
@@ -48,7 +64,11 @@ export const SignUpPage: React.FC = () => {
       <section className="signup-section">
         <h2>Quackle</h2>
         <h3>Join the avian world&apos;s largest social network</h3>
-        <SignUpForm handleConfirm={handleConfirm} confirmPass={confirmPass} />
+        <SignUpForm
+          handleConfirm={handleConfirm}
+          confirmPass={confirmPass}
+          pass={pass}
+        />
         <Button onClick={() => signUp()}>Sign up</Button>
         <h5>Existing user?</h5>
         <Link to="/login">

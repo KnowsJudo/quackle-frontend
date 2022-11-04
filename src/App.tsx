@@ -7,8 +7,8 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import { SettingsPage } from "./pages/settings-page/settings-page";
 import { NotFoundPage } from "./pages/not-found-page/not-found-page";
 import { ProfilePage } from "./pages/profile-page/profile-page";
-import "./App.css";
 import { LoginPage } from "./pages/login-page/login-page";
+import "./App.css";
 
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);

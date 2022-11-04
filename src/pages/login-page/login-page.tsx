@@ -1,20 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { QuackleContext } from "../../context/user-context";
-import { Button } from "@mantine/core";
+import { Alert, Button } from "@mantine/core";
 import Cookies from "js-cookie";
 import { stdHeader } from "../../api/api-header";
+import { Link, useNavigate } from "react-router-dom";
 import "./login-page.css";
-import { Link } from "react-router-dom";
 
 export const LoginPage: React.FC = () => {
   const { userData, setUserInfo } = useContext(QuackleContext);
-  const [error, setError] = useState({ password: false });
+  const [error, setError] = useState({
+    network: false,
+    password: false,
+    user: false,
+  });
+  const [pass, setPass] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setError((prev) => {
-      return { ...prev, password: false };
-    });
+    setUserInfo;
+  }, []);
+
+  useEffect(() => {
+    setError({ network: false, password: false, user: false });
   }, [userData]);
 
   const login = () => {
@@ -23,7 +32,7 @@ export const LoginPage: React.FC = () => {
         "//localhost:3001/api/user/login",
         {
           username: userData.username,
-          password: userData.password,
+          password: pass,
         },
         stdHeader(),
       )
@@ -32,12 +41,28 @@ export const LoginPage: React.FC = () => {
         if (res.data.success) {
           Cookies.set("jwtToken", res.data.token);
         }
+        navigate("/profile");
       })
       .catch((e) => {
+        if (!e.response) {
+          console.error(e.message);
+          setError((prev) => {
+            return { ...prev, network: true };
+          });
+          return;
+        }
+        if (e.response.status === 404) {
+          console.error(e.response.data.message);
+          setError((prev) => {
+            return { ...prev, user: true };
+          });
+          return;
+        }
         console.error(e.response.data.message);
         setError((prev) => {
           return { ...prev, password: true };
         });
+        return;
       });
   };
 
@@ -58,16 +83,19 @@ export const LoginPage: React.FC = () => {
             Password*
             <input
               autoComplete="off"
-              onChange={(e) => setUserInfo(e, "password")}
+              onChange={(e) => setPass(e.target.value)}
               type="password"
               placeholder="Password"
-              value={userData.password}
+              value={pass}
             />
           </label>
         </form>
         <Button onClick={() => login()}>LOGIN</Button>
       </section>
-      {error.password && <h5>Incorrect Password</h5>}
+      <br />
+      {error.password && <Alert color="red">Incorrect Password</Alert>}
+      {error.network && <Alert color="red">Network Error</Alert>}
+      {error.user && <Alert color="red">User does not exist</Alert>}
       <h6>
         New to Quackle?&nbsp;
         <Link to="/">

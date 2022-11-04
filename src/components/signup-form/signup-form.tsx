@@ -30,8 +30,8 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
           autoComplete="off"
           type="password"
           placeholder="Password"
-          onChange={(e) => setUserInfo(e, "password")}
-          value={userData.password}
+          onChange={(e) => props.handleConfirm(e, "pass")}
+          value={props.pass}
         />
       </label>
       <label>
@@ -40,7 +40,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
           autoComplete="off"
           type="password"
           placeholder="Password"
-          onChange={(e) => props.handleConfirm(e)}
+          onChange={(e) => props.handleConfirm(e, "confirm")}
           value={props.confirmPass}
         />
       </label>
