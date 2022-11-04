@@ -4,6 +4,6 @@ export interface IProfileCard {
   description: string;
   stats: {
     title: string;
-    value: number;
+    value: number | string;
   }[];
 }

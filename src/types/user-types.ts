@@ -9,8 +9,8 @@ export interface IUser {
   tagline: string;
   quacks: number;
   reQuacks: number;
-  friends: IUser[];
-  usersBlocked: IUser[];
+  friends?: IUser[];
+  usersBlocked?: IUser[];
 }
 export interface IUserState {
   userData: IUser;
