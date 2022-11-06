@@ -35,12 +35,18 @@ export const CardWithStats = ({
   return (
     <Card withBorder p="lg">
       <Card.Section>
-        <Image src={image} alt={title} height={100} />
+        <Image
+          src={image}
+          alt="With default placeholder"
+          withPlaceholder
+          height={100}
+        />
       </Card.Section>
 
       <Group position="apart" mt="xl">
         <Text size="sm" weight={700}>
           {title}
+          {}
         </Text>
         <Group spacing={5}>
           <Text size="xs" color="dimmed">

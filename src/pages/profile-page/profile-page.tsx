@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CardWithStats } from "../../components/profile-card/profile-card";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { NotFoundPage } from "../not-found-page/not-found-page";
 import axios from "axios";
-import { Loader } from "@mantine/core";
+import { Button, Loader } from "@mantine/core";
 import { IUser } from "../../types/user-types";
+import { QuackleContext } from "../../context/user-context";
+import { QuacksMenu } from "../../components/quacks-menu/quacks-menu";
 import "./profile-page.css";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
+  const { userData } = useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -49,12 +52,15 @@ export const ProfilePage: React.FC = () => {
     <NotFoundPage />
   ) : (
     <div className="profile-container">
+      <section className="profile-user">
+        <h5>🦆</h5>Settings
+      </section>
       <section className="profile-details">
-        <div className="top-info">
-          <h3>{profileData.username} on Quackle</h3>
+        <div className="user-info">
+          <h5 className="username-title">{profileData.username} on Quackle</h5>
           <CardWithStats
             image={profileData.displayPic}
-            title={profileData.username}
+            title={`@${profileData.username}`}
             description={profileData.tagline}
             stats={[
               {
@@ -69,11 +75,29 @@ export const ProfilePage: React.FC = () => {
               },
               {
                 title: "Joined",
-                value: String(profileData.createdAt),
+                value: String(profileData.createdAt).slice(0, 10),
               },
             ]}
           />
         </div>
+        <div className="user-tweets">
+          <QuacksMenu />
+        </div>
+      </section>
+      <section className="profile-sidebar">
+        <h5>Search Quackle</h5>
+        {!userData.username && (
+          <section className="profile-prompt">
+            <h5>Not part of the pond?</h5>
+            <Link to="/">
+              <Button>Sign Up</Button>
+            </Link>
+            <h5>Existing User?</h5>
+            <Link to="/login">
+              <Button>LOGIN</Button>
+            </Link>
+          </section>
+        )}
       </section>
     </div>
   );

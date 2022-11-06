@@ -41,7 +41,7 @@ export const LoginPage: React.FC = () => {
         if (res.data.success) {
           Cookies.set("jwtToken", res.data.token);
         }
-        navigate("/profile");
+        navigate(`/profile/${userData.username}`);
       })
       .catch((e) => {
         if (!e.response) {
