@@ -9,7 +9,7 @@ export const initialUserData: IUser = {
   dateOfBirth: new Date(),
   createdAt: new Date(),
   tagline: "",
-  quacks: 0,
+  quacks: [],
   reQuacks: 0,
   friends: [],
   usersBlocked: [],

@@ -22,8 +22,14 @@
   width: 20%;
 }
 
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
 .user-tweets {
   display: flex;
+  justify-content: center;
 }
 
 .username-title {

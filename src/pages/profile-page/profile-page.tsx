@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import { CardWithStats } from "../../components/profile-card/profile-card";
 import { Link, useParams } from "react-router-dom";
 import { NotFoundPage } from "../not-found-page/not-found-page";
-import axios from "axios";
 import { Button, Loader } from "@mantine/core";
 import { IUser } from "../../types/user-types";
 import { QuackleContext } from "../../context/user-context";
@@ -57,7 +57,7 @@ export const ProfilePage: React.FC = () => {
       </section>
       <section className="profile-details">
         <div className="user-info">
-          <h5 className="username-title">{profileData.username} on Quackle</h5>
+          <h5 className="username-title">{profileData.name} on Quackle</h5>
           <CardWithStats
             image={profileData.displayPic}
             title={`@${profileData.username}`}
@@ -65,7 +65,9 @@ export const ProfilePage: React.FC = () => {
             stats={[
               {
                 title: "Quacks",
-                value: profileData.quacks,
+                value: profileData.quacks.length
+                  ? profileData.quacks.length
+                  : 0,
               },
               {
                 title: "Flock members",
@@ -81,7 +83,7 @@ export const ProfilePage: React.FC = () => {
           />
         </div>
         <div className="user-tweets">
-          <QuacksMenu />
+          <QuacksMenu quacks={userData.quacks} />
         </div>
       </section>
       <section className="profile-sidebar">

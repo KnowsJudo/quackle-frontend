@@ -7,7 +7,7 @@ export interface IUser {
   dateOfBirth: Date;
   createdAt: Date;
   tagline: string;
-  quacks: number;
+  quacks: [];
   reQuacks: number;
   friends?: IUser[];
   usersBlocked?: IUser[];
