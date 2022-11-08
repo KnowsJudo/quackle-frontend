@@ -7,15 +7,34 @@ import { Button, Loader } from "@mantine/core";
 import { IUser } from "../../types/user-types";
 import { QuackleContext } from "../../context/user-context";
 import { QuacksMenu } from "../../components/quacks-menu/quacks-menu";
+import { QuackInput } from "../../components/quack-input/quack-input";
 import "./profile-page.css";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
   const { userData } = useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    if (userData.username === params.userId) {
+      setProfileData({
+        displayPic: userData.displayPic,
+        name: userData.name,
+        username: userData.username,
+        email: userData.email,
+        dateOfBirth: userData.dateOfBirth,
+        createdAt: userData.createdAt,
+        tagline: userData.tagline,
+        quacks: userData.quacks,
+        reQuacks: userData.reQuacks,
+        friends: [],
+      });
+      setLoading(false);
+      return;
+    }
+
     axios
       .get(`//localhost:3001/api/user/${params.userId}`)
       .then((res) => {
@@ -52,8 +71,22 @@ export const ProfilePage: React.FC = () => {
     <NotFoundPage />
   ) : (
     <div className="profile-container">
+      {initiateQuack && (
+        <QuackInput
+          fixed={true}
+          displayPic={userData.displayPic}
+          atUser={
+            userData.username === params.userId ? "everyone" : params.userId
+          }
+          content={"wfaawffwa"}
+        />
+      )}
       <section className="profile-user">
-        <h5>🦆</h5>Settings
+        <h5>🦆</h5>
+        <h5>Settings</h5>
+        {userData.username && (
+          <Button onClick={() => setInitiateQuack(true)}>Quack!</Button>
+        )}
       </section>
       <section className="profile-details">
         <div className="user-info">

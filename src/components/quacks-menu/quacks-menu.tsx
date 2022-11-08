@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Tabs } from "@mantine/core";
-import { IEmptyQuackMenu, IQuack, IQuacksMenu } from "../../types/quacks";
-import { Quack } from "../quack/quack";
+import { IEmptyQuackMenu, IQuackOutput, IQuacksMenu } from "../../types/quacks";
+import { QuackOutput } from "../quack-output/quack-output";
 import { QuackleContext } from "../../context/user-context";
 import "./quacks-menu.css";
 
@@ -30,8 +30,12 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
   };
 
   return (
-    <Tabs value={selectedTab} onTabChange={setSelectedTab}>
-      <Tabs.List>
+    <Tabs
+      value={selectedTab}
+      onTabChange={setSelectedTab}
+      sx={{ flex: "1 1 auto" }}
+    >
+      <Tabs.List sx={{ justifyContent: "space-evenly" }}>
         <Tabs.Tab value="quacks">Quacks</Tabs.Tab>
         <Tabs.Tab value="requacks">Re-Quacks</Tabs.Tab>
         <Tabs.Tab value="likes">Likes</Tabs.Tab>
@@ -42,9 +46,9 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         {!props.quacks.length ? (
           <EmptyQuacks quack={true} />
         ) : (
-          props.quacks.map((next: IQuack, i) => {
+          props.quacks.map((next: IQuackOutput, i) => {
             return (
-              <Quack
+              <QuackOutput
                 key={i}
                 name={next.name}
                 username={next.username}

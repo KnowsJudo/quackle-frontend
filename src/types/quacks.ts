@@ -2,7 +2,13 @@ export interface IQuacksMenu {
   quacks: [];
 }
 
-export interface IQuack {
+export interface IQuackInput {
+  fixed: boolean;
+  displayPic: string;
+  atUser?: string;
+  content: string;
+}
+export interface IQuackOutput {
   name: string;
   username: string;
   quackedAt: string;

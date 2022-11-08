@@ -1,7 +1,7 @@
 import React from "react";
-import { IQuack } from "../../types/quacks";
+import { IQuackOutput } from "../../types/quacks";
 
-export const Quack: React.FC<IQuack> = (props) => {
+export const QuackOutput: React.FC<IQuackOutput> = (props) => {
   return (
     <section className="quack-content">
       <span className="quack-user">
