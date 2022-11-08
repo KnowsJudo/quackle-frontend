@@ -1,0 +1,22 @@
+.quack-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.quack-content:hover {
+  background-color: #e4e4e4;
+}
+
+.quack-message {
+  display: flex;
+  padding: 6%;
+}
+
+.quack-user {
+  display: flex;
+}
+
+.quack-options {
+  display: flex;
+  justify-content: space-evenly;
+}

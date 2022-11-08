@@ -1,17 +1,21 @@
 import React, { useContext, useState } from "react";
 import { Tabs } from "@mantine/core";
-import { IEmptyQuackMenu, IQuackOutput, IQuacksMenu } from "../../types/quacks";
+import {
+  IEmptyQuackMenu,
+  IQuackResponse,
+  IQuacksMenu,
+} from "../../types/quacks";
 import { QuackOutput } from "../quack-output/quack-output";
 import { QuackleContext } from "../../context/user-context";
 import "./quacks-menu.css";
 
 export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
   const { userData } = useContext(QuackleContext);
-
   const [selectedTab, setSelectedTab] = useState<string | null>("quacks");
+  const paramId = props.paramId;
 
   const EmptyQuacks: React.FC<IEmptyQuackMenu> = (props) => {
-    if (!userData.username) {
+    if (!userData.username || userData.username !== paramId) {
       return (
         <h6>
           This user has no&nbsp;
@@ -43,20 +47,20 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       </Tabs.List>
 
       <Tabs.Panel value="quacks">
-        {!props.quacks.length ? (
+        {!props.quackdata.length ? (
           <EmptyQuacks quack={true} />
         ) : (
-          props.quacks.map((next: IQuackOutput, i) => {
+          props.quackdata.map((next: IQuackResponse, i) => {
             return (
               <QuackOutput
                 key={i}
-                name={next.name}
+                name={props.profileData.name}
                 username={next.username}
                 quackedAt={next.quackedAt}
-                content={next.content}
-                replies={next.replies}
-                requacks={next.requacks}
-                likes={next.likes}
+                content={next.message}
+                replies={[]}
+                requacks={0}
+                likes={0}
               />
             );
           })

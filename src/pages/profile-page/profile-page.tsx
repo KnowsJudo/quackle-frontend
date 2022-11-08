@@ -1,40 +1,41 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { CardWithStats } from "../../components/profile-card/profile-card";
 import { Link, useParams } from "react-router-dom";
 import { NotFoundPage } from "../not-found-page/not-found-page";
 import { Button, Loader } from "@mantine/core";
 import { IUser } from "../../types/user-types";
 import { QuackleContext } from "../../context/user-context";
-import { QuacksMenu } from "../../components/quacks-menu/quacks-menu";
 import { QuackInput } from "../../components/quack-input/quack-input";
+import { ProfileDetails } from "../../components/profile-details/profile-details";
 import "./profile-page.css";
+import { IQuackResponse } from "../../types/quacks";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
   const { userData } = useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
+  const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (userData.username === params.userId) {
-      setProfileData({
-        displayPic: userData.displayPic,
-        name: userData.name,
-        username: userData.username,
-        email: userData.email,
-        dateOfBirth: userData.dateOfBirth,
-        createdAt: userData.createdAt,
-        tagline: userData.tagline,
-        quacks: userData.quacks,
-        reQuacks: userData.reQuacks,
-        friends: [],
-      });
-      setLoading(false);
-      return;
-    }
-
+    // if (userData.username === params.userId) {
+    //   setProfileData({
+    //     displayPic: userData.displayPic,
+    //     name: userData.name,
+    //     username: userData.username,
+    //     email: userData.email,
+    //     dateOfBirth: userData.dateOfBirth,
+    //     createdAt: userData.createdAt,
+    //     tagline: userData.tagline,
+    //     quacks: userData.quacks,
+    //     reQuacks: userData.reQuacks,
+    //     friends: [],
+    //     usersBlocked: [],
+    //   });
+    //   setLoading(false);
+    //   return;
+    // }
     axios
       .get(`//localhost:3001/api/user/${params.userId}`)
       .then((res) => {
@@ -50,6 +51,7 @@ export const ProfilePage: React.FC = () => {
           quacks: res.data.quacks,
           reQuacks: res.data.reQuacks,
           friends: [],
+          usersBlocked: [],
         });
         setLoading(false);
       })
@@ -57,6 +59,15 @@ export const ProfilePage: React.FC = () => {
         console.error(e);
         setLoading(false);
       });
+
+    axios
+      .get(`//localhost:3001/api/user/${params.userId}/quacks`)
+      .then((res) => {
+        console.log("quacks", res.data);
+        setQuackData(res.data);
+      })
+      .catch((e) => console.error(e));
+    console.log(quackData);
   }, [params.userid]);
 
   if (loading) {
@@ -78,7 +89,6 @@ export const ProfilePage: React.FC = () => {
           atUser={
             userData.username === params.userId ? "everyone" : params.userId
           }
-          content={"wfaawffwa"}
         />
       )}
       <section className="profile-user">
@@ -88,37 +98,12 @@ export const ProfilePage: React.FC = () => {
           <Button onClick={() => setInitiateQuack(true)}>Quack!</Button>
         )}
       </section>
-      <section className="profile-details">
-        <div className="user-info">
-          <h5 className="username-title">{profileData.name} on Quackle</h5>
-          <CardWithStats
-            image={profileData.displayPic}
-            title={`@${profileData.username}`}
-            description={profileData.tagline}
-            stats={[
-              {
-                title: "Quacks",
-                value: profileData.quacks.length
-                  ? profileData.quacks.length
-                  : 0,
-              },
-              {
-                title: "Flock members",
-                value: profileData.friends?.length
-                  ? profileData.friends?.length
-                  : 0,
-              },
-              {
-                title: "Joined",
-                value: String(profileData.createdAt).slice(0, 10),
-              },
-            ]}
-          />
-        </div>
-        <div className="user-tweets">
-          <QuacksMenu quacks={userData.quacks} />
-        </div>
-      </section>
+      <ProfileDetails
+        matchesUser={userData.username === params.userId ? true : false}
+        quackData={quackData}
+        profileData={profileData}
+        paramId={params.userId}
+      />
       <section className="profile-sidebar">
         <h5>Search Quackle</h5>
         {!userData.username && (

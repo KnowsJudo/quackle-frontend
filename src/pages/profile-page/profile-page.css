@@ -3,6 +3,7 @@
   flex-direction: row;
   height: 100vh;
   width: 100vw;
+  overflow: auto;
   justify-content: space-evenly;
 }
 
@@ -12,14 +13,19 @@
   background-color: white;
   color: black;
   flex: 0.5 1 auto;
+  margin: 0 20%;
 }
 
 .profile-sidebar {
   width: 20%;
+  position: fixed;
+  margin-left: 80%;
 }
 
 .profile-user {
   width: 20%;
+  position: fixed;
+  margin-right: 80%;
 }
 
 .user-info {
@@ -30,6 +36,7 @@
 .user-tweets {
   display: flex;
   justify-content: center;
+  flex: 1 1 auto;
 }
 
 .username-title {

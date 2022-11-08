@@ -1,20 +1,31 @@
 import React from "react";
 import { IQuackOutput } from "../../types/quacks";
+import { Text } from "@mantine/core";
+import "./quack-output.css";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
   return (
     <section className="quack-content">
       <span className="quack-user">
-        <h5>{props.name}</h5>
-        <h5>{`@${props.username}`}</h5>
-        <h5>{props.quackedAt}</h5>
+        <Text size="xl">{props.name}&nbsp;</Text>
+        <Text size="xl" color="dimmed">
+          {`@${props.username}`}&nbsp;
+        </Text>
+        <Text size="xl" color="dimmed">
+          {props.quackedAt.slice(0, 10)}
+        </Text>
       </span>
-      <p>{props.content}</p>
+      <span className="quack-message">
+        <Text size="xl" sx={{ margin: "auto" }}>
+          {props.content}
+        </Text>
+      </span>
       <span className="quack-options">
-        <h6>{`🐤${props.replies.length}`}</h6>
-        <h6>{`🐔${props.requacks}`}</h6>
-        <h6>{`♡${props.likes}`}</h6>
+        <Text size="xl">{`🐤${props.replies.length}`}</Text>
+        <Text size="xl">{`🐔${props.requacks}`}</Text>
+        <Text size="xl">{`♡${props.likes}`}</Text>
       </span>
+      <hr></hr>
     </section>
   );
 };

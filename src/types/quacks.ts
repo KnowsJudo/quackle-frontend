@@ -1,12 +1,21 @@
+import { IUser } from "./user-types";
+
 export interface IQuacksMenu {
-  quacks: [];
+  paramId?: string;
+  profileData: IUser;
+  quackdata: IQuackResponse[];
 }
 
 export interface IQuackInput {
   fixed: boolean;
-  displayPic: string;
   atUser?: string;
-  content: string;
+  displayPic: string;
+}
+
+export interface IQuackResponse {
+  username: string;
+  quackedAt: string;
+  message: string;
 }
 export interface IQuackOutput {
   name: string;
