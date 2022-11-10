@@ -25,7 +25,6 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
         <Text size="xl">{`🐔${props.requacks}`}</Text>
         <Text size="xl">{`♡${props.likes}`}</Text>
       </span>
-      <hr></hr>
     </section>
   );
 };

@@ -19,23 +19,6 @@ export const ProfilePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // if (userData.username === params.userId) {
-    //   setProfileData({
-    //     displayPic: userData.displayPic,
-    //     name: userData.name,
-    //     username: userData.username,
-    //     email: userData.email,
-    //     dateOfBirth: userData.dateOfBirth,
-    //     createdAt: userData.createdAt,
-    //     tagline: userData.tagline,
-    //     quacks: userData.quacks,
-    //     reQuacks: userData.reQuacks,
-    //     friends: [],
-    //     usersBlocked: [],
-    //   });
-    //   setLoading(false);
-    //   return;
-    // }
     axios
       .get(`//localhost:3001/api/user/${params.userId}`)
       .then((res) => {
