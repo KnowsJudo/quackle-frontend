@@ -32,6 +32,13 @@ export const LoginPage: React.FC = () => {
     });
   }, [userData, pass]);
 
+  const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      login();
+    }
+  };
+
   const login = () => {
     setError({
       noUser: false,
@@ -128,7 +135,9 @@ export const LoginPage: React.FC = () => {
             />
           </label>
         </form>
-        <Button onClick={() => login()}>LOGIN</Button>
+        <Button onClick={() => login()} onKeyDown={onKeyDown}>
+          LOGIN
+        </Button>
       </section>
       <br />
       {loading && <Loader sx={{ margin: "auto" }} />}
