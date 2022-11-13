@@ -74,9 +74,24 @@ export const ProfilePage: React.FC = () => {
         />
       )}
       <section className="profile-user">
-        <h5>🦆</h5>
-        <h5>Settings</h5>
-        <Link to={"/profdfgfgdm"}>Test</Link>
+        <Link to={`/`} style={{ color: "white", textDecoration: "none" }}>
+          🦆
+        </Link>
+        {userData.username && (
+          <Link
+            to={`/profile/${userData.username}`}
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Home
+          </Link>
+        )}
+        <Link
+          to={`/settings`}
+          style={{ color: "white", textDecoration: "none" }}
+        >
+          Settings
+        </Link>
+        <Link to={"/profile/Chom"}>Test</Link>
         <span>
           {userData.username && (
             <Button onClick={() => setInitiateQuack(true)}>Quack!</Button>

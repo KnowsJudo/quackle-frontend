@@ -11,6 +11,7 @@
   margin: 0 20%;
   min-height: 100vh;
   height: max-content;
+  max-width: 50%;
 }
 
 .user-info {

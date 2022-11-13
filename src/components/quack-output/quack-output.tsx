@@ -16,7 +16,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
         </Text>
       </span>
       <span className="quack-message">
-        <Text size="xl" sx={{ margin: "auto" }}>
+        <Text size="xl" sx={{ margin: "auto", flexWrap: "wrap" }}>
           {props.content}
         </Text>
       </span>

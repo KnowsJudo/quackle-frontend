@@ -30,7 +30,7 @@ export const ProfileDetails: React.FC<IProfileProps> = (props) => {
 
   return props.matchesUser ? (
     <section className="profile-details">
-      Home
+      <h5>Home</h5>
       <QuackInput
         fixed={false}
         atUser={"everyone"}
