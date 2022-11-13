@@ -1,0 +1,29 @@
+.profile-friend-quacks {
+  margin-top: 4%;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  flex: 0.5 1 auto;
+  margin: 0 20%;
+  min-height: 100vh;
+  height: max-content;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-tweets {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 auto;
+}
+
+.username-title {
+  margin: 4%;
+}

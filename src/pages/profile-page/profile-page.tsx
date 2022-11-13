@@ -7,8 +7,8 @@ import { IUser } from "../../types/user-types";
 import { QuackleContext } from "../../context/user-context";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { ProfileDetails } from "../../components/profile-details/profile-details";
-import "./profile-page.css";
 import { IQuackResponse } from "../../types/quacks";
+import "./profile-page.css";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
@@ -46,17 +46,15 @@ export const ProfilePage: React.FC = () => {
     axios
       .get(`//localhost:3001/api/user/${params.userId}/quacks`)
       .then((res) => {
-        console.log("quacks", res.data);
         setQuackData(res.data);
       })
       .catch((e) => console.error(e));
-    console.log(quackData);
-  }, [params.userid]);
+  }, [params]);
 
   if (loading) {
     return (
       <div className="profile-container">
-        <Loader />
+        <Loader sx={{ margin: "auto" }} />
       </div>
     );
   }
@@ -67,6 +65,7 @@ export const ProfilePage: React.FC = () => {
     <div className="profile-container">
       {initiateQuack && (
         <QuackInput
+          setInitiateQuack={setInitiateQuack}
           fixed={true}
           displayPic={userData.displayPic}
           atUser={
@@ -77,9 +76,12 @@ export const ProfilePage: React.FC = () => {
       <section className="profile-user">
         <h5>🦆</h5>
         <h5>Settings</h5>
-        {userData.username && (
-          <Button onClick={() => setInitiateQuack(true)}>Quack!</Button>
-        )}
+        <Link to={"/profdfgfgdm"}>Test</Link>
+        <span>
+          {userData.username && (
+            <Button onClick={() => setInitiateQuack(true)}>Quack!</Button>
+          )}
+        </span>
       </section>
       <ProfileDetails
         matchesUser={userData.username === params.userId ? true : false}

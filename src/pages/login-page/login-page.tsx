@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { QuackleContext } from "../../context/user-context";
 import { Alert, Button, Loader } from "@mantine/core";
-import Cookies from "js-cookie";
 import { stdHeader } from "../../api/api-header";
 import { Link, useNavigate } from "react-router-dom";
-import "./login-page.css";
 import { IError } from "../../types/signup-types";
+import "./login-page.css";
 
 export const LoginPage: React.FC = () => {
   const { userData, setUserData, setUserInfo } = useContext(QuackleContext);

@@ -7,38 +7,18 @@
   justify-content: space-evenly;
 }
 
-.profile-details {
+.profile-sidebar {
   display: flex;
   flex-direction: column;
-  background-color: white;
-  color: black;
-  flex: 0.5 1 auto;
-  margin: 0 20%;
-}
-
-.profile-sidebar {
   width: 20%;
   position: fixed;
   margin-left: 80%;
 }
 
 .profile-user {
+  display: flex;
+  flex-direction: column;
   width: 20%;
   position: fixed;
   margin-right: 80%;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.user-tweets {
-  display: flex;
-  justify-content: center;
-  flex: 1 1 auto;
-}
-
-.username-title {
-  margin: 4%;
 }

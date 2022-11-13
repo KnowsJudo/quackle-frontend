@@ -3,7 +3,7 @@ import { initialUserData, QuackleContext } from "./context/user-context";
 import { SignUpPage } from "./pages/signup-page";
 import { IUser } from "./types/user-types";
 import { MantineProvider } from "@mantine/core";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SettingsPage } from "./pages/settings-page/settings-page";
 import { NotFoundPage } from "./pages/not-found-page/not-found-page";
 import { ProfilePage } from "./pages/profile-page/profile-page";
@@ -29,7 +29,7 @@ const App: () => JSX.Element = () => {
     <main className="App">
       <QuackleContext.Provider value={{ userData, setUserData, setUserInfo }}>
         <MantineProvider withGlobalStyles withNormalizeCSS>
-          <HashRouter>
+          <BrowserRouter>
             <Routes>
               <Route path="/" element={<SignUpPage />}></Route>
               <Route path="/login" element={<LoginPage />}></Route>
@@ -37,7 +37,7 @@ const App: () => JSX.Element = () => {
               <Route path="/settings" element={<SettingsPage />}></Route>
               <Route path="*" element={<NotFoundPage />}></Route>
             </Routes>
-          </HashRouter>
+          </BrowserRouter>
         </MantineProvider>
       </QuackleContext.Provider>
     </main>

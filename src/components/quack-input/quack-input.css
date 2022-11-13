@@ -1,3 +1,43 @@
 .quack-input-anywhere {
   position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.input-anywhere-inner {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 28%;
+  padding: 1%;
+  width: 55vw;
+  min-height: 35vh;
+  height: fit-content;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+}
+
+.input-home-inner {
+  padding: 2%;
+  min-height: 15vh;
+  height: fit-content;
+}
+
+.quack-input-user {
+  display: flex;
+  align-items: center;
+}
+
+.quack-submit {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgb(128, 128, 128, 0.5);
+  padding-top: 2%;
 }
