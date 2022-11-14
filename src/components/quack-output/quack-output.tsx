@@ -1,6 +1,7 @@
 import React from "react";
 import { IQuackOutput } from "../../types/quacks";
-import { Text } from "@mantine/core";
+import { Button, Text, Tooltip } from "@mantine/core";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "./quack-output.css";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
@@ -14,9 +15,19 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
         <Text size="xl" color="dimmed">
           {props.quackedAt.slice(0, 10)}
         </Text>
+        <Tooltip label="Delete Quack">
+          <Button
+            color="dark"
+            variant="subtle"
+            sx={{ marginLeft: "auto" }}
+            onClick={() => props.deleteQuack?.(props.id)}
+          >
+            <DeleteIcon />
+          </Button>
+        </Tooltip>
       </span>
       <span className="quack-message">
-        <Text size="xl" sx={{ margin: "auto", flexWrap: "wrap" }}>
+        <Text size="xl" sx={{ margin: "auto" }}>
           {props.content}
         </Text>
       </span>

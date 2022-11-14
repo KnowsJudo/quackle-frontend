@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Tabs } from "@mantine/core";
+import { Loader, Tabs } from "@mantine/core";
 import {
   IEmptyQuackMenu,
   IQuackResponse,
@@ -47,13 +47,16 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       </Tabs.List>
 
       <Tabs.Panel value="quacks">
-        {!props.quackdata.length ? (
+        {props.loading ? (
+          <Loader sx={{ marginTop: "25vh" }} />
+        ) : !props.quackdata.length ? (
           <EmptyQuacks quack={true} />
         ) : (
           props.quackdata.map((next: IQuackResponse, i) => {
             return (
               <QuackOutput
                 key={i}
+                id={next._id}
                 name={props.profileData.name}
                 username={next.username}
                 quackedAt={next.quackedAt}
@@ -61,6 +64,8 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 replies={[]}
                 requacks={0}
                 likes={0}
+                deleteQuack={props.deleteQuack}
+                loading={props.loading}
               />
             );
           })

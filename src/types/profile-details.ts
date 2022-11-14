@@ -6,4 +6,11 @@ export interface IProfileProps {
   profileData: IUser;
   paramId?: string;
   quackData: IQuackResponse[];
+  deleteQuack: (quackId: string) => void;
+  loading: boolean;
+}
+
+export interface ILoading {
+  profile: boolean;
+  quacks: boolean;
 }

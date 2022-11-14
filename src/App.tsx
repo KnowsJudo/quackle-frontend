@@ -21,10 +21,6 @@ const App: () => JSX.Element = () => {
     setUserData({ ...userData, [field]: event.target.value });
   };
 
-  // const newQuack = (atUser: string) => {
-  //   const
-  // }
-
   return (
     <main className="App">
       <QuackleContext.Provider value={{ userData, setUserData, setUserInfo }}>

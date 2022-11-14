@@ -48,6 +48,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
       })
       .then((res) => {
         console.log(res);
+        props.setInitiateQuack?.(false);
         setQuackContent("");
       })
       .catch((e) => console.error(e));

@@ -30,7 +30,7 @@ export const ProfileDetails: React.FC<IProfileProps> = (props) => {
 
   return props.matchesUser ? (
     <section className="profile-details">
-      <h5>Home</h5>
+      <h4>Home</h4>
       <QuackInput
         fixed={false}
         atUser={"everyone"}
@@ -43,6 +43,7 @@ export const ProfileDetails: React.FC<IProfileProps> = (props) => {
               return (
                 <QuackOutput
                   key={i}
+                  id={next._id}
                   name={props.profileData.name}
                   username={next.username}
                   quackedAt={next.quackedAt}
@@ -50,6 +51,7 @@ export const ProfileDetails: React.FC<IProfileProps> = (props) => {
                   replies={[]}
                   requacks={0}
                   likes={0}
+                  loading={props.loading}
                 />
               );
             })}
@@ -88,6 +90,8 @@ export const ProfileDetails: React.FC<IProfileProps> = (props) => {
           paramId={props.paramId}
           profileData={props.profileData}
           quackdata={props.quackData}
+          deleteQuack={props.deleteQuack}
+          loading={props.loading}
         />
       </div>
     </section>

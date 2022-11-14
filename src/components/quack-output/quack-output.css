@@ -17,6 +17,7 @@
 
 .quack-user {
   display: flex;
+  align-items: center;
 }
 
 .quack-options {

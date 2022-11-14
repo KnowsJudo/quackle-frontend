@@ -4,6 +4,8 @@ export interface IQuacksMenu {
   paramId?: string;
   profileData: IUser;
   quackdata: IQuackResponse[];
+  deleteQuack: (quackId: string) => void;
+  loading: boolean;
 }
 
 export interface IQuackInput {
@@ -14,11 +16,14 @@ export interface IQuackInput {
 }
 
 export interface IQuackResponse {
+  _id: string;
+  name: string;
   username: string;
   quackedAt: string;
   message: string;
 }
 export interface IQuackOutput {
+  id: string;
   name: string;
   username: string;
   quackedAt: string;
@@ -26,6 +31,8 @@ export interface IQuackOutput {
   replies: [];
   requacks: number;
   likes: number;
+  deleteQuack?: (quackId: string) => void;
+  loading: boolean;
 }
 
 export interface IEmptyQuackMenu {

@@ -9,6 +9,7 @@ import { QuackInput } from "../../components/quack-input/quack-input";
 import { ProfileDetails } from "../../components/profile-details/profile-details";
 import { IQuackResponse } from "../../types/quacks";
 import "./profile-page.css";
+import { ILoading } from "../../types/profile-details";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
@@ -16,13 +17,15 @@ export const ProfilePage: React.FC = () => {
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<ILoading>({
+    profile: true,
+    quacks: true,
+  });
 
   useEffect(() => {
     axios
       .get(`//localhost:3001/api/user/${params.userId}`)
       .then((res) => {
-        console.log(res.data);
         setProfileData({
           displayPic: res.data.displayPic,
           name: res.data.name,
@@ -36,22 +39,56 @@ export const ProfilePage: React.FC = () => {
           friends: [],
           usersBlocked: [],
         });
-        setLoading(false);
+        setLoading((prev) => {
+          return { ...prev, profile: false };
+        });
       })
       .catch((e) => {
         console.error(e);
-        setLoading(false);
+        setLoading({ profile: false, quacks: false });
       });
 
     axios
       .get(`//localhost:3001/api/user/${params.userId}/quacks`)
       .then((res) => {
+        console.log(res.data);
         setQuackData(res.data);
+        setLoading((prev) => {
+          return { ...prev, quacks: false };
+        });
       })
       .catch((e) => console.error(e));
   }, [params]);
 
-  if (loading) {
+  const deleteQuack = async (quackId: string) => {
+    await axios
+      .delete(
+        //TESTING PURPOSES
+        `//localhost:3001/api/user/${params.userId}/quacks/${quackId}`,
+      )
+      .then((res) => {
+        console.log(res.data);
+        setLoading((prev) => {
+          return { ...prev, quacks: true };
+        });
+        axios
+          .get(`//localhost:3001/api/user/${params.userId}/quacks`)
+          .then((res) => {
+            console.log(res.data);
+            setQuackData(res.data);
+            setLoading((prev) => {
+              return { ...prev, quacks: false };
+            });
+          })
+          .catch((e) => {
+            console.error(e);
+            setLoading({ profile: false, quacks: false });
+          });
+      })
+      .catch((e) => console.error(e, "could not delete quack"));
+  };
+
+  if (loading.profile) {
     return (
       <div className="profile-container">
         <Loader sx={{ margin: "auto" }} />
@@ -103,6 +140,8 @@ export const ProfilePage: React.FC = () => {
         quackData={quackData}
         profileData={profileData}
         paramId={params.userId}
+        deleteQuack={deleteQuack}
+        loading={loading.quacks}
       />
       <section className="profile-sidebar">
         <h5>Search Quackle</h5>
