@@ -8,8 +8,9 @@ import { QuackleContext } from "../../context/user-context";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { ProfileDetails } from "../../components/profile-details/profile-details";
 import { IQuackResponse } from "../../types/quacks";
-import "./profile-page.css";
 import { ILoading } from "../../types/profile-details";
+import { apiUrl } from "../../api/api-url";
+import "./profile-page.css";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
@@ -24,7 +25,7 @@ export const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get(`//localhost:3001/api/user/${params.userId}`)
+      .get(`${apiUrl}/user/${params.userId}`)
       .then((res) => {
         setProfileData({
           displayPic: res.data.displayPic,
@@ -49,7 +50,7 @@ export const ProfilePage: React.FC = () => {
       });
 
     axios
-      .get(`//localhost:3001/api/user/${params.userId}/quacks`)
+      .get(`${apiUrl}/user/${params.userId}/quacks`)
       .then((res) => {
         console.log(res.data);
         setQuackData(res.data);
@@ -64,7 +65,7 @@ export const ProfilePage: React.FC = () => {
     await axios
       .delete(
         //TESTING PURPOSES
-        `//localhost:3001/api/user/${params.userId}/quacks/${quackId}`,
+        `${apiUrl}/user/${params.userId}/quacks/${quackId}`,
       )
       .then((res) => {
         console.log(res.data);
@@ -72,7 +73,7 @@ export const ProfilePage: React.FC = () => {
           return { ...prev, quacks: true };
         });
         axios
-          .get(`//localhost:3001/api/user/${params.userId}/quacks`)
+          .get(`${apiUrl}/user/${params.userId}/quacks`)
           .then((res) => {
             console.log(res.data);
             setQuackData(res.data);
@@ -111,7 +112,7 @@ export const ProfilePage: React.FC = () => {
         />
       )}
       <section className="profile-user">
-        <Link to={`/`} style={{ color: "white", textDecoration: "none" }}>
+        <Link to={"/"} style={{ color: "white", textDecoration: "none" }}>
           🦆
         </Link>
         {userData.username && (
@@ -123,7 +124,7 @@ export const ProfilePage: React.FC = () => {
           </Link>
         )}
         <Link
-          to={`/settings`}
+          to={"/settings"}
           style={{ color: "white", textDecoration: "none" }}
         >
           Settings

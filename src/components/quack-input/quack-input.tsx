@@ -3,12 +3,12 @@ import axios from "axios";
 import { Button, CloseButton, Image, Progress, Textarea } from "@mantine/core";
 import { IQuackInput } from "../../types/quacks";
 import { QuackleContext } from "../../context/user-context";
+import { apiUrl } from "../../api/api-url";
 import "./quack-input.css";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {
   const { userData } = useContext(QuackleContext);
   const [quackContent, setQuackContent] = useState<string>("");
-  const [quackLength, setQuackLength] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
   const [checkClose, setCheckClose] = useState<boolean>(false);
   const [savedQuack, setSavedQuack] = useState<string>("");
@@ -19,29 +19,25 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
   };
 
   useEffect(() => {
-    setQuackLength(quackContent.length);
-  }, [quackContent]);
-
-  useEffect(() => {
     const stored = sessionStorage.getItem("Unfinished Quack");
     if (stored) setSavedQuack(JSON.parse(stored));
   }, [savedQuack]);
 
   useEffect(() => {
     if (error) {
-      quackLength < 401 && setError(false);
+      quackContent.length < 401 && setError(false);
     }
-    if (quackLength > 400) {
+    if (quackContent.length > 400) {
       setError(true);
     }
-  }, [quackLength]);
+  }, [quackContent.length]);
 
   const submitQuack = async () => {
     if (error) {
       return;
     }
     await axios
-      .post(`//localhost:3001/api/user/${userData.username}/quacks`, {
+      .post(`${apiUrl}/user/${userData.username}/quacks`, {
         name: userData.name,
         username: userData.username,
         message: quackContent,
@@ -133,11 +129,11 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         />
         <span className="quack-submit">
           <Progress
-            value={quackLength / 4}
+            value={quackContent.length / 4}
             sx={{ width: "25%" }}
             color={error ? "red" : "blue"}
           />
-          <Button onClick={submitQuack} disabled={!quackContent ? true : false}>
+          <Button onClick={submitQuack} disabled={!quackContent}>
             Quack!
           </Button>
         </span>

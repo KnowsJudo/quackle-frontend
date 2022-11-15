@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { IQuackOutput } from "../../types/quacks";
-import { Button, Text, Tooltip } from "@mantine/core";
+import { Button, Modal, Text, Tooltip } from "@mantine/core";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./quack-output.css";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
+  const [modal, setModal] = useState<boolean>(false);
+
   return (
     <section className="quack-content">
+      <Modal
+        centered
+        opened={modal}
+        onClose={() => setModal(false)}
+        title="Do you really want to delete this quack?"
+      >
+        <span className="confirm-delete">
+          <Button
+            variant="outline"
+            color="dark"
+            onClick={() => props.deleteQuack?.(props.id)}
+          >
+            Yes
+          </Button>
+          <Button
+            variant="outline"
+            color="dark"
+            onClick={() => setModal(false)}
+          >
+            No
+          </Button>
+        </span>
+      </Modal>
       <span className="quack-user">
         <Text size="xl">{props.name}&nbsp;</Text>
         <Text size="xl" color="dimmed">
@@ -19,10 +44,11 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
           <Button
             color="dark"
             variant="subtle"
+            size="xs"
             sx={{ marginLeft: "auto" }}
-            onClick={() => props.deleteQuack?.(props.id)}
+            onClick={() => setModal(true)}
           >
-            <DeleteIcon />
+            <DeleteIcon fontSize="small" />
           </Button>
         </Tooltip>
       </span>

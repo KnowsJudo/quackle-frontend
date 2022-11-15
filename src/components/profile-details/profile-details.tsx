@@ -6,27 +6,28 @@ import { QuackInput } from "../quack-input/quack-input";
 import { QuacksMenu } from "../quacks-menu/quacks-menu";
 import { IQuackResponse } from "../../types/quacks";
 import { QuackOutput } from "../quack-output/quack-output";
+import { apiUrl } from "../../api/api-url";
 import "./profile-details.css";
 
 export const ProfileDetails: React.FC<IProfileProps> = (props) => {
   const [friendQuacks, setFriendQuacks] = useState<IQuackResponse[]>([]);
 
   useEffect(() => {
-    if (props.profileData.friends?.length) {
-      const friendQuacks = props.profileData.friends.map(
-        (next) => next.username,
-      );
-
-      axios
-        .get(`//localhost:3001/api/user/${friendQuacks[0]}/quacks`)
-        .then((res) => {
-          setFriendQuacks(res.data);
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+    if (!props.profileData.friends?.length) {
+      return;
     }
-  }, []);
+
+    const friendQuacks = props.profileData.friends.map((next) => next.username);
+
+    axios
+      .get(`${apiUrl}/user/${friendQuacks[0]}/quacks`)
+      .then((res) => {
+        setFriendQuacks(res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [props.profileData.friends]);
 
   return props.matchesUser ? (
     <section className="profile-details">
@@ -39,10 +40,10 @@ export const ProfileDetails: React.FC<IProfileProps> = (props) => {
       <div className="profile-friend-quacks">
         {!props.profileData.friends?.length
           ? "Your pond has no other members!"
-          : friendQuacks.map((next, i) => {
+          : friendQuacks.map((next) => {
               return (
                 <QuackOutput
-                  key={i}
+                  key={next._id}
                   id={next._id}
                   name={props.profileData.name}
                   username={next.username}

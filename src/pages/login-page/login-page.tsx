@@ -6,6 +6,7 @@ import { Alert, Button, Loader } from "@mantine/core";
 import { stdHeader } from "../../api/api-header";
 import { Link, useNavigate } from "react-router-dom";
 import { IError } from "../../types/signup-types";
+import { apiUrl } from "../../api/api-url";
 import "./login-page.css";
 
 export const LoginPage: React.FC = () => {
@@ -70,7 +71,7 @@ export const LoginPage: React.FC = () => {
     setLoading(true);
     axios
       .post(
-        "//localhost:3001/api/user/login",
+        `${apiUrl}/user/login`,
         {
           username: userData.username,
           password: pass,

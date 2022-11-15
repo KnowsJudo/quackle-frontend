@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
 import { Button } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { apiUrl } from "../../api/api-url";
 import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {
@@ -37,7 +38,7 @@ export const SignUpPage: React.FC = () => {
     }
     await axios
       .post(
-        "//localhost:3001/api/user",
+        `${apiUrl}/user`,
         {
           name: userData.name,
           username: userData.username,
