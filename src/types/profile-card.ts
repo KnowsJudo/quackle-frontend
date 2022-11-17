@@ -1,4 +1,5 @@
 export interface IProfileCard {
+  loggedIn: boolean;
   image: string;
   title: string;
   description: string;

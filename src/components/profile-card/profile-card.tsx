@@ -1,5 +1,13 @@
 import React from "react";
-import { createStyles, Card, Image, Text, Group, Button } from "@mantine/core";
+import {
+  createStyles,
+  Card,
+  Image,
+  Text,
+  Group,
+  Button,
+  Tooltip,
+} from "@mantine/core";
 import { IProfileCard } from "../../types/profile-card";
 
 const useStyles = createStyles((theme) => ({
@@ -13,12 +21,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const CardWithStats = ({
+export const CardWithStats: React.FC<IProfileCard> = ({
+  loggedIn,
   image,
   title,
   description,
   stats,
-}: IProfileCard) => {
+}) => {
   const { classes } = useStyles();
 
   const items = stats.map((stat) => (
@@ -46,12 +55,19 @@ export const CardWithStats = ({
       <Group position="apart" mt="xl">
         <Text size="sm" weight={700}>
           {title}
-          {}
         </Text>
         <Group spacing={5}>
-          <Text size="xs" color="dimmed">
-            <Button>Follow</Button>
-          </Text>
+          <Tooltip
+            label={
+              loggedIn
+                ? `Click to Follow ${title}`
+                : "Log in to get updates from this user"
+            }
+          >
+            <span>
+              <Button disabled={!loggedIn}>Follow</Button>
+            </span>
+          </Tooltip>
         </Group>
       </Group>
       <Text mt="sm" mb="md" color="dimmed" size="xs">

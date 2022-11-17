@@ -61,6 +61,17 @@ export const ProfilePage: React.FC = () => {
       .catch((e) => console.error(e));
   }, [params]);
 
+  // const addFriend = async (friendUsername: string) => {
+  //   await axios
+  //     .post(`${apiUrl}/user/${userData.username}/friends`, {
+  //       friendUsername,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((e) => console.error(e));
+  // };
+
   const deleteQuack = async (quackId: string) => {
     await axios
       .delete(
@@ -138,6 +149,7 @@ export const ProfilePage: React.FC = () => {
       </section>
       <ProfileDetails
         matchesUser={userData.username === params.userId ? true : false}
+        loggedIn={userData.username ? true : false}
         quackData={quackData}
         profileData={profileData}
         paramId={params.userId}

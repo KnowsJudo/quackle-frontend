@@ -3,6 +3,7 @@ import { IUser } from "./user-types";
 
 export interface IProfileProps {
   matchesUser: boolean;
+  loggedIn: boolean;
   profileData: IUser;
   paramId?: string;
   quackData: IQuackResponse[];

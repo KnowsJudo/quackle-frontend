@@ -63,6 +63,7 @@ export const ProfileDetails: React.FC<IProfileProps> = (props) => {
       <div className="user-info">
         <h5 className="username-title">{props.profileData.name} on Quackle</h5>
         <CardWithStats
+          loggedIn={props.loggedIn}
           image={props.profileData.displayPic}
           title={`@${props.profileData.username}`}
           description={props.profileData.tagline}
