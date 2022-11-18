@@ -1,0 +1,10 @@
+.profile-user {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-around;
+  width: 20%;
+  position: fixed;
+  margin-right: 80%;
+  padding: 2%;
+}

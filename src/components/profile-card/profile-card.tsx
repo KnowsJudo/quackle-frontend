@@ -8,7 +8,7 @@ import {
   Button,
   Tooltip,
 } from "@mantine/core";
-import { IProfileCard } from "../../types/profile-card";
+import { IProfileCard } from "../../types/profile-types";
 
 const useStyles = createStyles((theme) => ({
   footer: {

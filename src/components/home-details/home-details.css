@@ -1,0 +1,15 @@
+.home-friend-quacks {
+  margin-top: 4%;
+}
+
+.home-details {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  flex: 0.5 1 auto;
+  margin: 0 20%;
+  min-height: 100vh;
+  height: max-content;
+  max-width: 38%;
+}

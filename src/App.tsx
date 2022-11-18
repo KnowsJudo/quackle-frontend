@@ -9,9 +9,11 @@ import { NotFoundPage } from "./pages/not-found-page/not-found-page";
 import { ProfilePage } from "./pages/profile-page/profile-page";
 import { LoginPage } from "./pages/login-page/login-page";
 import "./App.css";
+import { HomePage } from "./pages/home-page/home-page";
 
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);
+  const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
 
   const setUserInfo = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -23,12 +25,21 @@ const App: () => JSX.Element = () => {
 
   return (
     <main className="App">
-      <QuackleContext.Provider value={{ userData, setUserData, setUserInfo }}>
+      <QuackleContext.Provider
+        value={{
+          userData,
+          setUserData,
+          setUserInfo,
+          initiateQuack,
+          setInitiateQuack,
+        }}
+      >
         <MantineProvider withGlobalStyles withNormalizeCSS>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<SignUpPage />}></Route>
               <Route path="/login" element={<LoginPage />}></Route>
+              <Route path="/home" element={<HomePage />}></Route>
               <Route path="/profile/:userId" element={<ProfilePage />}></Route>
               <Route path="/settings" element={<SettingsPage />}></Route>
               <Route path="*" element={<NotFoundPage />}></Route>

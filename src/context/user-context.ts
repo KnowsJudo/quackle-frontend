@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 import { IUserContext } from "../types/user-context";
 import { IUser } from "../types/user-types";
 
@@ -19,8 +19,7 @@ export const initialUserData: IUser = {
 export const QuackleContext = createContext<IUserContext>({
   userData: initialUserData,
   setUserData: () => initialUserData,
-  //eslint-disable-next-line
-  setUserInfo: (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
-    null;
-  },
+  setUserInfo: () => null,
+  initiateQuack: false,
+  setInitiateQuack: () => null,
 });

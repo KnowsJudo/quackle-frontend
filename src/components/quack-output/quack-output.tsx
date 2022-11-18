@@ -40,17 +40,19 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
         <Text size="xl" color="dimmed">
           {props.quackedAt.slice(0, 10)}
         </Text>
-        <Tooltip label="Delete Quack">
-          <Button
-            color="dark"
-            variant="subtle"
-            size="xs"
-            sx={{ marginLeft: "auto" }}
-            onClick={() => setModal(true)}
-          >
-            <DeleteIcon fontSize="small" />
-          </Button>
-        </Tooltip>
+        {props.deleteQuack && (
+          <Tooltip label="Delete Quack">
+            <Button
+              color="dark"
+              variant="subtle"
+              size="xs"
+              sx={{ marginLeft: "auto" }}
+              onClick={() => setModal(true)}
+            >
+              <DeleteIcon fontSize="small" />
+            </Button>
+          </Tooltip>
+        )}
       </span>
       <span className="quack-message">
         <Text size="xl" sx={{ margin: "auto" }}>

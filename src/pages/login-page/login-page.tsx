@@ -83,7 +83,7 @@ export const LoginPage: React.FC = () => {
           Cookies.set("jwtToken", res.data.token);
           setUserData(res.data.data);
           setLoading(false);
-          navigate(`/profile/${userData.username}`);
+          navigate("/home");
         }
       })
       .catch((e) => {

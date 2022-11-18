@@ -1,22 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../not-found-page/not-found-page";
-import { Button, Loader } from "@mantine/core";
+import { Loader } from "@mantine/core";
 import { IUser } from "../../types/user-types";
 import { QuackleContext } from "../../context/user-context";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { ProfileDetails } from "../../components/profile-details/profile-details";
 import { IQuackResponse } from "../../types/quacks";
-import { ILoading } from "../../types/profile-details";
+import { ILoading } from "../../types/profile-types";
 import { apiUrl } from "../../api/api-url";
+import { ProfileUser } from "../../components/profile-user/profile-user";
+import { ProfileSideBar } from "../../components/profile-sidebar/profile-sidebar";
 import "./profile-page.css";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
-  const { userData } = useContext(QuackleContext);
+  const { userData, initiateQuack, setInitiateQuack } =
+    useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
-  const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
   const [loading, setLoading] = useState<ILoading>({
     profile: true,
@@ -122,31 +124,10 @@ export const ProfilePage: React.FC = () => {
           }
         />
       )}
-      <section className="profile-user">
-        <Link to={"/"} style={{ color: "white", textDecoration: "none" }}>
-          🦆
-        </Link>
-        {userData.username && (
-          <Link
-            to={`/profile/${userData.username}`}
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            Home
-          </Link>
-        )}
-        <Link
-          to={"/settings"}
-          style={{ color: "white", textDecoration: "none" }}
-        >
-          Settings
-        </Link>
-        <Link to={"/profile/Chom"}>Test</Link>
-        <span>
-          {userData.username && (
-            <Button onClick={() => setInitiateQuack(true)}>Quack!</Button>
-          )}
-        </span>
-      </section>
+      <ProfileUser
+        setInitiateQuack={setInitiateQuack}
+        loggedIn={userData.username ? true : false}
+      />
       <ProfileDetails
         matchesUser={userData.username === params.userId ? true : false}
         loggedIn={userData.username ? true : false}
@@ -156,21 +137,7 @@ export const ProfilePage: React.FC = () => {
         deleteQuack={deleteQuack}
         loading={loading.quacks}
       />
-      <section className="profile-sidebar">
-        <h5>Search Quackle</h5>
-        {!userData.username && (
-          <section className="profile-prompt">
-            <h5>Not part of the pond?</h5>
-            <Link to="/">
-              <Button>Sign Up</Button>
-            </Link>
-            <h5>Existing User?</h5>
-            <Link to="/login">
-              <Button>LOGIN</Button>
-            </Link>
-          </section>
-        )}
-      </section>
+      <ProfileSideBar loggedIn={userData.username ? true : false} />
     </div>
   );
 };

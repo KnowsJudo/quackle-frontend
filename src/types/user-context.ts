@@ -7,4 +7,6 @@ export interface IUserContext {
     event: React.ChangeEvent<HTMLInputElement>,
     field: string,
   ) => void;
+  initiateQuack: boolean;
+  setInitiateQuack: React.Dispatch<React.SetStateAction<boolean>>;
 }

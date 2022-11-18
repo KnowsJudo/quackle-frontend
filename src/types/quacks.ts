@@ -4,7 +4,7 @@ export interface IQuacksMenu {
   paramId?: string;
   profileData: IUser;
   quackdata: IQuackResponse[];
-  deleteQuack: (quackId: string) => void;
+  deleteQuack?: (quackId: string) => void;
   loading: boolean;
 }
 

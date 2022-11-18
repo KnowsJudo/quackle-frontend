@@ -1,0 +1,7 @@
+.profile-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  position: fixed;
+  margin-left: 80%;
+}
