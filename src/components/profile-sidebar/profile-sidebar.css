@@ -1,7 +1,22 @@
+.profile-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .profile-sidebar {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   width: 20%;
   position: fixed;
-  margin-left: 80%;
+  margin: auto 10% auto 67%;
+  padding: 2%;
+}
+
+.profile-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20vh;
 }

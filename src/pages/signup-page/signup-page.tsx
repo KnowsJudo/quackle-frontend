@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
 import { Button } from "@mantine/core";

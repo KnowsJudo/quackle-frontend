@@ -1,13 +1,31 @@
-import { Button } from "@mantine/core";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import Cookies from "js-cookie";
+import { Button, Input } from "@mantine/core";
+import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
+import SearchIcon from "@mui/icons-material/Search";
+import { initialUserData, QuackleContext } from "../../context/user-context";
 import "./profile-sidebar.css";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
+  const { setUserData } = useContext(QuackleContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    Cookies.remove("jwtToken");
+    setUserData(initialUserData);
+    navigate("/");
+  };
+
   return (
     <section className="profile-sidebar">
-      <h5>Search Quackle</h5>
+      {props.loggedIn && (
+        <span className="profile-logout">
+          <Button sx={{ marginLeft: "45%" }} onClick={() => logout()}>
+            Logout
+          </Button>
+        </span>
+      )}
       {!props.loggedIn && (
         <section className="profile-prompt">
           <h5>Not part of the pond?</h5>
@@ -20,6 +38,11 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
           </Link>
         </section>
       )}
+      <span className="profile-search">
+        <SearchIcon />
+        &nbsp;
+        <Input placeholder="Search Quackle"></Input>
+      </span>
     </section>
   );
 };

@@ -1,19 +1,23 @@
 import React, { useState } from "react";
+import Cookies from "js-cookie";
 import { initialUserData, QuackleContext } from "./context/user-context";
 import { SignUpPage } from "./pages/signup-page";
 import { IUser } from "./types/user-types";
 import { MantineProvider } from "@mantine/core";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { SettingsPage } from "./pages/settings-page/settings-page";
 import { NotFoundPage } from "./pages/not-found-page/not-found-page";
 import { ProfilePage } from "./pages/profile-page/profile-page";
 import { LoginPage } from "./pages/login-page/login-page";
-import "./App.css";
 import { HomePage } from "./pages/home-page/home-page";
+import "./App.css";
 
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
+
+  const loggedIn = Cookies.get("jwtToken");
+  console.log(loggedIn, "logged");
 
   const setUserInfo = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -22,7 +26,6 @@ const App: () => JSX.Element = () => {
     event.preventDefault();
     setUserData({ ...userData, [field]: event.target.value });
   };
-
   return (
     <main className="App">
       <QuackleContext.Provider
@@ -37,8 +40,14 @@ const App: () => JSX.Element = () => {
         <MantineProvider withGlobalStyles withNormalizeCSS>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<SignUpPage />}></Route>
-              <Route path="/login" element={<LoginPage />}></Route>
+              <Route
+                path="/"
+                element={loggedIn ? <Navigate to="/home" /> : <SignUpPage />}
+              ></Route>
+              <Route
+                path="/login"
+                element={loggedIn ? <Navigate to="/home" /> : <LoginPage />}
+              ></Route>
               <Route path="/home" element={<HomePage />}></Route>
               <Route path="/profile/:userId" element={<ProfilePage />}></Route>
               <Route path="/settings" element={<SettingsPage />}></Route>
