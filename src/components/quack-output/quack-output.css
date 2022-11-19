@@ -1,8 +1,3 @@
-.confirm-delete {
-  display: flex;
-  justify-content: space-evenly;
-}
-
 .quack-content {
   display: flex;
   flex-direction: column;

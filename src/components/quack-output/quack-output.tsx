@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { IQuackOutput } from "../../types/quacks";
-import { Button, Modal, Text, Tooltip } from "@mantine/core";
+import { Button, Text, Tooltip } from "@mantine/core";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import "./quack-output.css";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
@@ -9,29 +10,12 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
 
   return (
     <section className="quack-content">
-      <Modal
-        centered
-        opened={modal}
-        onClose={() => setModal(false)}
+      <ConfirmModal
+        modal={modal}
+        setModal={setModal}
         title="Do you really want to delete this quack?"
-      >
-        <span className="confirm-delete">
-          <Button
-            variant="outline"
-            color="dark"
-            onClick={() => props.deleteQuack?.(props.id)}
-          >
-            Yes
-          </Button>
-          <Button
-            variant="outline"
-            color="dark"
-            onClick={() => setModal(false)}
-          >
-            No
-          </Button>
-        </span>
-      </Modal>
+        confirmFunc={() => props.deleteQuack?.(props.id)}
+      />
       <span className="quack-user">
         <Text size="xl">{props.name}&nbsp;</Text>
         <Text size="xl" color="dimmed">

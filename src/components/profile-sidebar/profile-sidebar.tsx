@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Cookies from "js-cookie";
 import { Button, Input } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,9 +6,11 @@ import { IProfileSideBar } from "../../types/profile-types";
 import SearchIcon from "@mui/icons-material/Search";
 import { initialUserData, QuackleContext } from "../../context/user-context";
 import "./profile-sidebar.css";
+import { ConfirmModal } from "../confirm-modal/confirm-modal";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const { setUserData } = useContext(QuackleContext);
+  const [modal, setModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -19,9 +21,15 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
 
   return (
     <section className="profile-sidebar">
+      <ConfirmModal
+        modal={modal}
+        setModal={setModal}
+        title="Do you wish to sign out?"
+        confirmFunc={() => logout()}
+      />
       {props.loggedIn && (
         <span className="profile-logout">
-          <Button sx={{ marginLeft: "45%" }} onClick={() => logout()}>
+          <Button sx={{ marginLeft: "45%" }} onClick={() => setModal(true)}>
             Logout
           </Button>
         </span>
