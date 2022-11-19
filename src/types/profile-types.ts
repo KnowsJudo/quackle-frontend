@@ -18,7 +18,7 @@ export interface IProfileDetails {
   profileData: IUser;
   paramId?: string;
   quackData: IQuackResponse[];
-  deleteQuack?: (quackId: string) => void;
+  deleteQuack?: (quackId: string) => Promise<void>;
   loading: boolean;
 }
 

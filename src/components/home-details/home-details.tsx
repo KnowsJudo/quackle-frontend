@@ -14,22 +14,31 @@ export const HomeDetails: React.FC = () => {
   const [friendQuacks, setFriendQuacks] = useState<IQuackResponse[]>([]);
 
   useEffect(() => {
-    if (!userData.friends?.length) {
-      return;
-    }
+    const getFriendQuacks = async () => {
+      if (!userData.friends?.length) {
+        return;
+      }
 
-    const friendNames = userData.friends.map((next) => next.username);
-    setLoading(true);
-    axios
-      .get(`${apiUrl}/user/${friendNames[0]}/quacks`)
-      .then((res) => {
-        setFriendQuacks(res.data);
+      try {
+        const friendNames = userData.friends.map((next) => next.username);
+        setLoading(true);
+
+        const promises = friendNames.map((next) => {
+          return axios.get(`${apiUrl}/user/${next}/quacks`).then((res) => {
+            setLoading(false);
+            return res.data;
+          });
+        });
+
+        const results = await Promise.all(promises);
+        setFriendQuacks(results);
+      } catch (err) {
+        console.error(err);
         setLoading(false);
-      })
-      .catch((e) => {
-        console.error(e);
-        setLoading(false);
-      });
+      }
+    };
+
+    getFriendQuacks();
   }, []);
 
   return (

@@ -18,6 +18,8 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
     setQuackContent(event.target.value);
   };
 
+  const maxQuackLength = 300;
+
   useEffect(() => {
     const stored = sessionStorage.getItem("Unfinished Quack");
     if (stored) setSavedQuack(JSON.parse(stored));
@@ -25,9 +27,9 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
 
   useEffect(() => {
     if (error) {
-      quackContent.length < 401 && setError(false);
+      quackContent.length < maxQuackLength && setError(false);
     }
-    if (quackContent.length > 400) {
+    if (quackContent.length >= maxQuackLength) {
       setError(true);
     }
   }, [quackContent.length]);
@@ -129,7 +131,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         />
         <span className="quack-submit">
           <Progress
-            value={quackContent.length / 4}
+            value={quackContent.length / 3}
             sx={{ width: "25%" }}
             color={error ? "red" : "blue"}
           />

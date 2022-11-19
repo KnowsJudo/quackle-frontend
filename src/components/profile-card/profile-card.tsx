@@ -9,6 +9,8 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { IProfileCard } from "../../types/profile-types";
+import { Link } from "react-router-dom";
+import "./profile-card.css";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -21,7 +23,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const CardWithStats: React.FC<IProfileCard> = ({
+export const ProfileCard: React.FC<IProfileCard> = ({
   loggedIn,
   image,
   title,
@@ -73,6 +75,20 @@ export const CardWithStats: React.FC<IProfileCard> = ({
       <Text mt="sm" mb="md" color="dimmed" size="xs">
         {description}
       </Text>
+      <span className="card-followers">
+        <Link
+          to="/following"
+          style={{ color: "black", textDecoration: "none" }}
+        >
+          <Text size="sm"> Following</Text>
+        </Link>
+        <Link
+          to="/followers"
+          style={{ color: "black", textDecoration: "none", marginLeft: "2em" }}
+        >
+          <Text size="sm">Followers</Text>
+        </Link>
+      </span>
       <Card.Section className={classes.footer}>{items}</Card.Section>
     </Card>
   );

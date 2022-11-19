@@ -10,15 +10,15 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
 
   return (
     <section className="profile-user">
-      <Link to={"/"} style={{ color: "white", textDecoration: "none" }}>
+      <Link to="/" style={{ color: "white", textDecoration: "none" }}>
         🦆
       </Link>
       {props.loggedIn && (
-        <Link to={"/home"} style={{ color: "white", textDecoration: "none" }}>
+        <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
           Home
         </Link>
       )}
-      <Link to={"/settings"} style={{ color: "white", textDecoration: "none" }}>
+      <Link to="/settings" style={{ color: "white", textDecoration: "none" }}>
         Settings
       </Link>
       {props.loggedIn && (
@@ -29,7 +29,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           Profile
         </Link>
       )}
-      <Link to={"/profile/Chom"}>Test</Link>
+      <Link to="/profile/Chom">Test</Link>
       <span>
         {props.loggedIn && (
           <Button onClick={() => props.setInitiateQuack(true)}>Quack!</Button>

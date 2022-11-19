@@ -1,6 +1,6 @@
 import React from "react";
 import { IProfileDetails } from "../../types/profile-types";
-import { CardWithStats } from "../profile-card/profile-card";
+import { ProfileCard } from "../profile-card/profile-card";
 import { QuacksMenu } from "../quacks-menu/quacks-menu";
 import "./profile-details.css";
 
@@ -9,7 +9,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
     <section className="profile-details">
       <div className="user-info">
         <h5 className="username-title">{props.profileData.name} on Quackle</h5>
-        <CardWithStats
+        <ProfileCard
           loggedIn={props.loggedIn}
           image={props.profileData.displayPic}
           title={`@${props.profileData.username}`}
