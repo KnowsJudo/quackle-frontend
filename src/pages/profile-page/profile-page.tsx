@@ -49,6 +49,7 @@ export const ProfilePage: React.FC = () => {
       .catch((e) => {
         console.error(e);
         setLoading({ profile: false, quacks: false });
+        setProfileData(null);
       });
 
     axios
