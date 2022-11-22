@@ -40,12 +40,12 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
     }
     await axios
       .post(`${apiUrl}/user/${userData.username}/quacks`, {
+        user: userData.id,
         name: userData.name,
         username: userData.username,
         message: quackContent,
       })
       .then((res) => {
-        console.log(res);
         props.setInitiateQuack?.(false);
         setQuackContent("");
       })

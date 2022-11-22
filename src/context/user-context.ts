@@ -3,6 +3,7 @@ import { IUserContext } from "../types/user-context";
 import { IUser } from "../types/user-types";
 
 export const initialUserData: IUser = {
+  id: "",
   displayPic: "",
   name: "",
   username: "",

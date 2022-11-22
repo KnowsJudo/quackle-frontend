@@ -17,9 +17,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
           stats={[
             {
               title: "Quacks",
-              value: props.profileData.quacks.length
-                ? props.profileData.quacks.length
-                : 0,
+              value: 0,
             },
             {
               title: "Flock members",

@@ -17,7 +17,6 @@ const App: () => JSX.Element = () => {
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
 
   const loggedIn = Cookies.get("jwtToken");
-  console.log(loggedIn, "logged");
 
   const setUserInfo = (
     event: React.ChangeEvent<HTMLInputElement>,

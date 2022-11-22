@@ -30,6 +30,7 @@ export const ProfilePage: React.FC = () => {
       .get(`${apiUrl}/user/${params.userId}`)
       .then((res) => {
         setProfileData({
+          id: "",
           displayPic: res.data.displayPic,
           name: res.data.name,
           username: res.data.username,
@@ -55,7 +56,6 @@ export const ProfilePage: React.FC = () => {
     axios
       .get(`${apiUrl}/user/${params.userId}/quacks`)
       .then((res) => {
-        console.log(res.data);
         setQuackData(res.data);
         setLoading((prev) => {
           return { ...prev, quacks: false };
@@ -64,10 +64,10 @@ export const ProfilePage: React.FC = () => {
       .catch((e) => console.error(e));
   }, [params]);
 
-  // const addFriend = async (friendUsername: string) => {
+  // const addFollowing = async (followingUsername: string) => {
   //   await axios
-  //     .post(`${apiUrl}/user/${userData.username}/friends`, {
-  //       friendUsername,
+  //     .post(`${apiUrl}/user/${userData.username}/following`, {
+  //       followingUsername,
   //     })
   //     .then((res) => {
   //       console.log(res);

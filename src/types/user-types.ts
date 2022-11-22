@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 export interface IUser {
+  id: string;
   displayPic: string;
   name: string;
   username: string;
