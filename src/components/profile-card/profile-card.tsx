@@ -56,7 +56,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
 
       <Group position="apart" mt="xl">
         <Text size="sm" weight={700}>
-          {title}
+          @{title}
         </Text>
         <Group spacing={5}>
           <Tooltip
@@ -77,13 +77,13 @@ export const ProfileCard: React.FC<IProfileCard> = ({
       </Text>
       <span className="card-followers">
         <Link
-          to="/following"
+          to={loggedIn ? `/profile/${title}/following` : "/login"}
           style={{ color: "black", textDecoration: "none" }}
         >
           <Text size="sm"> Following</Text>
         </Link>
         <Link
-          to="/followers"
+          to={loggedIn ? `/profile/${title}/followers` : "/login"}
           style={{ color: "black", textDecoration: "none", marginLeft: "2em" }}
         >
           <Text size="sm">Followers</Text>

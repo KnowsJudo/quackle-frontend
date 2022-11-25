@@ -2,17 +2,25 @@ import React from "react";
 import { IProfileDetails } from "../../types/profile-types";
 import { ProfileCard } from "../profile-card/profile-card";
 import { QuacksMenu } from "../quacks-menu/quacks-menu";
+import { useParams } from "react-router-dom";
+import { ProfileFollowing } from "../profile-following/profile-following";
+import { ProfileFollowers } from "../profile-followers/profile-followers";
 import "./profile-details.css";
 
 export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
-  return (
+  const params = useParams();
+  return params.follow === "following" ? (
+    <ProfileFollowing />
+  ) : params.follow === "followers" ? (
+    <ProfileFollowers />
+  ) : (
     <section className="profile-details">
       <div className="user-info">
         <h5 className="username-title">{props.profileData.name} on Quackle</h5>
         <ProfileCard
           loggedIn={props.loggedIn}
           image={props.profileData.displayPic}
-          title={`@${props.profileData.username}`}
+          title={props.profileData.username}
           description={props.profileData.tagline}
           stats={[
             {

@@ -11,13 +11,13 @@ import { ProfilePage } from "./pages/profile-page/profile-page";
 import { LoginPage } from "./pages/login-page/login-page";
 import { HomePage } from "./pages/home-page/home-page";
 import "./App.css";
+import { ProfileFollowing } from "./components/profile-following/profile-following";
 
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
 
   const loggedIn = Cookies.get("jwtToken");
-
   const setUserInfo = (
     event: React.ChangeEvent<HTMLInputElement>,
     field: string,
@@ -47,8 +47,13 @@ const App: () => JSX.Element = () => {
                 path="/login"
                 element={loggedIn ? <Navigate to="/home" /> : <LoginPage />}
               ></Route>
-              <Route path="/home" element={<HomePage />}></Route>
-              <Route path="/profile/:userId" element={<ProfilePage />}></Route>
+              <Route
+                path="/home"
+                element={loggedIn ? <HomePage /> : <Navigate to="/" />}
+              ></Route>
+              <Route path="/profile/:userId/*" element={<ProfilePage />}>
+                <Route path=":follow" />
+              </Route>
               <Route path="/settings" element={<SettingsPage />}></Route>
               <Route path="*" element={<NotFoundPage />}></Route>
             </Routes>

@@ -29,7 +29,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           Profile
         </Link>
       )}
-      <Link to="/profile/Chom">Test</Link>
+      <Link to="/profile/Legolas">Test Profile</Link>
       <span>
         {props.loggedIn && (
           <Button onClick={() => props.setInitiateQuack(true)}>Quack!</Button>

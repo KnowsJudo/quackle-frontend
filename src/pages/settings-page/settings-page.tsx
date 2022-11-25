@@ -1,26 +1,24 @@
 import React, { useContext } from "react";
 import { QuackleContext } from "../../context/user-context";
 import { Button, Image } from "@mantine/core";
+import { ProfileUser } from "../../components/profile-user/profile-user";
+import "./settings-page.css";
 
 export const SettingsPage: React.FC = () => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, setInitiateQuack } = useContext(QuackleContext);
 
   //FIRST CHECK FOR COOKIE
 
   return (
     <div className="settings-container">
-      <h5>Quack Quack, {userData.name}!</h5>
+      <ProfileUser setInitiateQuack={setInitiateQuack} loggedIn={true} />
+      <section className="settings-options">
+        <h5>Quack Quack, {userData.name}!</h5>
+      </section>
       <section className="settings-section">
-        <Image
-          width={200}
-          height={120}
-          src={null}
-          alt="With default placeholder"
-          withPlaceholder
-        />
         <div className="settings-data">
           <h5>{userData.username}</h5>
-          <p>Hatched on {userData.createdAt.toString()}</p>
+          <p>Hatched on {userData.createdAt.toString().slice(0, 10)}</p>
           <p>{userData.email}</p>
           <div className="settings-quacks">
             {userData.friends ? (

@@ -19,7 +19,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
       <span className="quack-user">
         <Text size="xl">{props.name}&nbsp;</Text>
         <Text size="xl" color="dimmed">
-          {`@${props.username}`}&nbsp;
+          @{props.username}&nbsp;
         </Text>
         <Text size="xl" color="dimmed">
           {props.quackedAt.slice(0, 10)}
