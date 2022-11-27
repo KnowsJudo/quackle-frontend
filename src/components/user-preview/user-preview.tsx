@@ -14,7 +14,7 @@ export const UserPreview: React.FC<IUserPreview> = (props) => {
         </span>
         {props.following && <Button>Following</Button>}
       </span>
-      <Text>{props.tagline}</Text>
+      <Text size="sm">{props.tagline}</Text>
     </div>
   );
 };

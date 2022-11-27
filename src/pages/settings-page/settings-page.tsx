@@ -1,17 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import axios from "axios";
 import { QuackleContext } from "../../context/user-context";
-import { Button, Text } from "@mantine/core";
+import { Button, Loader, Text, Textarea } from "@mantine/core";
 import { ProfileUser } from "../../components/profile-user/profile-user";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { UserPreview } from "../../components/user-preview/user-preview";
+import { apiUrl } from "../../api/api-url";
 import EditIcon from "@mui/icons-material/Edit";
 import "./settings-page.css";
 
 export const SettingsPage: React.FC = () => {
   const { userData, initiateQuack, setInitiateQuack } =
     useContext(QuackleContext);
+  const [editTag, setEditTag] = useState<boolean>(false);
+  const [tagline, setTagline] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
-  //FIRST CHECK FOR COOKIE
+  const changeTagline = async () => {
+    if (editTag) {
+      setLoading(true);
+      await axios
+        .patch(`${apiUrl}/user/${userData.username}`, { tagline: tagline })
+        .then((res) => console.log(res))
+        .catch((error) => console.error(error));
+      setLoading(false);
+      setEditTag(false);
+      return;
+    }
+    setEditTag(true);
+  };
 
   return (
     <div className="settings-container">
@@ -27,10 +44,25 @@ export const SettingsPage: React.FC = () => {
       <section className="settings-options">
         <h5>Quack Quack, {userData.name}!</h5>
         <span className="user-tagline">
-          <h5> Tagline:</h5>
-          <Text>{userData.tagline}</Text>
-          <Button variant="outline" color="dark">
-            <EditIcon />
+          <Text size="md">Tagline:</Text>
+          {!editTag && !userData.tagline && (
+            <Text color="dimmed">Enter a tagline</Text>
+          )}
+          {editTag && (
+            <Textarea
+              value={tagline}
+              onChange={(e) => setTagline(e.target.value)}
+              sx={{ flex: " 1 1 auto", margin: "0 2%" }}
+            ></Textarea>
+          )}
+          {loading && <Loader />}
+          {!editTag && !loading && <Text>{userData.tagline}</Text>}
+          <Button
+            variant="outline"
+            color="dark"
+            onClick={() => changeTagline()}
+          >
+            {editTag ? "Confirm" : <EditIcon />}
           </Button>
         </span>
       </section>
@@ -41,6 +73,7 @@ export const SettingsPage: React.FC = () => {
           username={userData.username}
           tagline={userData.tagline}
         />
+        <br />
         <Text size="sm">
           Hatched on {userData.createdAt.toString().slice(0, 10)}
         </Text>
