@@ -6,3 +6,34 @@
   overflow: auto;
   justify-content: space-evenly;
 }
+
+.settings-options {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  flex: 0.5 1 auto;
+  margin: 0 20%;
+  min-height: 100vh;
+  height: max-content;
+  max-width: 38%;
+}
+
+.settings-data {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  height: 100vh;
+  width: 20%;
+  position: fixed;
+  margin: auto auto auto 67%;
+  padding: 2%;
+}
+
+.user-tagline {
+  display: flex;
+  padding: 2%;
+  align-items: center;
+  justify-content: space-between;
+}

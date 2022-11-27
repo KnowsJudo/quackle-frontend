@@ -17,3 +17,11 @@ export interface IUserState {
   userData: IUser;
   setUserData: Dispatch<SetStateAction<IUser>>;
 }
+
+export interface IUserPreview {
+  avatar: string;
+  name: string;
+  username: string;
+  following?: boolean;
+  tagline: string;
+}

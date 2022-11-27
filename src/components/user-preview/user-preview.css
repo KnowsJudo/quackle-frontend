@@ -1,0 +1,8 @@
+.user-preview {
+  display: flex;
+}
+
+.user-names {
+  display: flex;
+  flex-direction: column;
+}
