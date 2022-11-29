@@ -26,7 +26,23 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           to={`/profile/${userData.username}`}
           style={{ color: "white", textDecoration: "none" }}
         >
-          Profile
+          View Profile
+        </Link>
+      )}
+      {props.loggedIn && (
+        <Link
+          to={`/profile/${userData.username}/following`}
+          style={{ color: "white", textDecoration: "none" }}
+        >
+          Following
+        </Link>
+      )}
+      {props.loggedIn && (
+        <Link
+          to={`/profile/${userData.username}/followers`}
+          style={{ color: "white", textDecoration: "none" }}
+        >
+          Followers
         </Link>
       )}
       <Link to="/profile/Legolas">Test Profile</Link>

@@ -5,6 +5,8 @@ import { QuacksMenu } from "../quacks-menu/quacks-menu";
 import { useParams } from "react-router-dom";
 import { ProfileFollowing } from "../profile-following/profile-following";
 import { ProfileFollowers } from "../profile-followers/profile-followers";
+import { Button, Text } from "@mantine/core";
+import EditIcon from "@mui/icons-material/Edit";
 import "./profile-details.css";
 
 export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
@@ -16,10 +18,33 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
   ) : (
     <section className="profile-details">
       <div className="user-info">
-        <h5 className="username-title">{props.profileData.name} on Quackle</h5>
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <span className="username-info">
+            <Text sx={{ fontSize: "28px" }}>
+              <b>{props.profileData.name}</b>
+            </Text>
+            <Text size="sm" color="dimmed">
+              Quackle member
+            </Text>
+          </span>
+          {props.matchesUser && (
+            <span style={{ padding: "4%" }}>
+              <Button variant="outline" color="dark">
+                <EditIcon />
+              </Button>
+            </span>
+          )}
+        </span>
         <ProfileCard
           loggedIn={props.loggedIn}
-          image={props.profileData.displayPic}
+          avatar={props.profileData.avatar}
+          banner={props.profileData.banner}
           title={props.profileData.username}
           description={props.profileData.tagline}
           stats={[

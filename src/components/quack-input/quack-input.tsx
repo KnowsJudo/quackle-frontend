@@ -100,12 +100,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
           />
         )}
         <span className="quack-input-user">
-          <Image
-            src={props.displayPic}
-            withPlaceholder
-            height={40}
-            width={40}
-          />
+          <Image src={props.avatar} withPlaceholder height={40} width={40} />
           <p>
             <b>&nbsp;&nbsp;{`@${props.atUser}`}</b>
           </p>

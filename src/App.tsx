@@ -11,7 +11,6 @@ import { ProfilePage } from "./pages/profile-page/profile-page";
 import { LoginPage } from "./pages/login-page/login-page";
 import { HomePage } from "./pages/home-page/home-page";
 import "./App.css";
-import { ProfileFollowing } from "./components/profile-following/profile-following";
 
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);
@@ -54,7 +53,10 @@ const App: () => JSX.Element = () => {
               <Route path="/profile/:userId/*" element={<ProfilePage />}>
                 <Route path=":follow" />
               </Route>
-              <Route path="/settings" element={<SettingsPage />}></Route>
+              <Route
+                path="/settings"
+                element={loggedIn ? <SettingsPage /> : <Navigate to="/login" />}
+              ></Route>
               <Route path="*" element={<NotFoundPage />}></Route>
             </Routes>
           </BrowserRouter>

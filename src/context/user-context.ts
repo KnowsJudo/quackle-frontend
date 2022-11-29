@@ -4,13 +4,14 @@ import { IUser } from "../types/user-types";
 
 export const initialUserData: IUser = {
   id: "",
-  displayPic: "",
+  avatar: "",
   name: "",
   username: "",
   email: "",
   dateOfBirth: new Date(),
   createdAt: new Date(),
   tagline: "",
+  banner: "",
   quacks: [],
   reQuacks: 0,
   friends: [],

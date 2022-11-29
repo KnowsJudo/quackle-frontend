@@ -1,13 +1,14 @@
 import { Dispatch, SetStateAction } from "react";
 export interface IUser {
   id: string;
-  displayPic: string;
+  avatar: string;
   name: string;
   username: string;
   email: string;
   dateOfBirth: Date;
   createdAt: Date;
   tagline: string;
+  banner: string;
   quacks: [];
   reQuacks: number;
   friends?: IUser[];

@@ -7,6 +7,7 @@ import {
   Group,
   Button,
   Tooltip,
+  Avatar,
 } from "@mantine/core";
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
@@ -25,7 +26,8 @@ const useStyles = createStyles((theme) => ({
 
 export const ProfileCard: React.FC<IProfileCard> = ({
   loggedIn,
-  image,
+  avatar,
+  banner,
   title,
   description,
   stats,
@@ -47,17 +49,20 @@ export const ProfileCard: React.FC<IProfileCard> = ({
     <Card withBorder p="lg">
       <Card.Section>
         <Image
-          src={image}
-          alt="With default placeholder"
+          src={banner}
+          alt="This user has no banner"
           withPlaceholder
           height={100}
         />
       </Card.Section>
 
       <Group position="apart" mt="xl">
-        <Text size="sm" weight={700}>
-          @{title}
-        </Text>
+        <span className="card-avatar">
+          <Avatar size="lg" src={avatar} alt="This user has no avatar" />
+          <Text size="sm" weight={700}>
+            @{title}
+          </Text>
+        </span>
         <Group spacing={5}>
           <Tooltip
             label={
@@ -72,7 +77,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
           </Tooltip>
         </Group>
       </Group>
-      <Text mt="sm" mb="md" color="dimmed" size="xs">
+      <Text mt="sm" mb="md" size="xs" sx={{ textAlign: "left" }}>
         {description}
       </Text>
       <span className="card-followers">
@@ -80,13 +85,23 @@ export const ProfileCard: React.FC<IProfileCard> = ({
           to={loggedIn ? `/profile/${title}/following` : "/login"}
           style={{ color: "black", textDecoration: "none" }}
         >
-          <Text size="sm"> Following</Text>
+          <Text size="sm" color="dimmed">
+            Following
+          </Text>
+          <Text size="sm" weight="bold">
+            8
+          </Text>
         </Link>
         <Link
           to={loggedIn ? `/profile/${title}/followers` : "/login"}
           style={{ color: "black", textDecoration: "none", marginLeft: "2em" }}
         >
-          <Text size="sm">Followers</Text>
+          <Text size="sm" color="dimmed">
+            Followers
+          </Text>
+          <Text size="sm" weight="bold">
+            7465
+          </Text>
         </Link>
       </span>
       <Card.Section className={classes.footer}>{items}</Card.Section>

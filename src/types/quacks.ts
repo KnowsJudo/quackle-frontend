@@ -12,7 +12,7 @@ export interface IQuackInput {
   fixed: boolean;
   setInitiateQuack?: React.Dispatch<React.SetStateAction<boolean>> | null;
   atUser?: string;
-  displayPic: string;
+  avatar: string;
 }
 
 export interface IQuackResponse {

@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  width: 100vw;
+  width: 75vw;
   overflow: auto;
   justify-content: space-evenly;
+  background-color: white;
 }
 
 .settings-options {
@@ -19,16 +20,22 @@
   max-width: 38%;
 }
 
+.settings-quacks {
+  display: flex;
+}
+
 .settings-data {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: white;
   color: black;
   height: 100vh;
   width: 20%;
   position: fixed;
-  margin: auto auto auto 67%;
+  margin: auto auto auto 57%;
   padding: 2%;
+  border-left: 1px solid grey;
 }
 
 .user-tagline {

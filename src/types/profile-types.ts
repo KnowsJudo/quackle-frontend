@@ -3,7 +3,8 @@ import { IUser } from "./user-types";
 
 export interface IProfileCard {
   loggedIn: boolean;
-  image: string;
+  avatar: string;
+  banner: string;
   title: string;
   description: string;
   stats: {

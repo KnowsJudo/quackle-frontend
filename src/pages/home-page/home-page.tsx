@@ -19,7 +19,7 @@ export const HomePage: React.FC = () => {
         <QuackInput
           setInitiateQuack={setInitiateQuack}
           fixed={true}
-          displayPic={userData.displayPic}
+          avatar={userData.avatar}
           atUser="everyone"
         />
       )}

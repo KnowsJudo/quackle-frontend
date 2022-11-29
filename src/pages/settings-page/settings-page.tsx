@@ -10,7 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import "./settings-page.css";
 
 export const SettingsPage: React.FC = () => {
-  const { userData, initiateQuack, setInitiateQuack } =
+  const { userData, setUserData, initiateQuack, setInitiateQuack } =
     useContext(QuackleContext);
   const [editTag, setEditTag] = useState<boolean>(false);
   const [tagline, setTagline] = useState<string>("");
@@ -20,9 +20,25 @@ export const SettingsPage: React.FC = () => {
     if (editTag) {
       setLoading(true);
       await axios
-        .patch(`${apiUrl}/user/${userData.username}`, { tagline: tagline })
-        .then((res) => console.log(res))
-        .catch((error) => console.error(error));
+        .patch(`${apiUrl}/user/${userData.username}`, {
+          username: userData.username,
+          tagline: tagline,
+        })
+        .then(() => {
+          setLoading(true);
+          axios
+            .get(`${apiUrl}/user/${userData.username}`)
+            .then((res) => setUserData(res.data))
+            .catch((error) => {
+              setLoading(false);
+              console.error(error);
+            });
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.error(error);
+        });
       setLoading(false);
       setEditTag(false);
       return;
@@ -36,7 +52,7 @@ export const SettingsPage: React.FC = () => {
         <QuackInput
           setInitiateQuack={setInitiateQuack}
           fixed={true}
-          displayPic={userData.displayPic}
+          avatar={userData.avatar}
           atUser={"everyone"}
         />
       )}
@@ -45,10 +61,10 @@ export const SettingsPage: React.FC = () => {
         <h5>Quack Quack, {userData.name}!</h5>
         <span className="user-tagline">
           <Text size="md">Tagline:</Text>
-          {!editTag && !userData.tagline && (
+          {!editTag && !loading && !userData.tagline && (
             <Text color="dimmed">Enter a tagline</Text>
           )}
-          {editTag && (
+          {editTag && !loading && (
             <Textarea
               value={tagline}
               onChange={(e) => setTagline(e.target.value)}
@@ -56,7 +72,7 @@ export const SettingsPage: React.FC = () => {
             ></Textarea>
           )}
           {loading && <Loader />}
-          {!editTag && !loading && <Text>{userData.tagline}</Text>}
+          {!editTag && !loading && <Text size="sm">{userData.tagline}</Text>}
           <Button
             variant="outline"
             color="dark"
@@ -68,7 +84,7 @@ export const SettingsPage: React.FC = () => {
       </section>
       <section className="settings-data">
         <UserPreview
-          avatar={userData.displayPic}
+          avatar={userData.avatar}
           name={userData.name}
           username={userData.username}
           tagline={userData.tagline}
@@ -77,9 +93,11 @@ export const SettingsPage: React.FC = () => {
         <Text size="sm">
           Hatched on {userData.createdAt.toString().slice(0, 10)}
         </Text>
-        <Text size="sm">{userData.email}</Text>
+        <Text size="sm">
+          Registered email: <b>{userData.email}</b>
+        </Text>
         <div className="settings-quacks">
-          <Button>Blocked Users</Button>
+          <Button>Manage Blocked Users</Button>
         </div>
       </section>
     </div>

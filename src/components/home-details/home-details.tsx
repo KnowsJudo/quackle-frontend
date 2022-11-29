@@ -44,11 +44,7 @@ export const HomeDetails: React.FC = () => {
   return (
     <section className="home-details">
       <h4>Home</h4>
-      <QuackInput
-        fixed={false}
-        atUser={"everyone"}
-        displayPic={userData.displayPic}
-      />
+      <QuackInput fixed={false} atUser={"everyone"} avatar={userData.avatar} />
       <div className="home-friend-quacks">
         {!userData.friends?.length ? (
           <h6>Your pond has no other members!</h6>

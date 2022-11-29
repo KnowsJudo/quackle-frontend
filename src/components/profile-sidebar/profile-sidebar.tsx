@@ -5,8 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
 import SearchIcon from "@mui/icons-material/Search";
 import { initialUserData, QuackleContext } from "../../context/user-context";
-import "./profile-sidebar.css";
+import InputIcon from "@mui/icons-material/Input";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
+import "./profile-sidebar.css";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const { setUserData } = useContext(QuackleContext);
@@ -29,8 +30,9 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       />
       {props.loggedIn && (
         <span className="profile-logout">
-          <Button sx={{ marginLeft: "45%" }} onClick={() => setModal(true)}>
-            Logout
+          <Button onClick={() => setModal(true)}>
+            Logout&nbsp;&nbsp;
+            <InputIcon />
           </Button>
         </span>
       )}

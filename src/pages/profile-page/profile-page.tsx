@@ -31,13 +31,14 @@ export const ProfilePage: React.FC = () => {
       .then((res) => {
         setProfileData({
           id: "",
-          displayPic: res.data.displayPic,
+          avatar: res.data.avatar,
           name: res.data.name,
           username: res.data.username,
           email: res.data.email,
           dateOfBirth: res.data.dateOfBirth,
           createdAt: res.data.createdAt,
           tagline: res.data.tagline,
+          banner: res.data.banner,
           quacks: res.data.quacks,
           reQuacks: res.data.reQuacks,
           friends: [],
@@ -119,7 +120,7 @@ export const ProfilePage: React.FC = () => {
         <QuackInput
           setInitiateQuack={setInitiateQuack}
           fixed={true}
-          displayPic={userData.displayPic}
+          avatar={userData.avatar}
           atUser={
             userData.username === params.userId ? "everyone" : params.userId
           }
