@@ -2,14 +2,15 @@ import React from "react";
 import { IProfileDetails } from "../../types/profile-types";
 import { ProfileCard } from "../profile-card/profile-card";
 import { QuacksMenu } from "../quacks-menu/quacks-menu";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ProfileFollowing } from "../profile-following/profile-following";
 import { ProfileFollowers } from "../profile-followers/profile-followers";
-import { Button, Text } from "@mantine/core";
+import { Button, Text, Tooltip } from "@mantine/core";
 import EditIcon from "@mui/icons-material/Edit";
 import "./profile-details.css";
 
 export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
+  const navigate = useNavigate();
   const params = useParams();
   return params.follow === "following" ? (
     <ProfileFollowing />
@@ -35,9 +36,15 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
           </span>
           {props.matchesUser && (
             <span style={{ padding: "4%" }}>
-              <Button variant="outline" color="dark">
-                <EditIcon />
-              </Button>
+              <Tooltip label="Edit profile">
+                <Button
+                  variant="outline"
+                  color="dark"
+                  onClick={() => navigate("/settings")}
+                >
+                  <EditIcon />
+                </Button>
+              </Tooltip>
             </span>
           )}
         </span>

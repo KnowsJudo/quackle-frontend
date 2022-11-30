@@ -1,0 +1,6 @@
+.user-tagline {
+  display: flex;
+  padding: 2%;
+  align-items: center;
+  justify-content: space-between;
+}

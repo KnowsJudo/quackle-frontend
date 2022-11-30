@@ -8,22 +8,6 @@
   background-color: white;
 }
 
-.settings-options {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  color: black;
-  flex: 0.5 1 auto;
-  margin: 0 20%;
-  min-height: 100vh;
-  height: max-content;
-  max-width: 38%;
-}
-
-.settings-quacks {
-  display: flex;
-}
-
 .settings-data {
   display: flex;
   flex-direction: column;
@@ -38,9 +22,19 @@
   border-left: 1px solid grey;
 }
 
-.user-tagline {
+.settings-quacks {
   display: flex;
-  padding: 2%;
-  align-items: center;
-  justify-content: space-between;
+}
+
+.settings-user {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  flex: 0.5 1 auto;
+  margin: 0 20%;
+  min-height: 100vh;
+  height: max-content;
+  max-width: 38%;
+  line-height: 1;
 }
