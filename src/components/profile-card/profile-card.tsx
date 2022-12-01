@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "./profile-card.css";
 
 const useStyles = createStyles((theme) => ({
@@ -30,12 +31,13 @@ export const ProfileCard: React.FC<IProfileCard> = ({
   banner,
   title,
   description,
+  location,
   stats,
 }) => {
   const { classes } = useStyles();
 
   const items = stats.map((stat) => (
-    <div key={stat.title}>
+    <div key={stat.title} className="card-footer">
       <Text size="xs" color="dimmed">
         {stat.title}
       </Text>
@@ -56,7 +58,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
         />
       </Card.Section>
 
-      <Group position="apart" mt="xl">
+      <Group position="apart" mt="xl" sx={{ marginTop: "2px" }}>
         <span className="card-avatar">
           <Avatar size="lg" src={avatar} alt="This user has no avatar" />
           <Text size="sm" weight={700}>
@@ -80,29 +82,43 @@ export const ProfileCard: React.FC<IProfileCard> = ({
       <Text mt="sm" mb="md" size="xs" sx={{ textAlign: "left" }}>
         {description}
       </Text>
-      <span className="card-followers">
-        <Link
-          to={loggedIn ? `/profile/${title}/following` : "/login"}
-          style={{ color: "black", textDecoration: "none" }}
-        >
-          <Text size="sm" color="dimmed">
-            Following
-          </Text>
-          <Text size="sm" weight="bold">
-            8
-          </Text>
-        </Link>
-        <Link
-          to={loggedIn ? `/profile/${title}/followers` : "/login"}
-          style={{ color: "black", textDecoration: "none", marginLeft: "2em" }}
-        >
-          <Text size="sm" color="dimmed">
-            Followers
-          </Text>
-          <Text size="sm" weight="bold">
-            7465
-          </Text>
-        </Link>
+      <span className="card-info">
+        <span className="card-follow">
+          <Link
+            to={loggedIn ? `/profile/${title}/following` : `/profile/${title}`}
+            style={{ color: "black", textDecoration: "none" }}
+          >
+            <Text size="sm" color="dimmed">
+              Following
+            </Text>
+            <Text size="sm" weight="bold">
+              8
+            </Text>
+          </Link>
+          <Link
+            to={loggedIn ? `/profile/${title}/followers` : `/profile/${title}`}
+            style={{
+              color: "black",
+              textDecoration: "none",
+              marginLeft: "2em",
+            }}
+          >
+            <Text size="sm" color="dimmed">
+              Followers
+            </Text>
+            <Text size="sm" weight="bold">
+              7465
+            </Text>
+          </Link>
+        </span>
+        <span className="card-location">
+          <>
+            <Text size="sm" color="dimmed">
+              <LocationOnIcon />
+            </Text>
+            <Text size="sm">{location}</Text>
+          </>
+        </span>
       </span>
       <Card.Section className={classes.footer}>{items}</Card.Section>
     </Card>

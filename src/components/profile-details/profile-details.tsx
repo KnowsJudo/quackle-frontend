@@ -54,6 +54,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
           banner={props.profileData.banner}
           title={props.profileData.username}
           description={props.profileData.tagline}
+          location={props.profileData.location}
           stats={[
             {
               title: "Quacks",

@@ -12,6 +12,7 @@ export const initialUserData: IUser = {
   createdAt: new Date(),
   tagline: "",
   banner: "",
+  location: "",
   quacks: [],
   reQuacks: 0,
   friends: [],

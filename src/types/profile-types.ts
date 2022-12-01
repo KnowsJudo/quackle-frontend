@@ -7,6 +7,7 @@ export interface IProfileCard {
   banner: string;
   title: string;
   description: string;
+  location: string;
   stats: {
     title: string;
     value: number | string;

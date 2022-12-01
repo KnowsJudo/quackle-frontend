@@ -39,6 +39,7 @@ export const ProfilePage: React.FC = () => {
           createdAt: res.data.createdAt,
           tagline: res.data.tagline,
           banner: res.data.banner,
+          location: res.data.location,
           quacks: res.data.quacks,
           reQuacks: res.data.reQuacks,
           friends: [],

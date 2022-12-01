@@ -1,8 +1,22 @@
-.card-followers {
+.card-avatar {
+  display: flex;
+  align-items: center;
+}
+
+.card-follow {
   display: flex;
 }
 
-.card-avatar {
+.card-footer {
+  justify-content: space-between;
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-location {
   display: flex;
   align-items: center;
 }

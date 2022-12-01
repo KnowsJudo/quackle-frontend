@@ -8,21 +8,36 @@ import { UserPreview } from "../../components/user-preview/user-preview";
 import { apiUrl } from "../../api/api-url";
 import { SettingsOptions } from "../../components/settings-options/settings-options";
 import "./settings-page.css";
+import { IEditSettings, ISettings } from "../../types/settings";
 
 export const SettingsPage: React.FC = () => {
   const { userData, setUserData, initiateQuack, setInitiateQuack } =
     useContext(QuackleContext);
-  const [editTag, setEditTag] = useState<boolean>(false);
-  const [tagline, setTagline] = useState<string>("");
+  const [editOption, setEditOption] = useState<IEditSettings>({
+    name: false,
+    tagline: false,
+    location: false,
+    avatar: false,
+    banner: false,
+  });
+  const [setting, setSetting] = useState<ISettings>({
+    name: "",
+    tagline: "",
+    location: "",
+    avatar: "",
+    banner: "",
+  });
   const [loading, setLoading] = useState<boolean>(false);
 
-  const changeTagline = async () => {
-    if (editTag) {
+  const settingsOptions = Object.keys(setting);
+
+  const changeSetting = async (option: keyof ISettings) => {
+    if (editOption[option]) {
       setLoading(true);
-      console.log(userData.username);
       await axios
         .patch(`${apiUrl}/user/${userData.username}`, {
-          tagline,
+          option,
+          setting: setting[option],
         })
         .then(() => {
           setLoading(true);
@@ -37,13 +52,17 @@ export const SettingsPage: React.FC = () => {
         })
         .catch((error) => {
           setLoading(false);
-          console.error(error);
+          console.error(`Could not update ${option}`, error);
         });
       setLoading(false);
-      setEditTag(false);
+      setEditOption((prev) => {
+        return { ...prev, [option]: false };
+      });
       return;
     }
-    setEditTag(true);
+    setEditOption((prev) => {
+      return { ...prev, [option]: true };
+    });
   };
 
   return (
@@ -59,13 +78,19 @@ export const SettingsPage: React.FC = () => {
       <ProfileUser setInitiateQuack={setInitiateQuack} loggedIn={true} />
       <section className="settings-user">
         <h5>Quack Quack, {userData.name}!</h5>
-        <SettingsOptions
-          changeTagline={changeTagline}
-          editTag={editTag}
-          loading={loading}
-          tagline={tagline}
-          setTagline={setTagline}
-        />
+        {settingsOptions.map((next) => {
+          return (
+            <SettingsOptions
+              key={next}
+              changeSetting={() => changeSetting(next as keyof ISettings)}
+              option={next as keyof ISettings}
+              editOption={editOption}
+              loading={loading}
+              setting={setting}
+              setSetting={setSetting}
+            />
+          );
+        })}
       </section>
       <section className="settings-data">
         <UserPreview

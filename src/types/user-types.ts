@@ -9,6 +9,7 @@ export interface IUser {
   createdAt: Date;
   tagline: string;
   banner: string;
+  location: string;
   quacks: [];
   reQuacks: number;
   friends?: IUser[];
