@@ -18,7 +18,6 @@ export interface ISettingsOptions {
   changeSetting: (option: string) => Promise<void>;
   option: keyof ISettings;
   editOption: IEditSettings;
-  loading: boolean;
   setting: ISettings;
   setSetting: React.Dispatch<SetStateAction<ISettings>>;
 }

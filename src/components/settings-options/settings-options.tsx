@@ -1,31 +1,42 @@
 import React, { useContext } from "react";
 import { QuackleContext } from "../../context/user-context";
-import { Accordion, Button, Loader, Text, Textarea } from "@mantine/core";
-import { ISettingsOptions } from "../../types/settings";
+import { Accordion, Button, Image, Text, Textarea } from "@mantine/core";
+import { ISettings, ISettingsOptions } from "../../types/settings";
 import EditIcon from "@mui/icons-material/Edit";
 import "./settings-options.css";
 
 export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
   const { userData } = useContext(QuackleContext);
 
+  const imageData = (option: keyof ISettings) => {
+    return option === "avatar" || option === "banner" ? true : false;
+  };
+
   return (
-    <Accordion multiple={false}>
+    <Accordion>
       <Accordion.Item value={props.option}>
         <Accordion.Control
-          sx={{ lineHeight: 1.3, textTransform: "capitalize" }}
+          sx={{
+            lineHeight: 1.3,
+            textTransform: "capitalize",
+            fontWeight: "bolder",
+          }}
         >
           {props.option}
         </Accordion.Control>
         <Accordion.Panel>
           <span className="user-settings">
             {!props.editOption[props.option] &&
-              !props.loading &&
-              !userData[props.option] && (
-                <Text color="dimmed" size="md">
+              !userData[props.option] &&
+              (imageData(props.option) ? (
+                <Image withPlaceholder />
+              ) : (
+                <Text color="dimmed" size="sm">
                   Enter your {props.option}
                 </Text>
-              )}
-            {props.editOption[props.option] && !props.loading && (
+              ))}
+
+            {props.editOption[props.option] && (
               <Textarea
                 value={props.setting[props.option]}
                 onChange={(e) =>
@@ -36,12 +47,14 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
                 sx={{ flex: "1 1 auto", margin: "0 2%" }}
               />
             )}
-            {props.loading && <Loader />}
-            {!props.editOption[props.option] && !props.loading && (
-              <Text size="sm">{userData[props.option]}</Text>
+            {!props.editOption[props.option] && (
+              <Text size="sm" color="dimmed">
+                {userData[props.option]}
+              </Text>
             )}
+
             <Button
-              variant="outline"
+              variant="subtle"
               color="dark"
               onClick={() => props.changeSetting(props.option)}
             >

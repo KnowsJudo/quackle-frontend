@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { QuackleContext } from "../../context/user-context";
-import { Button, Text } from "@mantine/core";
+import { Button, Loader, Text } from "@mantine/core";
 import { ProfileUser } from "../../components/profile-user/profile-user";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { UserPreview } from "../../components/user-preview/user-preview";
@@ -78,19 +78,23 @@ export const SettingsPage: React.FC = () => {
       <ProfileUser setInitiateQuack={setInitiateQuack} loggedIn={true} />
       <section className="settings-user">
         <h5>Quack Quack, {userData.name}!</h5>
-        {settingsOptions.map((next) => {
-          return (
-            <SettingsOptions
-              key={next}
-              changeSetting={() => changeSetting(next as keyof ISettings)}
-              option={next as keyof ISettings}
-              editOption={editOption}
-              loading={loading}
-              setting={setting}
-              setSetting={setSetting}
-            />
-          );
-        })}
+
+        {loading ? (
+          <Loader sx={{ margin: "auto" }} />
+        ) : (
+          settingsOptions.map((next) => {
+            return (
+              <SettingsOptions
+                key={next}
+                changeSetting={() => changeSetting(next as keyof ISettings)}
+                option={next as keyof ISettings}
+                editOption={editOption}
+                setting={setting}
+                setSetting={setSetting}
+              />
+            );
+          })
+        )}
       </section>
       <section className="settings-data">
         <UserPreview
