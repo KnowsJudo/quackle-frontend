@@ -18,6 +18,9 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           Home
         </Link>
       )}
+      <Link to="/trending" style={{ color: "white", textDecoration: "none" }}>
+        Trending Ducks
+      </Link>
       <Link to="/settings" style={{ color: "white", textDecoration: "none" }}>
         Settings
       </Link>

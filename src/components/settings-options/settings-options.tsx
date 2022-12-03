@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { QuackleContext } from "../../context/user-context";
-import { Accordion, Button, Image, Text, Textarea } from "@mantine/core";
+import { Accordion, Button, Text, Textarea } from "@mantine/core";
 import { ISettings, ISettingsOptions } from "../../types/settings";
 import EditIcon from "@mui/icons-material/Edit";
 import "./settings-options.css";
+import { ImageDrop } from "../image-drop/image-drop";
 
 export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
   const { userData } = useContext(QuackleContext);
@@ -29,7 +30,7 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
             {!props.editOption[props.option] &&
               !userData[props.option] &&
               (imageData(props.option) ? (
-                <Image withPlaceholder />
+                <ImageDrop />
               ) : (
                 <Text color="dimmed" size="sm">
                   Enter your {props.option}
@@ -53,13 +54,15 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
               </Text>
             )}
 
-            <Button
-              variant="subtle"
-              color="dark"
-              onClick={() => props.changeSetting(props.option)}
-            >
-              {props.editOption[props.option] ? "Confirm" : <EditIcon />}
-            </Button>
+            {!imageData(props.option) && (
+              <Button
+                variant="subtle"
+                color="dark"
+                onClick={() => props.changeSetting(props.option)}
+              >
+                {props.editOption[props.option] ? "Confirm" : <EditIcon />}
+              </Button>
+            )}
           </span>
         </Accordion.Panel>
       </Accordion.Item>
