@@ -30,7 +30,11 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
             {!props.editOption[props.option] &&
               !userData[props.option] &&
               (imageData(props.option) ? (
-                <ImageDrop />
+                <ImageDrop
+                  imageType={props.option}
+                  changeSetting={props.changeSetting}
+                  setSetting={props.setSetting}
+                />
               ) : (
                 <Text color="dimmed" size="sm">
                   Enter your {props.option}

@@ -21,3 +21,9 @@ export interface ISettingsOptions {
   setting: ISettings;
   setSetting: React.Dispatch<SetStateAction<ISettings>>;
 }
+
+export interface IImageDrop {
+  imageType: keyof ISettings;
+  changeSetting: (option: string) => Promise<void>;
+  setSetting: React.Dispatch<SetStateAction<ISettings>>;
+}
