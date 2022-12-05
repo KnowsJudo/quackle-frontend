@@ -7,8 +7,8 @@ import { QuackInput } from "../../components/quack-input/quack-input";
 import { UserPreview } from "../../components/user-preview/user-preview";
 import { apiUrl } from "../../api/api-url";
 import { SettingsOptions } from "../../components/settings-options/settings-options";
-import "./settings-page.css";
 import { IEditSettings, ISettings } from "../../types/settings";
+import "./settings-page.css";
 
 export const SettingsPage: React.FC = () => {
   const { userData, setUserData, initiateQuack, setInitiateQuack } =
@@ -24,7 +24,7 @@ export const SettingsPage: React.FC = () => {
     name: "",
     tagline: "",
     location: "",
-    avatar: "",
+    avatar: undefined,
     banner: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
@@ -43,7 +43,10 @@ export const SettingsPage: React.FC = () => {
           setLoading(true);
           axios
             .get(`${apiUrl}/user/${userData.username}`)
-            .then((res) => setUserData(res.data))
+            .then((res) => {
+              setUserData(res.data);
+              // console.log("res data", URL.createObjectURL(res.data.avatar));
+            })
             .catch((error) => {
               setLoading(false);
               console.error(error);
@@ -88,6 +91,7 @@ export const SettingsPage: React.FC = () => {
                 key={next}
                 changeSetting={() => changeSetting(next as keyof ISettings)}
                 option={next as keyof ISettings}
+                setEditOption={setEditOption}
                 editOption={editOption}
                 setting={setting}
                 setSetting={setSetting}
