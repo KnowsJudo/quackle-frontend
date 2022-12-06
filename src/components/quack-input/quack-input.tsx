@@ -4,6 +4,7 @@ import { Button, CloseButton, Image, Progress, Textarea } from "@mantine/core";
 import { IQuackInput } from "../../types/quacks";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../api/api-url";
+import { useImage } from "../../api/avatar";
 import "./quack-input.css";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {
@@ -100,7 +101,12 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
           />
         )}
         <span className="quack-input-user">
-          <Image src={props.avatar} withPlaceholder height={40} width={40} />
+          <Image
+            // src={makeImage(props.avatar)}
+            withPlaceholder
+            height={40}
+            width={40}
+          />
           <p>
             <b>&nbsp;&nbsp;{`@${props.atUser}`}</b>
           </p>

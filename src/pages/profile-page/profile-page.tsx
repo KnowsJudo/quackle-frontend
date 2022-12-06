@@ -31,17 +31,7 @@ export const ProfilePage: React.FC = () => {
       .then((res) => {
         setProfileData({
           id: "",
-          avatar: res.data.avatar,
-          name: res.data.name,
-          username: res.data.username,
-          email: res.data.email,
-          dateOfBirth: res.data.dateOfBirth,
-          createdAt: res.data.createdAt,
-          tagline: res.data.tagline,
-          banner: res.data.banner,
-          location: res.data.location,
-          quacks: res.data.quacks,
-          reQuacks: res.data.reQuacks,
+          ...res.data,
           friends: [],
           usersBlocked: [],
         });

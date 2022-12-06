@@ -32,12 +32,15 @@ export const SettingsPage: React.FC = () => {
   const settingsOptions = Object.keys(setting);
 
   const changeSetting = async (option: keyof ISettings) => {
+    console.log("sett", setting["avatar"]);
     if (editOption[option]) {
       setLoading(true);
+      console.log(option);
       await axios
-        .patch(`${apiUrl}/user/${userData.username}`, {
-          option,
-          setting: setting[option],
+        .patch(`${apiUrl}/user/${userData.username}`, setting["avatar"], {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         })
         .then(() => {
           setLoading(true);
@@ -45,7 +48,7 @@ export const SettingsPage: React.FC = () => {
             .get(`${apiUrl}/user/${userData.username}`)
             .then((res) => {
               setUserData(res.data);
-              // console.log("res data", URL.createObjectURL(res.data.avatar));
+              console.log("res data", res.data.avatar);
             })
             .catch((error) => {
               setLoading(false);

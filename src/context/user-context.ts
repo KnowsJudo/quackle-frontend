@@ -1,10 +1,11 @@
 import { createContext } from "react";
 import { IUserContext } from "../types/user-context";
 import { IUser } from "../types/user-types";
+import { Buffer } from "buffer";
 
 export const initialUserData: IUser = {
   id: "",
-  avatar: "",
+  avatar: undefined,
   name: "",
   username: "",
   email: "",

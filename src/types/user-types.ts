@@ -1,7 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
+
+export interface IImage {
+  name: string;
+  data: Buffer;
+  contentType: string;
+}
 export interface IUser {
   id: string;
-  avatar: string;
+  avatar?: IImage;
   name: string;
   username: string;
   email: string;
@@ -21,7 +27,7 @@ export interface IUserState {
 }
 
 export interface IUserPreview {
-  avatar: string;
+  avatar?: IImage;
   name: string;
   username: string;
   following?: boolean;

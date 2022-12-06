@@ -1,9 +1,9 @@
 import { IQuackResponse } from "./quacks";
-import { IUser } from "./user-types";
+import { IImage, IUser } from "./user-types";
 
 export interface IProfileCard {
   loggedIn: boolean;
-  avatar: string;
+  avatar?: IImage;
   banner: string;
   title: string;
   description: string;

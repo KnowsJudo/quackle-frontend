@@ -12,6 +12,7 @@ import {
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useImage } from "../../api/avatar";
 import "./profile-card.css";
 
 const useStyles = createStyles((theme) => ({
@@ -35,6 +36,8 @@ export const ProfileCard: React.FC<IProfileCard> = ({
   stats,
 }) => {
   const { classes } = useStyles();
+
+  const avatarSrc = useImage(avatar);
 
   const items = stats.map((stat) => (
     <div key={stat.title} className="card-footer">
@@ -60,7 +63,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
 
       <Group position="apart" mt="xl" sx={{ marginTop: "2px" }}>
         <span className="card-avatar">
-          <Avatar size="lg" src={avatar} alt="This user has no avatar" />
+          <Avatar size="lg" src={avatarSrc} alt="This user has no avatar" />
           <Text size="sm" weight={700}>
             @{title}
           </Text>

@@ -47,7 +47,9 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
               )}
 
               {!props.editOption[props.option] && userData[props.option] && (
-                <Image src={userData[props.option]} />
+                <Image
+                  src={`data:image/png;base64,${userData[props.option]}`}
+                />
               )}
 
               {(props.editOption[props.option] || userData[props.option]) && (

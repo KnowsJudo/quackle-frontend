@@ -11,7 +11,7 @@ export interface ISettings {
   name: string;
   tagline: string;
   location: string;
-  avatar?: Blob;
+  avatar?: FormData;
   banner: string;
 }
 export interface ISettingsOptions {

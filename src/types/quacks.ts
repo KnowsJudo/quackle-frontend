@@ -1,4 +1,4 @@
-import { IUser } from "./user-types";
+import { IImage, IUser } from "./user-types";
 
 export interface IQuacksMenu {
   paramId?: string;
@@ -12,7 +12,7 @@ export interface IQuackInput {
   fixed: boolean;
   setInitiateQuack?: React.Dispatch<React.SetStateAction<boolean>> | null;
   atUser?: string;
-  avatar: string;
+  avatar?: IImage;
 }
 
 export interface IQuackResponse {

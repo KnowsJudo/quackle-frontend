@@ -12,8 +12,12 @@ export const ImageDrop: React.FC<IImageDrop> = (props) => {
 
   const handleDrop = (file: FileWithPath[]) => {
     setImgPreview(URL.createObjectURL(file[0]));
+    const formData = new FormData();
+    formData.append(props.imageType, file[0]);
+    formData.append("option", props.imageType);
+    console.log("abb", formData.getAll("avatar"));
     props.setSetting((prev) => {
-      return { ...prev, [props.imageType]: URL.createObjectURL(file[0]) };
+      return { ...prev, [props.imageType]: formData };
     });
     props.setEditOption((prev) => {
       return { ...prev, [props.imageType]: true };
@@ -24,16 +28,11 @@ export const ImageDrop: React.FC<IImageDrop> = (props) => {
     <Dropzone
       onDrop={(file) => handleDrop(file)}
       onReject={(files) => console.error(files)}
-      accept={["image/png", "image/jpeg", "image/sgv+xml", "image/gif"]}
+      accept={["image/png", "image/jpeg", "image/svg+xml", "image/gif"]}
       maxSize={3 * 1024 ** 2}
     >
       {imgPreview ? (
-        <Image
-          src={imgPreview}
-          imageProps={{
-            onLoad: () => URL.revokeObjectURL(userData[props.imageType]),
-          }}
-        />
+        <Image src={imgPreview} />
       ) : (
         <Group>
           <Dropzone.Accept>
