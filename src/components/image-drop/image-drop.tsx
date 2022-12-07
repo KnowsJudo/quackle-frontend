@@ -15,7 +15,7 @@ export const ImageDrop: React.FC<IImageDrop> = (props) => {
     const formData = new FormData();
     formData.append(props.imageType, file[0]);
     formData.append("option", props.imageType);
-    console.log("abb", formData.getAll("avatar"));
+    console.log("formdata", formData.getAll("avatar"));
     props.setSetting((prev) => {
       return { ...prev, [props.imageType]: formData };
     });

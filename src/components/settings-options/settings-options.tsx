@@ -5,12 +5,19 @@ import { ISettings, ISettingsOptions } from "../../types/settings";
 import EditIcon from "@mui/icons-material/Edit";
 import { ImageDrop } from "../image-drop/image-drop";
 import "./settings-options.css";
+import { useImage } from "../../api/use-image";
 
 export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
   const { userData } = useContext(QuackleContext);
 
   const imageData = (option: keyof ISettings) => {
     return option === "avatar" || option === "banner" ? true : false;
+  };
+
+  const imageSource = (option: keyof ISettings) => {
+    return option === "avatar" || option === "banner"
+      ? useImage(userData[option])
+      : "";
   };
 
   if (imageData(props.option)) {
@@ -47,9 +54,7 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
               )}
 
               {!props.editOption[props.option] && userData[props.option] && (
-                <Image
-                  src={`data:image/png;base64,${userData[props.option]}`}
-                />
+                <Image src={imageSource(props.option)} />
               )}
 
               {(props.editOption[props.option] || userData[props.option]) && (

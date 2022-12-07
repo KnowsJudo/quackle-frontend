@@ -32,8 +32,6 @@ export const ProfilePage: React.FC = () => {
         setProfileData({
           id: "",
           ...res.data,
-          friends: [],
-          usersBlocked: [],
         });
         setLoading((prev) => {
           return { ...prev, profile: false };

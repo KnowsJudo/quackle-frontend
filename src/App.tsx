@@ -24,6 +24,7 @@ const App: () => JSX.Element = () => {
     event.preventDefault();
     setUserData({ ...userData, [field]: event.target.value });
   };
+
   return (
     <main className="App">
       <QuackleContext.Provider

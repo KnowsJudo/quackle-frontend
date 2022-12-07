@@ -14,7 +14,7 @@ export interface IUser {
   dateOfBirth: Date;
   createdAt: Date;
   tagline: string;
-  banner: string;
+  banner?: IImage;
   location: string;
   quacks: [];
   reQuacks: number;

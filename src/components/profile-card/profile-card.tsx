@@ -12,7 +12,7 @@ import {
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { useImage } from "../../api/avatar";
+import { useImage } from "../../api/use-image";
 import "./profile-card.css";
 
 const useStyles = createStyles((theme) => ({
@@ -38,6 +38,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
   const { classes } = useStyles();
 
   const avatarSrc = useImage(avatar);
+  const bannerSrc = useImage(banner);
 
   const items = stats.map((stat) => (
     <div key={stat.title} className="card-footer">
@@ -54,7 +55,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
     <Card withBorder p="lg">
       <Card.Section>
         <Image
-          src={banner}
+          src={bannerSrc}
           alt="This user has no banner"
           withPlaceholder
           height={100}

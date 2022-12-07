@@ -4,7 +4,7 @@ import { Button, CloseButton, Image, Progress, Textarea } from "@mantine/core";
 import { IQuackInput } from "../../types/quacks";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../api/api-url";
-import { useImage } from "../../api/avatar";
+import { useImage } from "../../api/use-image";
 import "./quack-input.css";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {

@@ -25,7 +25,7 @@ export const SettingsPage: React.FC = () => {
     tagline: "",
     location: "",
     avatar: undefined,
-    banner: "",
+    banner: undefined,
   });
   const [loading, setLoading] = useState<boolean>(false);
 

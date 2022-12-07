@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { IUserContext } from "../types/user-context";
 import { IUser } from "../types/user-types";
-import { Buffer } from "buffer";
 
 export const initialUserData: IUser = {
   id: "",
@@ -12,7 +11,7 @@ export const initialUserData: IUser = {
   dateOfBirth: new Date(),
   createdAt: new Date(),
   tagline: "",
-  banner: "",
+  banner: undefined,
   location: "",
   quacks: [],
   reQuacks: 0,

@@ -11,7 +11,7 @@ export const useImage = (image?: IImage) => {
     const imageBuffer = Buffer.from(image.data);
     const imageBlob = new Blob([imageBuffer], { type: image.contentType });
     return URL.createObjectURL(imageBlob);
-  }, [!!image]);
+  }, [image]);
 
   return imageSrc;
 };

@@ -4,7 +4,7 @@ import { IImage, IUser } from "./user-types";
 export interface IProfileCard {
   loggedIn: boolean;
   avatar?: IImage;
-  banner: string;
+  banner?: IImage;
   title: string;
   description: string;
   location: string;

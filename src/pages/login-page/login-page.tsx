@@ -81,9 +81,14 @@ export const LoginPage: React.FC = () => {
       .then((res) => {
         if (res.data.success) {
           Cookies.set("jwtToken", res.data.token);
-          setUserData(res.data.data);
-          setLoading(false);
-          navigate("/home");
+          axios
+            .get(`${apiUrl}/user/${userData.username}`)
+            .then((res) => {
+              setUserData(res.data);
+              setLoading(false);
+              navigate("/home");
+            })
+            .catch((e) => console.error(e));
         }
       })
       .catch((e) => {

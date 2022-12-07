@@ -12,7 +12,7 @@ export interface ISettings {
   tagline: string;
   location: string;
   avatar?: FormData;
-  banner: string;
+  banner?: FormData;
 }
 export interface ISettingsOptions {
   changeSetting: (option: string) => Promise<void>;
