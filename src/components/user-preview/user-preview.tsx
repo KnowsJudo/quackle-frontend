@@ -5,10 +5,12 @@ import { useImage } from "../../api/use-image";
 import "./user-preview.css";
 
 export const UserPreview: React.FC<IUserPreview> = (props) => {
+  const avatarSrc = useImage(props.avatar);
+
   return (
     <div>
       <span className="user-preview">
-        <Avatar src={useImage(props.avatar)} alt="user avatar" />
+        <Avatar src={avatarSrc} alt="user avatar" radius="xl" size="lg" />
         <span className="user-names">
           <Text>{props.name}</Text>
           <Text>@{props.username}</Text>

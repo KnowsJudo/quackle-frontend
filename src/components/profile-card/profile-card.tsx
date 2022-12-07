@@ -1,13 +1,13 @@
 import React from "react";
 import {
-  createStyles,
+  Avatar,
+  Button,
   Card,
+  createStyles,
+  Group,
   Image,
   Text,
-  Group,
-  Button,
   Tooltip,
-  Avatar,
 } from "@mantine/core";
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
@@ -55,16 +55,23 @@ export const ProfileCard: React.FC<IProfileCard> = ({
     <Card withBorder p="lg">
       <Card.Section>
         <Image
-          src={bannerSrc}
           alt="This user has no banner"
+          height={150}
+          src={bannerSrc}
+          sx={{ objectFit: "contain" }}
           withPlaceholder
-          height={100}
         />
       </Card.Section>
 
-      <Group position="apart" mt="xl" sx={{ marginTop: "2px" }}>
+      <div className="card-group">
         <span className="card-avatar">
-          <Avatar size="lg" src={avatarSrc} alt="This user has no avatar" />
+          <Avatar
+            size="xl"
+            src={avatarSrc}
+            alt="This user has no avatar"
+            radius={50}
+          />
+          &nbsp;
           <Text size="sm" weight={700}>
             @{title}
           </Text>
@@ -82,7 +89,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
             </span>
           </Tooltip>
         </Group>
-      </Group>
+      </div>
       <Text mt="sm" mb="md" size="xs" sx={{ textAlign: "left" }}>
         {description}
       </Text>

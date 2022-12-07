@@ -4,20 +4,19 @@ import { Accordion, Button, Image, Text, Textarea } from "@mantine/core";
 import { ISettings, ISettingsOptions } from "../../types/settings";
 import EditIcon from "@mui/icons-material/Edit";
 import { ImageDrop } from "../image-drop/image-drop";
-import "./settings-options.css";
 import { useImage } from "../../api/use-image";
+import "./settings-options.css";
 
 export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
   const { userData } = useContext(QuackleContext);
-
-  const imageData = (option: keyof ISettings) => {
-    return option === "avatar" || option === "banner" ? true : false;
-  };
-
   const imageSource = (option: keyof ISettings) => {
     return option === "avatar" || option === "banner"
       ? useImage(userData[option])
       : "";
+  };
+
+  const imageData = (option: keyof ISettings) => {
+    return option === "avatar" || option === "banner" ? true : false;
   };
 
   if (imageData(props.option)) {
@@ -54,7 +53,12 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
               )}
 
               {!props.editOption[props.option] && userData[props.option] && (
-                <Image src={imageSource(props.option)} />
+                <Image
+                  src={imageSource(props.option)}
+                  width={props.option === "avatar" ? 150 : 400}
+                  height={150}
+                  radius={props.option === "avatar" ? 100 : 0}
+                />
               )}
 
               {(props.editOption[props.option] || userData[props.option]) && (

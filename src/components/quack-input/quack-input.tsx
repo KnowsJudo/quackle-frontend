@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Button, CloseButton, Image, Progress, Textarea } from "@mantine/core";
+import { Avatar, Button, CloseButton, Progress, Textarea } from "@mantine/core";
 import { IQuackInput } from "../../types/quacks";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../api/api-url";
@@ -20,6 +20,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
   };
 
   const maxQuackLength = 300;
+  const avatarSrc = useImage(props.avatar);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("Unfinished Quack");
@@ -101,12 +102,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
           />
         )}
         <span className="quack-input-user">
-          <Image
-            // src={makeImage(props.avatar)}
-            withPlaceholder
-            height={40}
-            width={40}
-          />
+          <Avatar size="lg" src={avatarSrc} radius="xl" />
           <p>
             <b>&nbsp;&nbsp;{`@${props.atUser}`}</b>
           </p>

@@ -3,6 +3,19 @@
   align-items: center;
 }
 
+.card-group {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: -10px;
+}
+
 .card-follow {
   display: flex;
 }
