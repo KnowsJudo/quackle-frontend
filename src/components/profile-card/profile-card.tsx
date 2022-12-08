@@ -28,6 +28,7 @@ const useStyles = createStyles((theme) => ({
 
 export const ProfileCard: React.FC<IProfileCard> = ({
   loggedIn,
+  matchesUser,
   avatar,
   banner,
   title,
@@ -77,17 +78,19 @@ export const ProfileCard: React.FC<IProfileCard> = ({
           </Text>
         </span>
         <Group spacing={5}>
-          <Tooltip
-            label={
-              loggedIn
-                ? `Click to Follow ${title}`
-                : "Log in to get updates from this user"
-            }
-          >
-            <span>
-              <Button disabled={!loggedIn}>Follow</Button>
-            </span>
-          </Tooltip>
+          {!matchesUser && (
+            <Tooltip
+              label={
+                loggedIn
+                  ? `Click to Follow ${title}`
+                  : "Log in to get updates from this user"
+              }
+            >
+              <span>
+                <Button disabled={!loggedIn}>Follow</Button>
+              </span>
+            </Tooltip>
+          )}
         </Group>
       </div>
       <Text mt="sm" mb="md" size="xs" sx={{ textAlign: "left" }}>

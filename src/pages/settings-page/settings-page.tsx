@@ -40,8 +40,6 @@ export const SettingsPage: React.FC = () => {
     }
     setLoading(true);
 
-    console.log(option);
-
     if (option === "avatar" || option === "banner") {
       await axios
         .patch(`${apiUrl}/user/${userData.username}`, setting[option], {
@@ -110,7 +108,6 @@ export const SettingsPage: React.FC = () => {
       <ProfileUser setInitiateQuack={setInitiateQuack} loggedIn={true} />
       <section className="settings-user">
         <h5>Quack Quack, {userData.name}!</h5>
-
         {loading ? (
           <Loader sx={{ margin: "auto" }} />
         ) : (
@@ -144,7 +141,7 @@ export const SettingsPage: React.FC = () => {
           Registered email: <b>{userData.email}</b>
         </Text>
         <div className="settings-quacks">
-          <Button>Manage Blocked Users</Button>
+          <Button color="gray">Manage Blocked Users</Button>
         </div>
       </section>
     </div>

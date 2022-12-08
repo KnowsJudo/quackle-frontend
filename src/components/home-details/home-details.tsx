@@ -7,6 +7,7 @@ import { IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
 import { QuackOutput } from "../quack-output/quack-output";
 import "./home-details.css";
+import { Link } from "react-router-dom";
 
 export const HomeDetails: React.FC = () => {
   const { userData } = useContext(QuackleContext);
@@ -47,7 +48,15 @@ export const HomeDetails: React.FC = () => {
       <QuackInput fixed={false} atUser={"everyone"} avatar={userData.avatar} />
       <div className="home-friend-quacks">
         {!userData.friends?.length ? (
-          <h6>Your pond has no other members!</h6>
+          <>
+            <h6>Your pond has no other members!</h6>
+            <Link
+              to="/trending"
+              style={{ color: "black", textDecoration: "none" }}
+            >
+              See popular ducks
+            </Link>
+          </>
         ) : loading ? (
           <Loader sx={{ marginTop: "25vh" }} />
         ) : (

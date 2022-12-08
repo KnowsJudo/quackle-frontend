@@ -1,5 +1,26 @@
+.user-avatar {
+  padding-right: 5%;
+  margin: auto;
+}
+
+.user-follow {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
+
 .user-preview {
   display: flex;
+  width: 330px;
+  padding: 1%;
+  border-bottom: 1px solid grey;
+}
+
+.user-preview-details {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  text-align: left;
 }
 
 .user-names {

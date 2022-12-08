@@ -50,6 +50,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
         </span>
         <ProfileCard
           loggedIn={props.loggedIn}
+          matchesUser={props.matchesUser}
           avatar={props.profileData.avatar}
           banner={props.profileData.banner}
           title={props.profileData.username}

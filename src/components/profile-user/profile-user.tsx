@@ -53,7 +53,13 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
       <Link to="/profile/Legolas">Test Profile</Link>
       <span>
         {props.loggedIn && (
-          <Button onClick={() => props.setInitiateQuack(true)}>Quack!</Button>
+          <Button
+            color="gray"
+            // variant="outline"
+            onClick={() => props.setInitiateQuack(true)}
+          >
+            Quack!
+          </Button>
         )}
       </span>
     </section>

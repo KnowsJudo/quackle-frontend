@@ -67,10 +67,7 @@ export const ProfilePage: React.FC = () => {
 
   const deleteQuack = async (quackId: string) => {
     await axios
-      .delete(
-        //TESTING PURPOSES
-        `${apiUrl}/user/${params.userId}/quacks/${quackId}`,
-      )
+      .delete(`${apiUrl}/user/${params.userId}/quacks/${quackId}`)
       .then((res) => {
         console.log(res.data);
         setLoading((prev) => {
@@ -90,7 +87,7 @@ export const ProfilePage: React.FC = () => {
             setLoading({ profile: false, quacks: false });
           });
       })
-      .catch((e) => console.error(e, "could not delete quack"));
+      .catch((e) => console.error(e, "Could not delete quack"));
   };
 
   if (loading.profile) {

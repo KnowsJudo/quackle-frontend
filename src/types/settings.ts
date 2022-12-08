@@ -1,3 +1,4 @@
+import { FileWithPath } from "@mantine/dropzone";
 import { SetStateAction } from "react";
 
 export interface IEditSettings {
@@ -24,6 +25,8 @@ export interface ISettingsOptions {
 }
 
 export interface IImageDrop {
+  imagePreview: string;
+  handleDrop: (file: FileWithPath[]) => void;
   imageType: keyof ISettings;
   setEditOption: React.Dispatch<SetStateAction<IEditSettings>>;
   changeSetting: (option: string) => Promise<void>;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { QuackleContext } from "../../context/user-context";
 import { Accordion, Button, Image, Text, Textarea } from "@mantine/core";
 import { ISettings, ISettingsOptions } from "../../types/settings";
@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { ImageDrop } from "../image-drop/image-drop";
 import { useImage } from "../../api/use-image";
 import "./settings-options.css";
+import { FileWithPath } from "@mantine/dropzone";
 
 export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
   const { userData } = useContext(QuackleContext);
@@ -13,6 +14,23 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
     return option === "avatar" || option === "banner"
       ? useImage(userData[option])
       : "";
+  };
+  const [imagePreview, setImagePreview] = useState("");
+
+  const imageSrc = imageSource(props.option);
+
+  const handleDrop = (file: FileWithPath[]) => {
+    setImagePreview(URL.createObjectURL(file[0]));
+    const formData = new FormData();
+    formData.append("image", file[0]);
+    formData.append("option", props.option);
+
+    props.setSetting((prev) => {
+      return { ...prev, [props.option]: formData };
+    });
+    props.setEditOption((prev) => {
+      return { ...prev, [props.option]: true };
+    });
   };
 
   const imageData = (option: keyof ISettings) => {
@@ -34,17 +52,23 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
           </Accordion.Control>
           <Accordion.Panel>
             <span className="user-settings">
-              {!props.editOption[props.option] && !userData[props.option] && (
-                <ImageDrop
-                  imageType={props.option}
-                  setEditOption={props.setEditOption}
-                  changeSetting={props.changeSetting}
-                  setSetting={props.setSetting}
-                />
-              )}
+              {!props.editOption[props.option] &&
+                !userData[props.option] &&
+                !imagePreview && (
+                  <ImageDrop
+                    imagePreview={imagePreview}
+                    handleDrop={handleDrop}
+                    imageType={props.option}
+                    setEditOption={props.setEditOption}
+                    changeSetting={props.changeSetting}
+                    setSetting={props.setSetting}
+                  />
+                )}
 
               {props.editOption[props.option] && (
                 <ImageDrop
+                  imagePreview={imagePreview}
+                  handleDrop={handleDrop}
                   imageType={props.option}
                   setEditOption={props.setEditOption}
                   changeSetting={props.changeSetting}
@@ -54,7 +78,7 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
 
               {!props.editOption[props.option] && userData[props.option] && (
                 <Image
-                  src={imageSource(props.option)}
+                  src={imageSrc}
                   width={props.option === "avatar" ? 150 : 400}
                   height={150}
                   radius={props.option === "avatar" ? 100 : 0}

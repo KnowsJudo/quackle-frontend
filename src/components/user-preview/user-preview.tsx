@@ -8,16 +8,26 @@ export const UserPreview: React.FC<IUserPreview> = (props) => {
   const avatarSrc = useImage(props.avatar);
 
   return (
-    <div>
-      <span className="user-preview">
+    <div className="user-preview">
+      <span className="user-avatar">
         <Avatar src={avatarSrc} alt="user avatar" radius="xl" size="lg" />
-        <span className="user-names">
-          <Text>{props.name}</Text>
-          <Text>@{props.username}</Text>
-        </span>
-        {props.following && <Button>Following</Button>}
       </span>
-      <Text size="sm">{props.tagline}</Text>
+      <span className="user-preview-details">
+        <div className="user-follow">
+          <span className="user-names">
+            <Text size="sm" weight="bold">
+              {props.name}
+            </Text>
+            <Text size="sm" color="dimmed">
+              @{props.username}
+            </Text>
+          </span>
+          <Button color="dark" size="sm">
+            Following
+          </Button>
+        </div>
+        <Text size="xs">{props.tagline}</Text>
+      </span>
     </div>
   );
 };
