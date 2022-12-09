@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { QuackleContext } from "../../context/user-context";
 import { ISignUp } from "../../types/signup-types";
+import "./signup-form.css";
 
 export const SignUpForm: React.FC<ISignUp> = (props) => {
   const { userData, setUserInfo } = useContext(QuackleContext);
