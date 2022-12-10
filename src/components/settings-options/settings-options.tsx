@@ -33,9 +33,8 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
     });
   };
 
-  const imageData = (option: keyof ISettings) => {
-    return option === "avatar" || option === "banner" ? true : false;
-  };
+  const imageData = (option: keyof ISettings) =>
+    option === "avatar" || option === "banner";
 
   if (imageData(props.option)) {
     return (

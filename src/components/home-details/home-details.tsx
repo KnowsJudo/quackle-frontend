@@ -49,7 +49,7 @@ export const HomeDetails: React.FC = () => {
       <div className="home-friend-quacks">
         {!userData.friends?.length ? (
           <>
-            <h6>Your pond has no other members!</h6>
+            <h6>Your pond is empty!</h6>
             <Link
               to="/trending"
               style={{ color: "black", textDecoration: "none" }}
