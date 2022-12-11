@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { Loader, Text } from "@mantine/core";
 import { UsernameInfo } from "../username-info/username-info";
 import { IFollowerResponse, IProfileFollowers } from "../../types/follow-types";
@@ -9,17 +10,18 @@ import { UserPreview } from "../user-preview/user-preview";
 import "./profile-followers.css";
 
 export const ProfileFollowers: React.FC<IProfileFollowers> = (props) => {
+  const params = useParams();
   const [loading, setLoading] = useState<boolean>(false);
-  const [followingData, setFollowingData] = useState<IUserPreview[]>([]);
+  const [followersData, setFollowersData] = useState<IUserPreview[]>([]);
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${apiUrl}/user/${props.username}/followers`)
-      .then((res) => {
-        console.log(res.data);
-        setFollowingData(
-          res.data.map((next: IFollowerResponse) => {
+    const getFollowers = async () => {
+      await axios
+        .get(`${apiUrl}/user/${params.userId}/followers`)
+        .then((res) => {
+          console.log(res.data);
+          const data = res.data.map((next: IFollowerResponse) => {
             return {
               avatar: next.followerAvatar,
               name: next.followerName,
@@ -28,16 +30,18 @@ export const ProfileFollowers: React.FC<IProfileFollowers> = (props) => {
               tagline: next.followerTagline,
               followingSince: next.followerSince,
             };
-          }),
-        );
-        setLoading(false);
-      })
+          });
+          setFollowersData(data);
+          setLoading(false);
+        })
 
-      .catch((e) => {
-        console.error(e);
-        setLoading(false);
-      });
-  }, []);
+        .catch((e) => {
+          console.error(e);
+          setLoading(false);
+        });
+    };
+    getFollowers();
+  }, [params.userId]);
 
   return (
     <section className="profile-followers">
@@ -47,7 +51,7 @@ export const ProfileFollowers: React.FC<IProfileFollowers> = (props) => {
         {loading ? (
           <Loader sx={{ margin: " 20% auto" }} />
         ) : (
-          followingData.map((next) => {
+          followersData.map((next) => {
             return (
               <UserPreview
                 key={next.name}

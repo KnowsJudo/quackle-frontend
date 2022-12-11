@@ -1,12 +1,11 @@
 import axios from "axios";
-import { IImage } from "../types/user-types";
 import { apiUrl } from "./api-url";
 
 export const addFollower = async (
   username: string,
   followerName: string,
   followerUsername: string,
-  followerAvatar?: IImage,
+  followerAvatar?: Buffer,
   followerTagline?: string,
 ) => {
   await axios

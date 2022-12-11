@@ -98,8 +98,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
                       userData.username,
                       name,
                       username,
-                      // avatar,
-                      undefined,
+                      avatar?.data,
                       description,
                     )
                   }
