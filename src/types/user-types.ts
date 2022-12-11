@@ -18,7 +18,8 @@ export interface IUser {
   location: string;
   quacks: [];
   reQuacks: number;
-  friends?: IUser[];
+  following?: IUser[];
+  followers?: IUser[];
   usersBlocked?: IUser[];
 }
 export interface IUserState {
@@ -31,5 +32,10 @@ export interface IUserPreview {
   name: string;
   username: string;
   following?: boolean;
-  tagline: string;
+  tagline?: string;
+  followingSince?: Date;
+}
+
+export interface IUsernameInfo {
+  name: string;
 }

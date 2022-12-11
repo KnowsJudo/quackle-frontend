@@ -54,17 +54,6 @@ export const ProfilePage: React.FC = () => {
       .catch((e) => console.error(e));
   }, [params]);
 
-  // const addFollowing = async (followingUsername: string) => {
-  //   await axios
-  //     .post(`${apiUrl}/user/${userData.username}/following`, {
-  //       followingUsername,
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((e) => console.error(e));
-  // };
-
   const deleteQuack = async (quackId: string) => {
     await axios
       .delete(`${apiUrl}/user/${params.userId}/quacks/${quackId}`)

@@ -15,7 +15,8 @@ export const initialUserData: IUser = {
   location: "",
   quacks: [],
   reQuacks: 0,
-  friends: [],
+  following: [],
+  followers: [],
   usersBlocked: [],
 };
 

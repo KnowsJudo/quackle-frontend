@@ -5,7 +5,8 @@ import { QuacksMenu } from "../quacks-menu/quacks-menu";
 import { useParams, useNavigate } from "react-router-dom";
 import { ProfileFollowing } from "../profile-following/profile-following";
 import { ProfileFollowers } from "../profile-followers/profile-followers";
-import { Button, Text, Tooltip } from "@mantine/core";
+import { Button, Tooltip } from "@mantine/core";
+import { UsernameInfo } from "../username-info/username-info";
 import EditIcon from "@mui/icons-material/Edit";
 import "./profile-details.css";
 
@@ -15,7 +16,10 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
   return params.follow === "following" ? (
     <ProfileFollowing />
   ) : params.follow === "followers" ? (
-    <ProfileFollowers />
+    <ProfileFollowers
+      name={props.profileData.name}
+      username={props.profileData.username}
+    />
   ) : (
     <section className="profile-details">
       <div className="user-info">
@@ -26,14 +30,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
             justifyContent: "space-between",
           }}
         >
-          <span className="username-info">
-            <Text sx={{ fontSize: "28px" }}>
-              <b>{props.profileData.name}</b>
-            </Text>
-            <Text size="sm" color="dimmed">
-              Quackle member
-            </Text>
-          </span>
+          <UsernameInfo name={props.profileData.name} />
           {props.matchesUser && (
             <span style={{ padding: " 1% 4%" }}>
               <Tooltip label="Edit profile">
@@ -53,7 +50,8 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
           matchesUser={props.matchesUser}
           avatar={props.profileData.avatar}
           banner={props.profileData.banner}
-          title={props.profileData.username}
+          name={props.profileData.name}
+          username={props.profileData.username}
           description={props.profileData.tagline}
           location={props.profileData.location}
           stats={[
@@ -63,8 +61,8 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
             },
             {
               title: "Flock members",
-              value: props.profileData.friends?.length
-                ? props.profileData.friends?.length
+              value: props.profileData.followers?.length
+                ? props.profileData.followers?.length
                 : 0,
             },
             {

@@ -4,7 +4,13 @@ import { initialUserData, QuackleContext } from "./context/user-context";
 import { SignUpPage } from "./pages/signup-page";
 import { IUser } from "./types/user-types";
 import { MantineProvider } from "@mantine/core";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
 import { SettingsPage } from "./pages/settings-page/settings-page";
 import { NotFoundPage } from "./pages/not-found-page/not-found-page";
 import { ProfilePage } from "./pages/profile-page/profile-page";
@@ -53,7 +59,7 @@ const App: () => JSX.Element = () => {
                 element={loggedIn ? <HomePage /> : <Navigate to="/" />}
               ></Route>
               <Route path="/profile/:userId/*" element={<ProfilePage />}>
-                <Route path=":follow" />
+                <Route path=":follow" element={<Outlet />} />
               </Route>
               <Route
                 path="/settings"

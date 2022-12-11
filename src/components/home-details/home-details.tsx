@@ -6,8 +6,8 @@ import { QuackleContext } from "../../context/user-context";
 import { IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
 import { QuackOutput } from "../quack-output/quack-output";
-import "./home-details.css";
 import { Link } from "react-router-dom";
+import "./home-details.css";
 
 export const HomeDetails: React.FC = () => {
   const { userData } = useContext(QuackleContext);
@@ -16,12 +16,12 @@ export const HomeDetails: React.FC = () => {
 
   useEffect(() => {
     const getFriendQuacks = async () => {
-      if (!userData.friends?.length) {
+      if (!userData.following?.length) {
         return;
       }
 
       try {
-        const friendNames = userData.friends.map((next) => next.username);
+        const friendNames = userData.following.map((next) => next.username);
         setLoading(true);
 
         const promises = friendNames.map((next) => {
@@ -47,7 +47,7 @@ export const HomeDetails: React.FC = () => {
       <h4>Home</h4>
       <QuackInput fixed={false} atUser={"everyone"} avatar={userData.avatar} />
       <div className="home-friend-quacks">
-        {!userData.friends?.length ? (
+        {!userData.following?.length ? (
           <>
             <h6>Your pond is empty!</h6>
             <Link

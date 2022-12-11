@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Avatar,
   Button,
@@ -13,6 +13,8 @@ import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useImage } from "../../api/use-image";
+import { addFollower } from "../../api/add-follower";
+import { QuackleContext } from "../../context/user-context";
 import "./profile-card.css";
 
 const useStyles = createStyles((theme) => ({
@@ -31,11 +33,13 @@ export const ProfileCard: React.FC<IProfileCard> = ({
   matchesUser,
   avatar,
   banner,
-  title,
+  name,
+  username,
   description,
   location,
   stats,
 }) => {
+  const { userData } = useContext(QuackleContext);
   const { classes } = useStyles();
 
   const avatarSrc = useImage(avatar);
@@ -74,7 +78,7 @@ export const ProfileCard: React.FC<IProfileCard> = ({
           />
           &nbsp;
           <Text size="sm" weight={700}>
-            @{title}
+            @{username}
           </Text>
         </span>
         <Group spacing={5}>
@@ -82,12 +86,26 @@ export const ProfileCard: React.FC<IProfileCard> = ({
             <Tooltip
               label={
                 loggedIn
-                  ? `Click to Follow ${title}`
+                  ? `Click to Follow ${username}`
                   : "Log in to get updates from this user"
               }
             >
               <span>
-                <Button disabled={!loggedIn}>Follow</Button>
+                <Button
+                  disabled={!loggedIn}
+                  onClick={() =>
+                    addFollower(
+                      userData.username,
+                      name,
+                      username,
+                      // avatar,
+                      undefined,
+                      description,
+                    )
+                  }
+                >
+                  Follow
+                </Button>
               </span>
             </Tooltip>
           )}
@@ -99,7 +117,11 @@ export const ProfileCard: React.FC<IProfileCard> = ({
       <span className="card-info">
         <span className="card-follow">
           <Link
-            to={loggedIn ? `/profile/${title}/following` : `/profile/${title}`}
+            to={
+              loggedIn
+                ? `/profile/${username}/following`
+                : `/profile/${username}`
+            }
             style={{ color: "black", textDecoration: "none" }}
           >
             <Text size="sm" color="dimmed">
@@ -110,7 +132,11 @@ export const ProfileCard: React.FC<IProfileCard> = ({
             </Text>
           </Link>
           <Link
-            to={loggedIn ? `/profile/${title}/followers` : `/profile/${title}`}
+            to={
+              loggedIn
+                ? `/profile/${username}/followers`
+                : `/profile/${username}`
+            }
             style={{
               color: "black",
               textDecoration: "none",
@@ -126,12 +152,14 @@ export const ProfileCard: React.FC<IProfileCard> = ({
           </Link>
         </span>
         <span className="card-location">
-          <>
-            <Text size="sm" color="dimmed">
-              <LocationOnIcon />
-            </Text>
-            <Text size="sm">{location}</Text>
-          </>
+          {location && (
+            <>
+              <Text size="sm" color="dimmed">
+                <LocationOnIcon />
+              </Text>
+              <Text size="sm">{location}</Text>
+            </>
+          )}
         </span>
       </span>
       <Card.Section className={classes.footer}>{items}</Card.Section>

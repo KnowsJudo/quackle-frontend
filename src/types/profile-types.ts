@@ -6,7 +6,8 @@ export interface IProfileCard {
   matchesUser: boolean;
   avatar?: IImage;
   banner?: IImage;
-  title: string;
+  name: string;
+  username: string;
   description: string;
   location: string;
   stats: {
