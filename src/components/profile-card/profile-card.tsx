@@ -11,10 +11,10 @@ import {
 } from "@mantine/core";
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useImage } from "../../api/use-image";
-import { addFollower } from "../../api/add-follower";
+import { followUser } from "../../api/add-follower";
 import { QuackleContext } from "../../context/user-context";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "./profile-card.css";
 
 const useStyles = createStyles((theme) => ({
@@ -44,6 +44,21 @@ export const ProfileCard: React.FC<IProfileCard> = ({
 
   const avatarSrc = useImage(avatar);
   const bannerSrc = useImage(banner);
+
+  const followingData = {
+    username: userData.username,
+    followingName: name,
+    followingUsername: username,
+    followingAvatar: avatar?.data,
+    followingTagline: description,
+  };
+
+  const followerData = {
+    followerName: userData.name,
+    followerUsername: userData.username,
+    followerAvatar: userData?.avatar?.data,
+    followerTagline: userData?.tagline,
+  };
 
   const items = stats.map((stat) => (
     <div key={stat.title} className="card-footer">
@@ -93,15 +108,9 @@ export const ProfileCard: React.FC<IProfileCard> = ({
               <span>
                 <Button
                   disabled={!loggedIn}
-                  onClick={() =>
-                    addFollower(
-                      userData.username,
-                      name,
-                      username,
-                      avatar?.data,
-                      description,
-                    )
-                  }
+                  onClick={() => {
+                    followUser(followingData, followerData);
+                  }}
                 >
                   Follow
                 </Button>

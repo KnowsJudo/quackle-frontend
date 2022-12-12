@@ -5,8 +5,8 @@ import { ISettings, ISettingsOptions } from "../../types/settings";
 import EditIcon from "@mui/icons-material/Edit";
 import { ImageDrop } from "../image-drop/image-drop";
 import { useImage } from "../../api/use-image";
-import "./settings-options.css";
 import { FileWithPath } from "@mantine/dropzone";
+import "./settings-options.css";
 
 export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
   const { userData } = useContext(QuackleContext);

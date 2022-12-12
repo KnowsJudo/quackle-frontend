@@ -51,18 +51,9 @@ export const ProfileFollowers: React.FC<IProfileFollowers> = (props) => {
         {loading ? (
           <Loader sx={{ margin: " 20% auto" }} />
         ) : (
-          followersData.map((next) => {
-            return (
-              <UserPreview
-                key={next.name}
-                avatar={next.avatar}
-                name={next.name}
-                username={next.username}
-                following={true}
-                tagline={next.tagline}
-              />
-            );
-          })
+          followersData.map((next) => (
+            <UserPreview key={next.name} following={true} {...next} />
+          ))
         )}
       </div>
     </section>
