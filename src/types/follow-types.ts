@@ -8,6 +8,7 @@ export interface IProfileFollowing {
 }
 
 export interface IFollowerResponse {
+  _id: string;
   followerName: string;
   followerUsername: string;
   followerAvatar?: Buffer;
@@ -15,6 +16,7 @@ export interface IFollowerResponse {
   followerSince: Date;
 }
 export interface IFollowingResponse {
+  _id: string;
   followingName: string;
   followingUsername: string;
   followingAvatar?: Buffer;

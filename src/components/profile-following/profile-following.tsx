@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Loader, Text } from "@mantine/core";
@@ -10,10 +10,12 @@ import {
 import { apiUrl } from "../../api/api-url";
 import { IUserPreview } from "../../types/user-types";
 import { UserPreview } from "../user-preview/user-preview";
+import { QuackleContext } from "../../context/user-context";
 import "./profile-following.css";
 
 export const ProfileFollowing: React.FC<IProfileFollowing> = (props) => {
   const params = useParams();
+  const { userData } = useContext(QuackleContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [followingData, setFollowingData] = useState<IUserPreview[]>([]);
 
@@ -24,16 +26,20 @@ export const ProfileFollowing: React.FC<IProfileFollowing> = (props) => {
         .get(`${apiUrl}/user/${params.userId}/following`)
         .then((res) => {
           console.log("following", res.data);
-          const data = res.data.map((next: IFollowingResponse) => {
-            return {
-              avatar: next.followingAvatar,
-              name: next.followingName,
-              username: next.followingUsername,
-              following: true,
-              tagline: next.followingTagline,
-              followingSince: next.followingSince,
-            };
-          });
+          const data: IUserPreview[] = res.data.map(
+            (next: IFollowingResponse) => {
+              return {
+                id: next._id,
+                avatar: next.followingAvatar,
+                name: next.followingName,
+                username: next.followingUsername,
+                following: true,
+                tagline: next.followingTagline,
+                followingSince: next.followingSince,
+                matchesUser: next.followingUsername === userData.username,
+              };
+            },
+          );
           setFollowingData(data);
           setLoading(false);
         })
@@ -44,6 +50,7 @@ export const ProfileFollowing: React.FC<IProfileFollowing> = (props) => {
         });
     };
     getFollowing();
+    console.log("props", params.userId);
   }, [params.userId]);
 
   return (
@@ -55,7 +62,7 @@ export const ProfileFollowing: React.FC<IProfileFollowing> = (props) => {
           <Loader sx={{ margin: " 20% auto" }} />
         ) : (
           followingData.map((next) => (
-            <UserPreview key={next.name} following={true} {...next} />
+            <UserPreview key={next.id} following={true} {...next} />
           ))
         )}
       </div>

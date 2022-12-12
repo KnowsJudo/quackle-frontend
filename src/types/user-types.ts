@@ -34,6 +34,8 @@ export interface IUserPreview {
   following?: boolean;
   tagline?: string;
   followingSince?: Date;
+  matchesUser?: boolean;
+  id?: string;
 }
 
 export interface IUsernameInfo {

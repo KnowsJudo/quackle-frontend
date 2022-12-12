@@ -1,7 +1,7 @@
 import axios from "axios";
 import { apiUrl } from "./api-url";
 
-interface FollowingData {
+export interface FollowingData {
   username: string;
   followingName: string;
   followingUsername: string;
@@ -9,7 +9,7 @@ interface FollowingData {
   followingTagline?: string;
 }
 
-interface FollowerData {
+export interface FollowerData {
   followerName: string;
   followerUsername: string;
   followerAvatar?: Buffer;

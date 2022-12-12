@@ -11,7 +11,7 @@ import {
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
 import { useImage } from "../../api/use-image";
-import { followUser } from "../../api/add-follower";
+import { followUser } from "../../api/follow-user";
 import { QuackleContext } from "../../context/user-context";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "./profile-card.css";

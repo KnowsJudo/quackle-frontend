@@ -132,6 +132,7 @@ export const SettingsPage: React.FC = () => {
           name={userData.name}
           username={userData.username}
           tagline={userData.tagline}
+          matchesUser={true}
         />
         <br />
         <Text size="sm">
