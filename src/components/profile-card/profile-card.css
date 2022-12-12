@@ -21,7 +21,10 @@
 }
 
 .card-footer {
+  display: flex;
   justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid #e9ecef;
 }
 
 .card-info {

@@ -1,3 +1,9 @@
+.following-list {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+
 .profile-following {
   display: flex;
   flex-direction: column;

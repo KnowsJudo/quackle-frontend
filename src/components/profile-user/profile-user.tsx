@@ -50,14 +50,12 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           Followers
         </Link>
       )}
-      <Link to="/profile/Legolas">Test Profile</Link>
+      <Link to="/profile/Legolas">Test Legolas</Link>
+      <Link to="/profile/Aragorn">Test Aragorn</Link>
+      <Link to="/profile/Gimli">Test Gimli</Link>
       <span>
         {props.loggedIn && (
-          <Button
-            color="gray"
-            // variant="outline"
-            onClick={() => props.setInitiateQuack(true)}
-          >
+          <Button color="gray" onClick={() => props.setInitiateQuack(true)}>
             Quack!
           </Button>
         )}

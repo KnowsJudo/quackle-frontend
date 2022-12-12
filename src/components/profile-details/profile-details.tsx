@@ -14,7 +14,10 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
   const navigate = useNavigate();
   const params = useParams();
   return params.follow === "following" ? (
-    <ProfileFollowing />
+    <ProfileFollowing
+      name={props.profileData.name}
+      username={props.profileData.username}
+    />
   ) : params.follow === "followers" ? (
     <ProfileFollowers
       name={props.profileData.name}

@@ -20,7 +20,7 @@ export const ProfileFollowers: React.FC<IProfileFollowers> = (props) => {
       await axios
         .get(`${apiUrl}/user/${params.userId}/followers`)
         .then((res) => {
-          console.log(res.data);
+          console.log("followers", res.data);
           const data = res.data.map((next: IFollowerResponse) => {
             return {
               avatar: next.followerAvatar,

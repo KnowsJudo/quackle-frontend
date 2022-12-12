@@ -3,7 +3,6 @@ import {
   Avatar,
   Button,
   Card,
-  createStyles,
   Group,
   Image,
   Text,
@@ -17,40 +16,18 @@ import { QuackleContext } from "../../context/user-context";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "./profile-card.css";
 
-const useStyles = createStyles((theme) => ({
-  footer: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: `${theme.spacing.sm}px ${theme.spacing.lg}px`,
-    borderTop: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`,
-  },
-}));
-
-export const ProfileCard: React.FC<IProfileCard> = ({
-  loggedIn,
-  matchesUser,
-  avatar,
-  banner,
-  name,
-  username,
-  description,
-  location,
-  stats,
-}) => {
+export const ProfileCard: React.FC<IProfileCard> = (props) => {
   const { userData } = useContext(QuackleContext);
-  const { classes } = useStyles();
 
-  const avatarSrc = useImage(avatar);
-  const bannerSrc = useImage(banner);
+  const avatarSrc = useImage(props.avatar);
+  const bannerSrc = useImage(props.banner);
 
   const followingData = {
     username: userData.username,
-    followingName: name,
-    followingUsername: username,
-    followingAvatar: avatar?.data,
-    followingTagline: description,
+    followingName: props.name,
+    followingUsername: props.username,
+    followingAvatar: props.avatar?.data,
+    followingTagline: props.description,
   };
 
   const followerData = {
@@ -59,17 +36,6 @@ export const ProfileCard: React.FC<IProfileCard> = ({
     followerAvatar: userData?.avatar?.data,
     followerTagline: userData?.tagline,
   };
-
-  const items = stats.map((stat) => (
-    <div key={stat.title} className="card-footer">
-      <Text size="xs" color="dimmed">
-        {stat.title}
-      </Text>
-      <Text weight={500} size="sm">
-        {stat.value}
-      </Text>
-    </div>
-  ));
 
   return (
     <Card withBorder p="lg">
@@ -93,21 +59,21 @@ export const ProfileCard: React.FC<IProfileCard> = ({
           />
           &nbsp;
           <Text size="sm" weight={700}>
-            @{username}
+            @{props.username}
           </Text>
         </span>
         <Group spacing={5}>
-          {!matchesUser && (
+          {!props.matchesUser && (
             <Tooltip
               label={
-                loggedIn
-                  ? `Click to Follow ${username}`
+                props.loggedIn
+                  ? `Click to Follow ${props.username}`
                   : "Log in to get updates from this user"
               }
             >
               <span>
                 <Button
-                  disabled={!loggedIn}
+                  disabled={!props.loggedIn}
                   onClick={() => {
                     followUser(followingData, followerData);
                   }}
@@ -120,15 +86,15 @@ export const ProfileCard: React.FC<IProfileCard> = ({
         </Group>
       </div>
       <Text mt="sm" mb="md" size="xs" sx={{ textAlign: "left" }}>
-        {description}
+        {props.description}
       </Text>
       <span className="card-info">
         <span className="card-follow">
           <Link
             to={
-              loggedIn
-                ? `/profile/${username}/following`
-                : `/profile/${username}`
+              props.loggedIn
+                ? `/profile/${props.username}/following`
+                : `/profile/${props.username}`
             }
             style={{ color: "black", textDecoration: "none" }}
           >
@@ -141,9 +107,9 @@ export const ProfileCard: React.FC<IProfileCard> = ({
           </Link>
           <Link
             to={
-              loggedIn
-                ? `/profile/${username}/followers`
-                : `/profile/${username}`
+              props.loggedIn
+                ? `/profile/${props.username}/followers`
+                : `/profile/${props.username}`
             }
             style={{
               color: "black",
@@ -160,17 +126,28 @@ export const ProfileCard: React.FC<IProfileCard> = ({
           </Link>
         </span>
         <span className="card-location">
-          {location && (
+          {props.location && (
             <>
               <Text size="sm" color="dimmed">
                 <LocationOnIcon />
               </Text>
-              <Text size="sm">{location}</Text>
+              <Text size="sm">{props.location}</Text>
             </>
           )}
         </span>
       </span>
-      <Card.Section className={classes.footer}>{items}</Card.Section>
+      <Card.Section className="card-footer">
+        {props.stats.map((next) => (
+          <div key={next.title}>
+            <Text size="xs" color="dimmed">
+              {next.title}
+            </Text>
+            <Text weight={500} size="sm">
+              {next.value}
+            </Text>
+          </div>
+        ))}
+      </Card.Section>
     </Card>
   );
 };
