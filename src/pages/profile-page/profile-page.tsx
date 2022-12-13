@@ -57,15 +57,13 @@ export const ProfilePage: React.FC = () => {
   const deleteQuack = async (quackId: string) => {
     await axios
       .delete(`${apiUrl}/user/${params.userId}/quacks/${quackId}`)
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
         setLoading((prev) => {
           return { ...prev, quacks: true };
         });
         axios
           .get(`${apiUrl}/user/${params.userId}/quacks`)
           .then((res) => {
-            console.log(res.data);
             setQuackData(res.data);
             setLoading((prev) => {
               return { ...prev, quacks: false };

@@ -3,12 +3,11 @@ import { IUserPreview } from "../../types/user-types";
 import { Avatar, Button, Text } from "@mantine/core";
 import { useImage } from "../../api/use-image";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
-import { followUser } from "../../api/follow-user";
-import "./user-preview.css";
 import { QuackleContext } from "../../context/user-context";
+import "./user-preview.css";
 
 export const UserPreview: React.FC<IUserPreview> = (props) => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, followUser } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const avatarSrc = useImage(props.avatar);
 
@@ -18,21 +17,21 @@ export const UserPreview: React.FC<IUserPreview> = (props) => {
       return;
     }
 
-    // const followingData = {
-    //   username: userData.username,
-    //   followingName: props.name,
-    //   followingUsername: props.username,
-    //   followingAvatar: props.avatar?.data,
-    //   followingTagline: props.description,
-    // };
+    const followingData = {
+      username: userData.username,
+      followingName: props.name,
+      followingUsername: props.username,
+      followingAvatar: props.avatar?.data,
+      followingTagline: props.tagline,
+    };
 
-    // const followerData = {
-    //   followerName: userData.name,
-    //   followerUsername: userData.username,
-    //   followerAvatar: userData?.avatar?.data,
-    //   followerTagline: userData?.tagline,
-    // };
-    // followUser()
+    const followerData = {
+      followerName: userData.name,
+      followerUsername: userData.username,
+      followerAvatar: userData?.avatar?.data,
+      followerTagline: userData?.tagline,
+    };
+    followUser(followingData, followerData);
   };
 
   return (
@@ -41,7 +40,7 @@ export const UserPreview: React.FC<IUserPreview> = (props) => {
         modal={modal}
         setModal={setModal}
         title={`Do you really want to unfollow ${props.name}?`}
-        confirmFunc={() => console.log("allo")}
+        confirmFunc={() => changeFollowing()}
       />
       <span className="user-avatar">
         <Avatar src={avatarSrc} alt="user avatar" radius="xl" size="lg" />

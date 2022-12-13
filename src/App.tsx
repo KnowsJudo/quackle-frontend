@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Cookies from "js-cookie";
 import { initialUserData, QuackleContext } from "./context/user-context";
 import { SignUpPage } from "./pages/signup-page";
@@ -16,6 +17,8 @@ import { NotFoundPage } from "./pages/not-found-page/not-found-page";
 import { ProfilePage } from "./pages/profile-page/profile-page";
 import { LoginPage } from "./pages/login-page/login-page";
 import { HomePage } from "./pages/home-page/home-page";
+import { IFollowerData, IFollowingData } from "./types/follow-types";
+import { apiUrl } from "./api/api-url";
 import "./App.css";
 
 const App: () => JSX.Element = () => {
@@ -32,6 +35,50 @@ const App: () => JSX.Element = () => {
     setUserData({ ...userData, [field]: event.target.value });
   };
 
+  const followUser = async (
+    followingData: IFollowingData,
+    followerData: IFollowerData,
+  ) => {
+    const { username, followingUsername } = followingData;
+    await axios
+      .post(`${apiUrl}/user/${username}/following`, followingData)
+      .then(() => {
+        axios
+          .post(
+            `${apiUrl}/user/${followingUsername}/followers`,
+            {
+              username: followingUsername,
+              ...followerData,
+            },
+            {
+              maxContentLength: 10485760,
+            },
+          )
+          .then((res) => {
+            console.log("Followed user!", res.data);
+            axios
+              .get(`${apiUrl}/user/${userData.username}`)
+              .then((res) => setUserData(res.data))
+              .catch((e) => console.error(e));
+          })
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
+  };
+
+  const unfollowUser = async (username: string, followingUser: string) => {
+    await axios
+      .delete(`${apiUrl}/user/${username}/following/${followingUser}`)
+      .then((res) => {
+        console.log(res.data);
+        axios
+          .delete(`${apiUrl}/user/${followingUser}/followers/${followingUser}`)
+          .then((res) => console.log(res.data))
+          .catch((e) => console.error(e, "Could not unfollow user"));
+      })
+      .catch((e) => console.error(e, "Could not unfollow user"));
+  };
+
   return (
     <main className="App">
       <QuackleContext.Provider
@@ -41,6 +88,7 @@ const App: () => JSX.Element = () => {
           setUserInfo,
           initiateQuack,
           setInitiateQuack,
+          followUser,
         }}
       >
         <MantineProvider withGlobalStyles withNormalizeCSS>

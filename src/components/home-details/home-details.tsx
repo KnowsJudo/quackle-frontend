@@ -19,28 +19,31 @@ export const HomeDetails: React.FC = () => {
       if (!userData.following?.length) {
         return;
       }
-
+      console.log("friends", userData.following);
       try {
-        const friendNames = userData.following.map((next) => next.username);
         setLoading(true);
-
-        const promises = friendNames.map((next) => {
+        const promises = userData.following.map((next) => {
           return axios.get(`${apiUrl}/user/${next}/quacks`).then((res) => {
             setLoading(false);
             return res.data;
           });
         });
-
         const results = await Promise.all(promises);
-        setFriendQuacks(results);
+        const sortedResults = results
+          .flat()
+          .sort(
+            (a: IQuackResponse, b: IQuackResponse) =>
+              Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
+          )
+          .reverse();
+        setFriendQuacks(sortedResults);
       } catch (err) {
         console.error(err);
         setLoading(false);
       }
     };
-
     getFriendQuacks();
-  }, []);
+  }, [userData.following]);
 
   return (
     <section className="home-details">
@@ -60,22 +63,20 @@ export const HomeDetails: React.FC = () => {
         ) : loading ? (
           <Loader sx={{ marginTop: "25vh" }} />
         ) : (
-          friendQuacks.map((next) => {
-            return (
-              <QuackOutput
-                key={next._id}
-                id={next._id}
-                name={next.name}
-                username={next.username}
-                quackedAt={next.quackedAt}
-                content={next.message}
-                replies={[]}
-                requacks={0}
-                likes={0}
-                loading={loading}
-              />
-            );
-          })
+          friendQuacks.map((next) => (
+            <QuackOutput
+              key={next._id}
+              id={next._id}
+              name={next.name}
+              username={next.username}
+              quackedAt={next.quackedAt}
+              content={next.message}
+              replies={[]}
+              requacks={0}
+              likes={0}
+              loading={loading}
+            />
+          ))
         )}
       </div>
     </section>

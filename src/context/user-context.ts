@@ -13,7 +13,7 @@ export const initialUserData: IUser = {
   tagline: "",
   banner: undefined,
   location: "",
-  quacks: [],
+  quacks: 0,
   reQuacks: 0,
   following: [],
   followers: [],
@@ -26,4 +26,5 @@ export const QuackleContext = createContext<IUserContext>({
   setUserInfo: () => null,
   initiateQuack: false,
   setInitiateQuack: () => null,
+  followUser: () => null,
 });

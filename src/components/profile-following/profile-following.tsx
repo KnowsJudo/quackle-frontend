@@ -3,17 +3,14 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Loader, Text } from "@mantine/core";
 import { UsernameInfo } from "../username-info/username-info";
-import {
-  IFollowingResponse,
-  IProfileFollowing,
-} from "../../types/follow-types";
+import { IFollowingResponse, IProfileFollow } from "../../types/follow-types";
 import { apiUrl } from "../../api/api-url";
 import { IUserPreview } from "../../types/user-types";
 import { UserPreview } from "../user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import "./profile-following.css";
 
-export const ProfileFollowing: React.FC<IProfileFollowing> = (props) => {
+export const ProfileFollowing: React.FC<IProfileFollow> = (props) => {
   const params = useParams();
   const { userData } = useContext(QuackleContext);
   const [loading, setLoading] = useState<boolean>(false);
@@ -50,7 +47,6 @@ export const ProfileFollowing: React.FC<IProfileFollowing> = (props) => {
         });
     };
     getFollowing();
-    console.log("props", params.userId);
   }, [params.userId]);
 
   return (

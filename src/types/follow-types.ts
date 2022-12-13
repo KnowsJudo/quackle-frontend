@@ -1,25 +1,26 @@
-export interface IProfileFollowers {
+export interface IProfileFollow {
   name: string;
   username: string;
 }
-export interface IProfileFollowing {
-  name: string;
+export interface IFollowingData {
   username: string;
-}
-
-export interface IFollowerResponse {
-  _id: string;
-  followerName: string;
-  followerUsername: string;
-  followerAvatar?: Buffer;
-  followerTagline?: string;
-  followerSince: Date;
-}
-export interface IFollowingResponse {
-  _id: string;
   followingName: string;
   followingUsername: string;
   followingAvatar?: Buffer;
   followingTagline?: string;
+}
+
+export interface IFollowerData {
+  followerName: string;
+  followerUsername: string;
+  followerAvatar?: Buffer;
+  followerTagline?: string;
+}
+export interface IFollowingResponse extends IFollowingData {
+  _id: string;
   followingSince: Date;
+}
+export interface IFollowerResponse extends IFollowerData {
+  _id: string;
+  followerSince: Date;
 }

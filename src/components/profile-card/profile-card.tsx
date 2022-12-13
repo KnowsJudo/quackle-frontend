@@ -11,13 +11,12 @@ import {
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
 import { useImage } from "../../api/use-image";
-import { followUser } from "../../api/follow-user";
 import { QuackleContext } from "../../context/user-context";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "./profile-card.css";
 
 export const ProfileCard: React.FC<IProfileCard> = (props) => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, followUser } = useContext(QuackleContext);
 
   const avatarSrc = useImage(props.avatar);
   const bannerSrc = useImage(props.banner);
@@ -27,7 +26,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
     followingName: props.name,
     followingUsername: props.username,
     followingAvatar: props.avatar?.data,
-    followingTagline: props.description,
+    followingTagline: props.tagline,
   };
 
   const followerData = {
@@ -86,7 +85,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
         </Group>
       </div>
       <Text mt="sm" mb="md" size="xs" sx={{ textAlign: "left" }}>
-        {props.description}
+        {props.tagline}
       </Text>
       <span className="card-info">
         <span className="card-follow">
@@ -102,7 +101,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
               Following
             </Text>
             <Text size="sm" weight="bold">
-              8
+              {props.following?.length}
             </Text>
           </Link>
           <Link
@@ -121,7 +120,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
               Followers
             </Text>
             <Text size="sm" weight="bold">
-              7465
+              {props.followers?.length}
             </Text>
           </Link>
         </span>

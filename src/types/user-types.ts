@@ -16,11 +16,11 @@ export interface IUser {
   tagline: string;
   banner?: IImage;
   location: string;
-  quacks: [];
+  quacks: number;
   reQuacks: number;
-  following?: IUser[];
-  followers?: IUser[];
-  usersBlocked?: IUser[];
+  following?: string[];
+  followers?: string[];
+  usersBlocked?: string[];
 }
 export interface IUserState {
   userData: IUser;

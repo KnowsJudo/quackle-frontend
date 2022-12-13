@@ -8,8 +8,10 @@ export interface IProfileCard {
   banner?: IImage;
   name: string;
   username: string;
-  description: string;
+  tagline: string;
   location: string;
+  following?: string[];
+  followers?: string[];
   stats: {
     title: string;
     value: number | string;

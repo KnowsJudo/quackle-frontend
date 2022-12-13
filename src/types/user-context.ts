@@ -1,3 +1,4 @@
+import { IFollowerData, IFollowingData } from "./follow-types";
 import { IUser } from "./user-types";
 
 export interface IUserContext {
@@ -9,4 +10,8 @@ export interface IUserContext {
   ) => void;
   initiateQuack: boolean;
   setInitiateQuack: React.Dispatch<React.SetStateAction<boolean>>;
+  followUser: (
+    followingData: IFollowingData,
+    followerData: IFollowerData,
+  ) => void;
 }

@@ -55,21 +55,21 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
           banner={props.profileData.banner}
           name={props.profileData.name}
           username={props.profileData.username}
-          description={props.profileData.tagline}
+          tagline={props.profileData.tagline}
           location={props.profileData.location}
+          following={props.profileData.following}
+          followers={props.profileData.followers}
           stats={[
             {
               title: "Quacks",
-              value: 0,
+              value: props.profileData.quacks,
             },
             {
-              title: "Flock members",
-              value: props.profileData.followers?.length
-                ? props.profileData.followers?.length
-                : 0,
+              title: "Choruses",
+              value: props.profileData.reQuacks,
             },
             {
-              title: "Joined",
+              title: "Hatched",
               value: String(props.profileData.createdAt).slice(0, 10),
             },
           ]}
