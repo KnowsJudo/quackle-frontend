@@ -47,7 +47,7 @@ export const ProfileFollowers: React.FC<IProfileFollow> = (props) => {
         });
     };
     getFollowers();
-  }, [params.userId]);
+  }, [params.userId, userData.followers]);
 
   return (
     <section className="profile-followers">

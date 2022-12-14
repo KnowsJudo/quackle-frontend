@@ -47,7 +47,7 @@ export const ProfileFollowing: React.FC<IProfileFollow> = (props) => {
         });
     };
     getFollowing();
-  }, [params.userId]);
+  }, [params.userId, userData.following]);
 
   return (
     <section className="profile-following">

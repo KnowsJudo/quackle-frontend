@@ -1,21 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { IUserPreview } from "../../types/user-types";
 import { Avatar, Text } from "@mantine/core";
 import { useImage } from "../../api/use-image";
-import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { QuackleContext } from "../../context/user-context";
 import { FollowButton } from "../follow-button/follow-button";
 import "./user-preview.css";
 
 export const UserPreview: React.FC<IUserPreview> = (props) => {
   const { userData } = useContext(QuackleContext);
-  const [modal, setModal] = useState<boolean>(false);
   const avatarSrc = useImage(props.avatar);
-
-  const changeFollowing = () => {
-    setModal(true);
-    return;
-  };
 
   const followingData = {
     username: userData.username,
@@ -38,12 +31,6 @@ export const UserPreview: React.FC<IUserPreview> = (props) => {
 
   return (
     <div className="user-preview">
-      <ConfirmModal
-        modal={modal}
-        setModal={setModal}
-        title={`Do you really want to unfollow ${props.name}?`}
-        confirmFunc={() => changeFollowing()}
-      />
       <span className="user-avatar">
         <Avatar src={avatarSrc} alt="user avatar" radius="xl" size="lg" />
       </span>
