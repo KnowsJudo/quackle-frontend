@@ -66,14 +66,22 @@ const App: () => JSX.Element = () => {
       .catch((e) => console.error(e));
   };
 
-  const unfollowUser = async (username: string, followingUser: string) => {
+  const unFollowUser = async (followingUser: string) => {
     await axios
-      .delete(`${apiUrl}/user/${username}/following/${followingUser}`)
+      .delete(`${apiUrl}/user/${userData.username}/following/${followingUser}`)
       .then((res) => {
         console.log(res.data);
         axios
-          .delete(`${apiUrl}/user/${followingUser}/followers/${followingUser}`)
-          .then((res) => console.log(res.data))
+          .delete(
+            `${apiUrl}/user/${followingUser}/followers/${userData.username}`,
+          )
+          .then((res) => {
+            console.log("UnFollowed user!", res.data);
+            axios
+              .get(`${apiUrl}/user/${userData.username}`)
+              .then((res) => setUserData(res.data))
+              .catch((e) => console.error(e));
+          })
           .catch((e) => console.error(e, "Could not unfollow user"));
       })
       .catch((e) => console.error(e, "Could not unfollow user"));
@@ -89,6 +97,7 @@ const App: () => JSX.Element = () => {
           initiateQuack,
           setInitiateQuack,
           followUser,
+          unFollowUser,
         }}
       >
         <MantineProvider withGlobalStyles withNormalizeCSS>

@@ -27,4 +27,5 @@ export const QuackleContext = createContext<IUserContext>({
   initiateQuack: false,
   setInitiateQuack: () => null,
   followUser: () => null,
+  unFollowUser: () => null,
 });

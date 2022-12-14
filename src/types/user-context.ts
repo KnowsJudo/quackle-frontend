@@ -14,4 +14,5 @@ export interface IUserContext {
     followingData: IFollowingData,
     followerData: IFollowerData,
   ) => void;
+  unFollowUser: (followingUser: string) => void;
 }

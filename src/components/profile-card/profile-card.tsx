@@ -1,22 +1,15 @@
 import React, { useContext } from "react";
-import {
-  Avatar,
-  Button,
-  Card,
-  Group,
-  Image,
-  Text,
-  Tooltip,
-} from "@mantine/core";
+import { Avatar, Card, Group, Image, Text, Tooltip } from "@mantine/core";
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
 import { useImage } from "../../api/use-image";
 import { QuackleContext } from "../../context/user-context";
+import { FollowButton } from "../follow-button/follow-button";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "./profile-card.css";
 
 export const ProfileCard: React.FC<IProfileCard> = (props) => {
-  const { userData, followUser } = useContext(QuackleContext);
+  const { userData } = useContext(QuackleContext);
 
   const avatarSrc = useImage(props.avatar);
   const bannerSrc = useImage(props.banner);
@@ -35,6 +28,10 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
     followerAvatar: userData?.avatar?.data,
     followerTagline: userData?.tagline,
   };
+
+  const isUserFollowing = userData.following.find(
+    (next) => next === props.username,
+  );
 
   return (
     <Card withBorder p="lg">
@@ -64,21 +61,17 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
         <Group spacing={5}>
           {!props.matchesUser && (
             <Tooltip
-              label={
-                props.loggedIn
-                  ? `Click to Follow ${props.username}`
-                  : "Log in to get updates from this user"
-              }
+              disabled={props.loggedIn}
+              label={!props.loggedIn && "Log in to get updates from this user"}
             >
               <span>
-                <Button
-                  disabled={!props.loggedIn}
-                  onClick={() => {
-                    followUser(followingData, followerData);
-                  }}
-                >
-                  Follow
-                </Button>
+                <FollowButton
+                  buttonOwner={props.username}
+                  disabled={!userData.username}
+                  isUserFollowing={isUserFollowing}
+                  followingData={followingData}
+                  followerData={followerData}
+                />
               </span>
             </Tooltip>
           )}

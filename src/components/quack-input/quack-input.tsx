@@ -47,7 +47,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         username: userData.username,
         message: quackContent,
       })
-      .then((res) => {
+      .then(() => {
         props.setInitiateQuack?.(false);
         setQuackContent("");
       })

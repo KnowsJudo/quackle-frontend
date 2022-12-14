@@ -18,9 +18,9 @@ export interface IUser {
   location: string;
   quacks: number;
   reQuacks: number;
-  following?: string[];
-  followers?: string[];
-  usersBlocked?: string[];
+  following: string[];
+  followers: string[];
+  usersBlocked: string[];
 }
 export interface IUserState {
   userData: IUser;
