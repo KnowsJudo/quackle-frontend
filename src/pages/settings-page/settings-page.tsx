@@ -39,59 +39,33 @@ export const SettingsPage: React.FC = () => {
       return;
     }
     setLoading(true);
-    if (option === "avatar" || option === "banner") {
-      await axios
-        .patch(`${apiUrl}/user/${userData.username}`, setting[option], {
-          headers: {
-            "Content-Type": "multipart/form-data",
+    try {
+      if (option === "avatar" || option === "banner") {
+        await axios.patch(
+          `${apiUrl}/user/${userData.username}`,
+          setting[option],
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           },
-        })
-        .then(() => {
-          setLoading(true);
-          axios
-            .get(`${apiUrl}/user/${userData.username}`)
-            .then((res) => {
-              setUserData(res.data);
-            })
-            .catch((error) => {
-              setLoading(false);
-              console.error(error);
-            });
-          setLoading(false);
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.error(`Could not update ${option}`, error);
-        });
-    } else {
-      await axios
-        .patch(`${apiUrl}/user/${userData.username}`, {
+        );
+      } else {
+        await axios.patch(`${apiUrl}/user/${userData.username}`, {
           option,
           setting: setting[option],
-        })
-        .then(() => {
-          setLoading(true);
-          axios
-            .get(`${apiUrl}/user/${userData.username}`)
-            .then((res) => {
-              setUserData(res.data);
-            })
-            .catch((error) => {
-              setLoading(false);
-              console.error(error);
-            });
-          setLoading(false);
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.error(`Could not update ${option}`, error);
         });
+      }
+      const res = await axios.get(`${apiUrl}/user/${userData.username}`);
+      setUserData(res.data);
+      setEditOption((prev) => {
+        return { ...prev, [option]: false };
+      });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error(`Could not update ${option}`, error);
     }
-
-    setLoading(false);
-    setEditOption((prev) => {
-      return { ...prev, [option]: false };
-    });
   };
 
   return (

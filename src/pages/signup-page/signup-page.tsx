@@ -36,28 +36,17 @@ export const SignUpPage: React.FC = () => {
       console.log("Invalid email");
       return;
     }
-    await axios
-      .post(
-        `${apiUrl}/user`,
-        {
-          name: userData.name,
-          username: userData.username,
-          password: pass,
-          email: userData.email,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      )
-      .then((res) => {
-        console.log(res.data, "users");
-        navigate("/login");
-      })
-      .catch((e) => {
-        console.error(e.response.data.message);
+    try {
+      await axios.post(`${apiUrl}/user`, {
+        name: userData.name,
+        username: userData.username,
+        password: pass,
+        email: userData.email,
       });
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

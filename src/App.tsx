@@ -39,51 +39,40 @@ const App: () => JSX.Element = () => {
     followerData: IFollowerData,
   ) => {
     const { username, followingUsername } = followingData;
-    await axios
-      .post(`${apiUrl}/user/${username}/following`, followingData)
-      .then(() => {
-        axios
-          .post(
-            `${apiUrl}/user/${followingUsername}/followers`,
-            {
-              username: followingUsername,
-              ...followerData,
-            },
-            {
-              maxContentLength: 10485760,
-            },
-          )
-          .then((res) => {
-            console.log("Followed user!", res.data);
-            axios
-              .get(`${apiUrl}/user/${userData.username}`)
-              .then((res) => setUserData(res.data))
-              .catch((e) => console.error(e));
-          })
-          .catch((e) => console.error(e));
-      })
-      .catch((e) => console.error(e));
+    try {
+      await axios.post(`${apiUrl}/user/${username}/following`, followingData);
+      await axios.post(
+        `${apiUrl}/user/${followingUsername}/followers`,
+        {
+          username: followingUsername,
+          ...followerData,
+        },
+        {
+          maxContentLength: 10485760,
+        },
+      );
+      console.log("Followed user!");
+      const res = await axios.get(`${apiUrl}/user/${userData.username}`);
+      setUserData(res.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const unFollowUser = async (followingUser: string) => {
-    await axios
-      .delete(`${apiUrl}/user/${userData.username}/following/${followingUser}`)
-      .then((res) => {
-        console.log(res.data);
-        axios
-          .delete(
-            `${apiUrl}/user/${followingUser}/followers/${userData.username}`,
-          )
-          .then((res) => {
-            console.log("UnFollowed user!", res.data);
-            axios
-              .get(`${apiUrl}/user/${userData.username}`)
-              .then((res) => setUserData(res.data))
-              .catch((e) => console.error(e));
-          })
-          .catch((e) => console.error(e, "Could not unfollow user"));
-      })
-      .catch((e) => console.error(e, "Could not unfollow user"));
+    try {
+      await axios.delete(
+        `${apiUrl}/user/${userData.username}/following/${followingUser}`,
+      );
+      await axios.delete(
+        `${apiUrl}/user/${followingUser}/followers/${userData.username}`,
+      );
+      console.log("UnFollowed user!");
+      const res = await axios.get(`${apiUrl}/user/${userData.username}`);
+      setUserData(res.data);
+    } catch (error) {
+      console.error(error, "Could not unfollow user");
+    }
   };
 
   return (
