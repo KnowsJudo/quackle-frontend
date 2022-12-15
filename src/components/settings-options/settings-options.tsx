@@ -4,7 +4,7 @@ import { Accordion, Button, Image, Text, Textarea } from "@mantine/core";
 import { ISettings, ISettingsOptions } from "../../types/settings";
 import EditIcon from "@mui/icons-material/Edit";
 import { ImageDrop } from "../image-drop/image-drop";
-import { useImage } from "../../api/use-image";
+import { useImage } from "../../helpers/use-image";
 import { FileWithPath } from "@mantine/dropzone";
 import "./settings-options.css";
 

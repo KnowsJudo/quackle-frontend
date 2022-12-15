@@ -9,7 +9,7 @@ import { QuackInput } from "../../components/quack-input/quack-input";
 import { ProfileDetails } from "../../components/profile-details/profile-details";
 import { IQuackResponse } from "../../types/quacks";
 import { ILoading } from "../../types/profile-types";
-import { apiUrl } from "../../api/api-url";
+import { apiUrl } from "../../helpers/api-url";
 import { ProfileUser } from "../../components/profile-user/profile-user";
 import { ProfileSideBar } from "../../components/profile-sidebar/profile-sidebar";
 import "./profile-page.css";

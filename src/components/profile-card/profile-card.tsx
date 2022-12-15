@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Avatar, Card, Group, Image, Text, Tooltip } from "@mantine/core";
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
-import { useImage } from "../../api/use-image";
+import { useImage } from "../../helpers/use-image";
 import { QuackleContext } from "../../context/user-context";
 import { FollowButton } from "../follow-button/follow-button";
 import LocationOnIcon from "@mui/icons-material/LocationOn";

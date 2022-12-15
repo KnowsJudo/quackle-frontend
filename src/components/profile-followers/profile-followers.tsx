@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Loader, Text } from "@mantine/core";
 import { UsernameInfo } from "../username-info/username-info";
 import { IFollowerResponse, IProfileFollow } from "../../types/follow-types";
-import { apiUrl } from "../../api/api-url";
+import { apiUrl } from "../../helpers/api-url";
 import { IUserPreview } from "../../types/user-types";
 import { UserPreview } from "../user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";

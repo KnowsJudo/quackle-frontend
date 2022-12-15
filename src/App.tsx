@@ -18,7 +18,7 @@ import { ProfilePage } from "./pages/profile-page/profile-page";
 import { LoginPage } from "./pages/login-page/login-page";
 import { HomePage } from "./pages/home-page/home-page";
 import { IFollowerData, IFollowingData } from "./types/follow-types";
-import { apiUrl } from "./api/api-url";
+import { apiUrl } from "./helpers/api-url";
 import "./App.css";
 
 const App: () => JSX.Element = () => {

@@ -5,7 +5,7 @@ import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
 import { Button } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { apiUrl } from "../../api/api-url";
+import { apiUrl } from "../../helpers/api-url";
 import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {

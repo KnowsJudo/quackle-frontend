@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Loader } from "@mantine/core";
-import { apiUrl } from "../../api/api-url";
+import { apiUrl } from "../../helpers/api-url";
 import { QuackleContext } from "../../context/user-context";
 import { IFriendQuacks, IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
@@ -28,10 +28,9 @@ export const HomeDetails: React.FC = () => {
       return;
     }
     try {
-      const promises = userData.following.map((next) => {
-        return axios.get(`${apiUrl}/user/${next}/quacks`).then((res) => {
-          return res.data;
-        });
+      const promises = userData.following.map(async (next) => {
+        const res = await axios.get(`${apiUrl}/user/${next}/quacks`);
+        return res.data;
       });
       const results = await Promise.all(promises);
       const responses = results.flat();
@@ -47,10 +46,9 @@ export const HomeDetails: React.FC = () => {
       return;
     }
     try {
-      const promises = userData.following.map((next) => {
-        return axios.get(`${apiUrl}/user/${next}`).then((res) => {
-          return res.data;
-        });
+      const promises = userData.following.map(async (next) => {
+        const res = await axios.get(`${apiUrl}/user/${next}`);
+        return res.data;
       });
       const results = await Promise.all(promises);
       const transformed = results.map((next) => {

@@ -3,34 +3,22 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { QuackleContext } from "../../context/user-context";
 import { Alert, Button, Loader } from "@mantine/core";
-import { stdHeader } from "../../api/api-header";
+import { stdHeader } from "../../helpers/api-header";
 import { Link, useNavigate } from "react-router-dom";
 import { IError } from "../../types/signup-types";
-import { apiUrl } from "../../api/api-url";
+import { apiUrl } from "../../helpers/api-url";
+import { initialErrorState } from "../../helpers/login-error";
 import "./login-page.css";
 
 export const LoginPage: React.FC = () => {
   const { userData, setUserData, setUserInfo } = useContext(QuackleContext);
-  const [error, setError] = useState<IError>({
-    noUser: false,
-    noPass: false,
-    network: false,
-    password: false,
-    user: false,
-  });
+  const [error, setError] = useState<IError>(initialErrorState);
   const [pass, setPass] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    setError({
-      noUser: false,
-      noPass: false,
-      network: false,
-      password: false,
-      user: false,
-    });
+    setError(initialErrorState);
   }, [userData, pass]);
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -41,36 +29,20 @@ export const LoginPage: React.FC = () => {
   };
 
   const login = () => {
-    setError({
-      noUser: false,
-      noPass: false,
-      network: false,
-      password: false,
-      user: false,
-    });
+    setError(initialErrorState);
     if (!userData.username) {
-      setError({
-        noUser: true,
-        noPass: false,
-        network: false,
-        password: false,
-        user: false,
+      setError((prev) => {
+        return { ...prev, noUser: true };
       });
       return;
     }
     if (!pass) {
-      setError({
-        noUser: false,
-        noPass: true,
-        network: false,
-        password: false,
-        user: false,
+      setError((prev) => {
+        return { ...prev, noPass: true };
       });
       return;
     }
     setLoading(true);
-
-    // const checkCookie = Cookies.get('jwtToken"')
 
     axios
       .post(

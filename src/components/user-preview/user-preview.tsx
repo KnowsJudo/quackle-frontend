@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { IUserPreview } from "../../types/user-types";
 import { Avatar, Text } from "@mantine/core";
-import { useImage } from "../../api/use-image";
+import { useImage } from "../../helpers/use-image";
 import { QuackleContext } from "../../context/user-context";
 import { FollowButton } from "../follow-button/follow-button";
 import "./user-preview.css";

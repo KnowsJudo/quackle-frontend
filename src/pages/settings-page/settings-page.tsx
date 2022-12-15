@@ -5,7 +5,7 @@ import { Button, Loader, Text } from "@mantine/core";
 import { ProfileUser } from "../../components/profile-user/profile-user";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { UserPreview } from "../../components/user-preview/user-preview";
-import { apiUrl } from "../../api/api-url";
+import { apiUrl } from "../../helpers/api-url";
 import { SettingsOptions } from "../../components/settings-options/settings-options";
 import { IEditSettings, ISettings } from "../../types/settings";
 import "./settings-page.css";

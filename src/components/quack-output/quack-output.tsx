@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IQuackOutput } from "../../types/quacks";
 import { Avatar, Button, Text, Tooltip } from "@mantine/core";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
-import { useImage } from "../../api/use-image";
+import { useImage } from "../../helpers/use-image";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./quack-output.css";
 
