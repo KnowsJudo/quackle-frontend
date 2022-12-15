@@ -52,7 +52,7 @@ export const ProfilePage: React.FC = () => {
         });
       })
       .catch((e) => console.error(e));
-  }, [params]);
+  }, [params, userData]);
 
   const deleteQuack = async (quackId: string) => {
     await axios

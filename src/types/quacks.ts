@@ -22,10 +22,15 @@ export interface IQuackResponse {
   quackedAt: string;
   message: string;
 }
+
+export interface IFriendQuacks extends IQuackResponse {
+  avatar?: IImage;
+}
 export interface IQuackOutput {
   id: string;
   name: string;
   username: string;
+  avatar?: IImage;
   quackedAt: string;
   content: string;
   replies: [];

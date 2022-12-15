@@ -1,18 +1,33 @@
-.quack-content {
+.quack-output:nth-child(2n -1) {
+  background-color: #f1f1f1;
+}
+
+.quack-output {
   display: flex;
-  flex-direction: column;
-  padding: 2%;
+  padding: 1%;
   border-bottom: 1px solid grey;
 }
 
-.quack-content:hover {
-  background-color: #e4e4e4;
+.quack-output-avatar {
+  margin: auto;
+  padding: 1%;
+}
+
+.quack-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 2%;
+}
+
+.quack-output:hover {
+  background-color: #dadada;
 }
 
 .quack-message {
   display: flex;
   word-break: break-all;
-  padding: 6%;
+  padding: 6% 0;
 }
 
 .quack-user {

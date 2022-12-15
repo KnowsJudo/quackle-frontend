@@ -24,7 +24,6 @@ import "./App.css";
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
-
   const loggedIn = Cookies.get("jwtToken");
 
   const setUserInfo = (

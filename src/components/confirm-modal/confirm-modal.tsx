@@ -8,7 +8,10 @@ export const ConfirmModal: React.FC<IConfirmModal> = (props) => {
     <Modal
       centered
       opened={props.modal}
-      onClose={() => props.setModal(false)}
+      onClick={(e) => e.stopPropagation()}
+      onClose={() => {
+        props.setModal(false);
+      }}
       title={props.title}
     >
       <span className="confirm-modal">

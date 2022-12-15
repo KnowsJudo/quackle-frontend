@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { IUserPreview } from "../../types/user-types";
 import { Avatar, Text } from "@mantine/core";
 import { useImage } from "../../api/use-image";
@@ -9,6 +10,7 @@ import "./user-preview.css";
 export const UserPreview: React.FC<IUserPreview> = (props) => {
   const { userData } = useContext(QuackleContext);
   const avatarSrc = useImage(props.avatar);
+  const navigate = useNavigate();
 
   const followingData = {
     username: userData.username,
@@ -30,7 +32,10 @@ export const UserPreview: React.FC<IUserPreview> = (props) => {
   );
 
   return (
-    <div className="user-preview">
+    <div
+      className="user-preview"
+      onClick={() => navigate(`/profile/${props.username}`)}
+    >
       <span className="user-avatar">
         <Avatar src={avatarSrc} alt="user avatar" radius="xl" size="lg" />
       </span>

@@ -69,6 +69,9 @@ export const LoginPage: React.FC = () => {
       return;
     }
     setLoading(true);
+
+    // const checkCookie = Cookies.get('jwtToken"')
+
     axios
       .post(
         `${apiUrl}/user/login`,

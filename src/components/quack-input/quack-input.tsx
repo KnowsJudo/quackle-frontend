@@ -1,6 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Avatar, Button, CloseButton, Progress, Textarea } from "@mantine/core";
+import {
+  Avatar,
+  Button,
+  CloseButton,
+  Progress,
+  Text,
+  Textarea,
+} from "@mantine/core";
 import { IQuackInput } from "../../types/quacks";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../api/api-url";
@@ -102,9 +109,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         )}
         <span className="quack-input-user">
           <Avatar size="lg" src={avatarSrc} radius="xl" />
-          <p>
-            <b>&nbsp;&nbsp;{`@${props.atUser}`}</b>
-          </p>
+          <Text size="md">&nbsp;&nbsp;{`@${props.atUser}`}</Text>
           {savedQuack && (
             <Button
               sx={{ marginLeft: "auto" }}

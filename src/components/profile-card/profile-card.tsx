@@ -54,7 +54,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
             radius={50}
           />
           &nbsp;
-          <Text size="sm" weight={700}>
+          <Text size="md" color="dimmed">
             @{props.username}
           </Text>
         </span>

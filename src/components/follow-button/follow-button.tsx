@@ -3,6 +3,7 @@ import { Button } from "@mantine/core";
 import { QuackleContext } from "../../context/user-context";
 import { IFollowerData, IFollowingData } from "../../types/follow-types";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
+import "./follow-button.css";
 
 interface IFollowButton {
   buttonOwner: string;
@@ -24,14 +25,25 @@ export const FollowButton: React.FC<IFollowButton> = (props) => {
         title={`Do you really want to unfollow ${props.buttonOwner}?`}
         confirmFunc={() => unFollowUser(props.buttonOwner)}
       />
-      <Button disabled={props.disabled} onClick={() => setModal(true)}>
+      <Button
+        className="follow-button"
+        disabled={props.disabled}
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          e.stopPropagation();
+          setModal(true);
+        }}
+      >
         UnFollow
       </Button>
     </>
   ) : (
     <Button
+      className="follow-button"
       disabled={props.disabled}
-      onClick={() => followUser(props.followingData, props.followerData)}
+      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        followUser(props.followingData, props.followerData);
+      }}
     >
       Follow
     </Button>
