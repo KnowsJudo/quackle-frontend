@@ -58,8 +58,8 @@ export const HomeDetails: React.FC = () => {
         };
       });
       setFriendAvatars(transformed);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       setLoading(false);
     }
   };

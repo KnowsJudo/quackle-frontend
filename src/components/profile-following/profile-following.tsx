@@ -16,36 +16,32 @@ export const ProfileFollowing: React.FC<IProfileFollow> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [followingData, setFollowingData] = useState<IUserPreview[]>([]);
 
-  useEffect(() => {
+  const getFollowing = async () => {
     setLoading(true);
-    const getFollowing = async () => {
-      await axios
-        .get(`${apiUrl}/user/${params.userId}/following`)
-        .then((res) => {
-          console.log("following", res.data);
-          const data: IUserPreview[] = res.data.map(
-            (next: IFollowingResponse) => {
-              return {
-                id: next._id,
-                avatar: next.followingAvatar,
-                name: next.followingName,
-                username: next.followingUsername,
-                following: true,
-                tagline: next.followingTagline,
-                followingSince: next.followingSince,
-                matchesUser: next.followingUsername === userData.username,
-              };
-            },
-          );
-          setFollowingData(data);
-          setLoading(false);
-        })
+    try {
+      const res = await axios.get(`${apiUrl}/user/${params.userId}/following`);
+      console.log("following", res.data);
+      const data: IUserPreview[] = res.data.map((next: IFollowingResponse) => {
+        return {
+          id: next._id,
+          avatar: next.followingAvatar,
+          name: next.followingName,
+          username: next.followingUsername,
+          following: true,
+          tagline: next.followingTagline,
+          followingSince: next.followingSince,
+          matchesUser: next.followingUsername === userData.username,
+        };
+      });
+      setFollowingData(data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
 
-        .catch((e) => {
-          console.error(e);
-          setLoading(false);
-        });
-    };
+  useEffect(() => {
     getFollowing();
   }, [params.userId, userData.following]);
 

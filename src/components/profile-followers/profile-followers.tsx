@@ -16,36 +16,32 @@ export const ProfileFollowers: React.FC<IProfileFollow> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [followersData, setFollowersData] = useState<IUserPreview[]>([]);
 
-  useEffect(() => {
+  const getFollowers = async () => {
     setLoading(true);
-    const getFollowers = async () => {
-      await axios
-        .get(`${apiUrl}/user/${params.userId}/followers`)
-        .then((res) => {
-          console.log("followers", res.data);
-          const data: IUserPreview[] = res.data.map(
-            (next: IFollowerResponse) => {
-              return {
-                id: next._id,
-                avatar: next.followerAvatar,
-                name: next.followerName,
-                username: next.followerUsername,
-                following: false,
-                tagline: next.followerTagline,
-                followingSince: next.followerSince,
-                matchesUser: next.followerUsername === userData.username,
-              };
-            },
-          );
-          setFollowersData(data);
-          setLoading(false);
-        })
+    try {
+      const res = await axios.get(`${apiUrl}/user/${params.userId}/followers`);
+      console.log("followers", res.data);
+      const data: IUserPreview[] = res.data.map((next: IFollowerResponse) => {
+        return {
+          id: next._id,
+          avatar: next.followerAvatar,
+          name: next.followerName,
+          username: next.followerUsername,
+          following: false,
+          tagline: next.followerTagline,
+          followingSince: next.followerSince,
+          matchesUser: next.followerUsername === userData.username,
+        };
+      });
+      setFollowersData(data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
 
-        .catch((e) => {
-          console.error(e);
-          setLoading(false);
-        });
-    };
+  useEffect(() => {
     getFollowers();
   }, [params.userId, userData.followers]);
 

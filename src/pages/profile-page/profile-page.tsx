@@ -25,56 +25,55 @@ export const ProfilePage: React.FC = () => {
     quacks: true,
   });
 
-  useEffect(() => {
-    axios
-      .get(`${apiUrl}/user/${params.userId}`)
-      .then((res) => {
-        setProfileData({
-          id: "",
-          ...res.data,
-        });
-        setLoading((prev) => {
-          return { ...prev, profile: false };
-        });
-      })
-      .catch((e) => {
-        console.error(e);
-        setLoading({ profile: false, quacks: false });
-        setProfileData(null);
+  const getProfileData = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/user/${params.userId}`);
+      setProfileData({
+        id: "",
+        ...res.data,
       });
+      setLoading((prev) => {
+        return { ...prev, profile: false };
+      });
+    } catch (error) {
+      console.error(error);
+      setLoading({ profile: false, quacks: false });
+      setProfileData(null);
+    }
+  };
 
-    axios
-      .get(`${apiUrl}/user/${params.userId}/quacks`)
-      .then((res) => {
-        setQuackData(res.data);
-        setLoading((prev) => {
-          return { ...prev, quacks: false };
-        });
-      })
-      .catch((e) => console.error(e));
+  const getProfileQuacks = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/user/${params.userId}/quacks`);
+      setQuackData(res.data);
+      setLoading((prev) => {
+        return { ...prev, quacks: false };
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getProfileData();
+    getProfileQuacks();
   }, [params, userData]);
 
   const deleteQuack = async (quackId: string) => {
-    await axios
-      .delete(`${apiUrl}/user/${params.userId}/quacks/${quackId}`)
-      .then(() => {
-        setLoading((prev) => {
-          return { ...prev, quacks: true };
-        });
-        axios
-          .get(`${apiUrl}/user/${params.userId}/quacks`)
-          .then((res) => {
-            setQuackData(res.data);
-            setLoading((prev) => {
-              return { ...prev, quacks: false };
-            });
-          })
-          .catch((e) => {
-            console.error(e);
-            setLoading({ profile: false, quacks: false });
-          });
-      })
-      .catch((e) => console.error(e, "Could not delete quack"));
+    try {
+      setLoading((prev) => {
+        return { ...prev, quacks: true };
+      });
+      await axios.delete(`${apiUrl}/user/${params.userId}/quacks/${quackId}`);
+      const res = await axios.get(`${apiUrl}/user/${params.userId}/quacks`);
+      setQuackData(res.data);
+      setLoading((prev) => {
+        return { ...prev, quacks: false };
+      });
+    } catch (error) {
+      console.error(error, "Could not delete quack");
+      setLoading({ profile: false, quacks: false });
+    }
   };
 
   if (loading.profile) {

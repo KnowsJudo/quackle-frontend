@@ -39,7 +39,6 @@ export const SettingsPage: React.FC = () => {
       return;
     }
     setLoading(true);
-
     if (option === "avatar" || option === "banner") {
       await axios
         .patch(`${apiUrl}/user/${userData.username}`, setting[option], {

@@ -47,18 +47,18 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
     if (error) {
       return;
     }
-    await axios
-      .post(`${apiUrl}/user/${userData.username}/quacks`, {
+    try {
+      await axios.post(`${apiUrl}/user/${userData.username}/quacks`, {
         user: userData.id,
         name: userData.name,
         username: userData.username,
         message: quackContent,
-      })
-      .then(() => {
-        props.setInitiateQuack?.(false);
-        setQuackContent("");
-      })
-      .catch((e) => console.error(e));
+      });
+      props.setInitiateQuack?.(false);
+      setQuackContent("");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const closeModal = (event: React.MouseEvent) => {

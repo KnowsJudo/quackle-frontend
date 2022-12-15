@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { QuackleContext } from "../../context/user-context";
 import { Alert, Button, Loader } from "@mantine/core";
@@ -28,7 +28,7 @@ export const LoginPage: React.FC = () => {
     }
   };
 
-  const login = () => {
+  const login = async () => {
     setError(initialErrorState);
     if (!userData.username) {
       setError((prev) => {
@@ -43,53 +43,46 @@ export const LoginPage: React.FC = () => {
       return;
     }
     setLoading(true);
-
-    axios
-      .post(
+    try {
+      const res = await axios.post(
         `${apiUrl}/user/login`,
         {
           username: userData.username,
           password: pass,
         },
         stdHeader(),
-      )
-      .then((res) => {
-        if (res.data.success) {
-          Cookies.set("jwtToken", res.data.token);
-          axios
-            .get(`${apiUrl}/user/${userData.username}`)
-            .then((res) => {
-              setUserData(res.data);
-              setLoading(false);
-              navigate("/home");
-            })
-            .catch((e) => console.error(e));
-        }
-      })
-      .catch((e) => {
-        if (!e.response) {
-          console.error(e.message);
-          setLoading(false);
-          setError((prev) => {
-            return { ...prev, network: true };
-          });
-          return;
-        }
-        if (e.response.status === 404) {
-          console.error(e.response.data.message);
-          setLoading(false);
-          setError((prev) => {
-            return { ...prev, user: true };
-          });
-          return;
-        }
-        console.error(e.response.data.message);
+      );
+      if (res.data.success) {
+        Cookies.set("jwtToken", res.data.token);
+        const getData = await axios.get(`${apiUrl}/user/${userData.username}`);
+        setUserData(getData.data);
+        setLoading(false);
+        navigate("/home");
+      }
+    } catch (err) {
+      const error = err as AxiosError;
+      if (!error.response) {
+        console.error(error.message);
         setLoading(false);
         setError((prev) => {
-          return { ...prev, password: true };
+          return { ...prev, network: true };
         });
         return;
+      }
+      if (error.response.status === 404) {
+        console.error(error.response.data);
+        setLoading(false);
+        setError((prev) => {
+          return { ...prev, user: true };
+        });
+        return;
+      }
+      console.error(error.response.data);
+      setLoading(false);
+      setError((prev) => {
+        return { ...prev, password: true };
       });
+    }
   };
 
   return (
