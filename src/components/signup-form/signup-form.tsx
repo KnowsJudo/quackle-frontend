@@ -1,3 +1,4 @@
+import { Group, TextInput } from "@mantine/core";
 import React, { useContext } from "react";
 import { QuackleContext } from "../../context/user-context";
 import { ISignUp } from "../../types/signup-types";
@@ -8,52 +9,58 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
 
   return (
     <form className="signup-form">
-      <label>
-        Name*
-        <input
-          placeholder="Name"
-          autoComplete=""
-          onChange={(e) => setUserInfo(e, "name")}
-          value={userData.name}
-        />
-      </label>
-      <label>
-        Username*
-        <input
-          placeholder="Username"
-          onChange={(e) => setUserInfo(e, "username")}
-          value={userData.username}
-        />
-      </label>
-      <label>
-        Password*
-        <input
+      <TextInput
+        label="Name"
+        placeholder="Name"
+        onChange={(e) => setUserInfo(e, "name")}
+        value={userData.name}
+        withAsterisk
+        sx={{ "mantine-ittua2": { color: "white" } }}
+      ></TextInput>
+      <TextInput
+        label="Username"
+        placeholder="Username"
+        onChange={(e) => setUserInfo(e, "username")}
+        value={userData.username}
+        withAsterisk
+      ></TextInput>
+      <Group>
+        <TextInput
+          label="Enter Password"
           autoComplete="off"
           type="password"
-          placeholder="Password"
+          placeholder="Minimum 7 characters"
           onChange={(e) => props.handleConfirm(e, "pass")}
           value={props.pass}
-        />
-      </label>
-      <label>
-        Confirm Password*
-        <input
+          withAsterisk
+        ></TextInput>
+
+        <TextInput
+          label="Confirm Password"
           autoComplete="off"
           type="password"
-          placeholder="Password"
+          placeholder="Minimum 7 characters"
           onChange={(e) => props.handleConfirm(e, "confirm")}
           value={props.confirmPass}
-        />
-      </label>
-      <label>
-        Email*
-        <input
-          type="email"
-          placeholder="Email address"
-          onChange={(e) => setUserInfo(e, "email")}
-          value={userData.email}
-        />
-      </label>
+          withAsterisk
+        ></TextInput>
+      </Group>
+      <TextInput
+        label="Date of birth"
+        // type="date"
+        placeholder="D.O.B."
+        // onChange={(e) => setUserInfo(e, "dateOfBirth")}
+        // value={new Date()}
+        withAsterisk
+      ></TextInput>
+      <TextInput
+        label="Email Address"
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setUserInfo(e, "email")}
+        value={userData.email}
+        withAsterisk
+      ></TextInput>
     </form>
   );
 };

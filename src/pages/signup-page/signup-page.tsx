@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
-import { Button } from "@mantine/core";
+import { Button, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../../helpers/api-url";
 import "./signup-page.css";
@@ -52,14 +52,16 @@ export const SignUpPage: React.FC = () => {
   return (
     <div className="signup-container">
       <section className="signup-section">
-        <h2>Quackle</h2>
-        <h3>Join the avian world&apos;s largest social network</h3>
+        <Text size="xl">Quackle</Text>
+        <Text size="xl">
+          Join the avian world&apos;s largest social network
+        </Text>
         <SignUpForm
           handleConfirm={handleConfirm}
           confirmPass={confirmPass}
           pass={pass}
         />
-        <Button onClick={() => signUp()}>Sign up</Button>
+        <Button onClick={() => signUp()}>Get Quackin!</Button>
         <h5>Existing user?</h5>
         <Link to="/login">
           <Button>LOGIN</Button>
