@@ -1,39 +1,65 @@
-import React, { useContext, useState } from "react";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
 import { Button, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../../helpers/api-url";
+import { initialSignUpError } from "../../helpers/error-states";
 import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {
   const { userData } = useContext(QuackleContext);
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const [error, setError] = useState(initialSignUpError);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setError(initialSignUpError);
+  }, [userData, pass, confirmPass]);
 
   const handleConfirm = (
     event: React.ChangeEvent<HTMLInputElement>,
     field: string,
   ) => {
+    setError(initialSignUpError);
     event.preventDefault();
     if (field === "confirm") setConfirmPass(event.target.value);
     if (field === "pass") setPass(event.target.value);
   };
 
   const signUp = async () => {
-    if (!userData.name || !userData.username || !pass || !userData.email) {
-      console.log("Fields missing");
+    setError(initialSignUpError);
+    if (!userData.name) {
+      setError((prev) => {
+        return { ...prev, noName: true };
+      });
+      return;
+    }
+    if (!userData.username) {
+      setError((prev) => {
+        return { ...prev, noUser: true };
+      });
+      return;
+    }
+    if (!pass) {
+      setError((prev) => {
+        return { ...prev, noPass: true };
+      });
       return;
     }
     if (confirmPass !== pass) {
-      console.log("Password doesnt match");
+      setError((prev) => {
+        return { ...prev, noMatch: true };
+      });
       return;
     }
     if (!userData.email.includes("@")) {
-      console.log("Invalid email");
+      setError((prev) => {
+        return { ...prev, noEmail: true };
+      });
       return;
     }
     try {
@@ -44,29 +70,42 @@ export const SignUpPage: React.FC = () => {
         email: userData.email,
       });
       navigate("/login");
-    } catch (error) {
+    } catch (err) {
+      const error = err as AxiosError;
       console.error(error);
+      if (!error.response) {
+        setError((prev) => {
+          return { ...prev, network: true };
+        });
+      } else {
+        setError((prev) => {
+          return { ...prev, usernameDup: true };
+        });
+      }
     }
   };
 
   return (
     <div className="signup-container">
+      <Text>Quackle</Text>
+      <Text size="md">Join the avian world&apos;s largest social network</Text>
       <section className="signup-section">
-        <Text size="xl">Quackle</Text>
-        <Text size="xl">
-          Join the avian world&apos;s largest social network
-        </Text>
         <SignUpForm
           handleConfirm={handleConfirm}
           confirmPass={confirmPass}
           pass={pass}
+          error={error}
         />
-        <Button onClick={() => signUp()}>Get Quackin!</Button>
-        <h5>Existing user?</h5>
+        <span>
+          <Button onClick={() => signUp()}>Get Quackin!</Button>
+        </span>
+      </section>
+      <span>
+        <Text size="md">Existing user?</Text>
         <Link to="/login">
           <Button>LOGIN</Button>
         </Link>
-      </section>
+      </span>
     </div>
   );
 };

@@ -5,20 +5,20 @@ import { QuackleContext } from "../../context/user-context";
 import { Alert, Button, Loader } from "@mantine/core";
 import { stdHeader } from "../../helpers/api-header";
 import { Link, useNavigate } from "react-router-dom";
-import { IError } from "../../types/signup-types";
+import { ILoginError } from "../../types/errors";
 import { apiUrl } from "../../helpers/api-url";
-import { initialErrorState } from "../../helpers/login-error";
+import { initialLoginError } from "../../helpers/error-states";
 import "./login-page.css";
 
 export const LoginPage: React.FC = () => {
   const { userData, setUserData, setUserInfo } = useContext(QuackleContext);
-  const [error, setError] = useState<IError>(initialErrorState);
+  const [error, setError] = useState<ILoginError>(initialLoginError);
   const [pass, setPass] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setError(initialErrorState);
+    setError(initialLoginError);
   }, [userData, pass]);
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -29,7 +29,7 @@ export const LoginPage: React.FC = () => {
   };
 
   const login = async () => {
-    setError(initialErrorState);
+    setError(initialLoginError);
     if (!userData.username) {
       setError((prev) => {
         return { ...prev, noUser: true };

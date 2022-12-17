@@ -1,8 +1,6 @@
 .signup-container {
   display: flex;
-  width: 80vw;
-  height: 80vh;
-  border: 1px solid white;
+  flex-direction: column;
 }
 
 .signup-form {
@@ -13,9 +11,13 @@
 
 .signup-section {
   display: flex;
-  margin: auto;
+  margin: 1% auto 3% auto;
   flex-direction: column;
   height: 100%;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 10px 10px 20px 10px;
 }
 
 @media (max-width: 750px) {

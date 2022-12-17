@@ -1,5 +1,5 @@
-import { Group, TextInput } from "@mantine/core";
 import React, { useContext } from "react";
+import { Alert, Group, TextInput } from "@mantine/core";
 import { QuackleContext } from "../../context/user-context";
 import { ISignUp } from "../../types/signup-types";
 import "./signup-form.css";
@@ -15,7 +15,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         onChange={(e) => setUserInfo(e, "name")}
         value={userData.name}
         withAsterisk
-        sx={{ "mantine-ittua2": { color: "white" } }}
+        error={props.error.noName && "Enter your name"}
       ></TextInput>
       <TextInput
         label="Username"
@@ -23,6 +23,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         onChange={(e) => setUserInfo(e, "username")}
         value={userData.username}
         withAsterisk
+        error={props.error.noUser && "Choose a username"}
       ></TextInput>
       <Group>
         <TextInput
@@ -33,8 +34,8 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
           onChange={(e) => props.handleConfirm(e, "pass")}
           value={props.pass}
           withAsterisk
+          error={props.error.noPass && "Password must be at least 7 characters"}
         ></TextInput>
-
         <TextInput
           label="Confirm Password"
           autoComplete="off"
@@ -43,6 +44,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
           onChange={(e) => props.handleConfirm(e, "confirm")}
           value={props.confirmPass}
           withAsterisk
+          error={props.error.noMatch && "Must match password"}
         ></TextInput>
       </Group>
       <TextInput
@@ -60,7 +62,12 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         onChange={(e) => setUserInfo(e, "email")}
         value={userData.email}
         withAsterisk
+        error={props.error.noEmail && "Enter a valid email address"}
       ></TextInput>
+      {props.error.usernameDup && (
+        <Alert color="red">Username is already registered.</Alert>
+      )}
+      {props.error.network && <Alert color="red">Network Error</Alert>}
     </form>
   );
 };

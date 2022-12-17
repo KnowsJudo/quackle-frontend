@@ -1,3 +1,5 @@
+import { ISignUpError } from "./errors";
+
 export interface ISignUp {
   handleConfirm: (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -5,12 +7,5 @@ export interface ISignUp {
   ) => void;
   confirmPass: string;
   pass: string;
-}
-
-export interface IError {
-  noUser: boolean;
-  noPass: boolean;
-  network: boolean;
-  password: boolean;
-  user: boolean;
+  error: ISignUpError;
 }
