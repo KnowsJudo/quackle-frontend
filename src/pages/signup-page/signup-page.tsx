@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
-import { Button, Text } from "@mantine/core";
+import { Button, LoadingOverlay, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../../helpers/api-url";
 import { initialSignUpError } from "../../helpers/error-states";
@@ -14,6 +14,7 @@ export const SignUpPage: React.FC = () => {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [error, setError] = useState(initialSignUpError);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,6 +63,7 @@ export const SignUpPage: React.FC = () => {
       });
       return;
     }
+    setLoading(true);
     try {
       await axios.post(`${apiUrl}/user`, {
         name: userData.name,
@@ -69,8 +71,10 @@ export const SignUpPage: React.FC = () => {
         password: pass,
         email: userData.email,
       });
+      setLoading(false);
       navigate("/login");
     } catch (err) {
+      setLoading(false);
       const error = err as AxiosError;
       console.error(error);
       if (!error.response) {
@@ -87,6 +91,7 @@ export const SignUpPage: React.FC = () => {
 
   return (
     <div className="signup-container">
+      <LoadingOverlay visible={loading} overlayBlur={3} overlayOpacity={0.05} />
       <Text>Quackle</Text>
       <Text size="md">Join the avian world&apos;s largest social network</Text>
       <section className="signup-section">

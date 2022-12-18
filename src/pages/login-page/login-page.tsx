@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { QuackleContext } from "../../context/user-context";
-import { Alert, Button, Loader } from "@mantine/core";
+import { Alert, Button, Loader, LoadingOverlay, Text } from "@mantine/core";
 import { stdHeader } from "../../helpers/api-header";
 import { Link, useNavigate } from "react-router-dom";
 import { ILoginError } from "../../types/errors";
 import { apiUrl } from "../../helpers/api-url";
 import { initialLoginError } from "../../helpers/error-states";
 import "./login-page.css";
+import { LoginForm } from "../../components/login-form/login-form";
 
 export const LoginPage: React.FC = () => {
   const { userData, setUserData, setUserInfo } = useContext(QuackleContext);
@@ -87,45 +88,28 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="login-container">
+      <LoadingOverlay visible={loading} overlayBlur={3} overlayOpacity={0.05} />
+      <Text>Login to Quackle</Text>
       <section className="login-section">
-        <form className="login-form">
-          <label>
-            Username*
-            <input
-              placeholder="Username"
-              onChange={(e) => setUserInfo(e, "username")}
-              value={userData.username}
-            />
-          </label>
-          <br />
-          <label>
-            Password*
-            <input
-              autoComplete="off"
-              onChange={(e) => setPass(e.target.value)}
-              type="password"
-              placeholder="Password"
-              value={pass}
-            />
-          </label>
-        </form>
-        <Button onClick={() => login()} onKeyDown={onKeyDown}>
-          LOGIN
-        </Button>
+        <LoginForm setPass={setPass} pass={pass} />
+        <span>
+          <Button onClick={() => login()} onKeyDown={onKeyDown}>
+            LOGIN
+          </Button>
+        </span>
       </section>
-      <br />
-      {loading && <Loader sx={{ margin: "auto" }} />}
       {error.noUser && <Alert color="red">Enter your username</Alert>}
       {error.noPass && <Alert color="red">Enter your password</Alert>}
       {error.password && <Alert color="red">Incorrect Password</Alert>}
       {error.network && <Alert color="red">Network Error</Alert>}
       {error.user && <Alert color="red">User does not exist</Alert>}
-      <h6>
-        New to Quackle?&nbsp;
+      <br />
+      <span>
+        <Text size="md">New to Quackle?&nbsp;</Text>
         <Link to="/">
           <Button>Sign Up</Button>
         </Link>
-      </h6>
+      </span>
     </div>
   );
 };
