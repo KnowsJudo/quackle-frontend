@@ -15,4 +15,5 @@ export interface IUserContext {
     followerData: IFollowerData,
   ) => void;
   unFollowUser: (followingUser: string) => void;
+  deleteQuack: (quackId: string) => void;
 }

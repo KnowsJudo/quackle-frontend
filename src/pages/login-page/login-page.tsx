@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { QuackleContext } from "../../context/user-context";
-import { Alert, Button, Loader, LoadingOverlay, Text } from "@mantine/core";
+import { Alert, Button, LoadingOverlay, Text } from "@mantine/core";
 import { stdHeader } from "../../helpers/api-header";
 import { Link, useNavigate } from "react-router-dom";
 import { ILoginError } from "../../types/errors";
@@ -12,7 +12,7 @@ import "./login-page.css";
 import { LoginForm } from "../../components/login-form/login-form";
 
 export const LoginPage: React.FC = () => {
-  const { userData, setUserData, setUserInfo } = useContext(QuackleContext);
+  const { userData, setUserData } = useContext(QuackleContext);
   const [error, setError] = useState<ILoginError>(initialLoginError);
   const [pass, setPass] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);

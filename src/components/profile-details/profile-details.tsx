@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IProfileDetails } from "../../types/profile-types";
 import { ProfileCard } from "../profile-card/profile-card";
 import { QuacksMenu } from "../quacks-menu/quacks-menu";
@@ -7,10 +7,12 @@ import { ProfileFollowing } from "../profile-following/profile-following";
 import { ProfileFollowers } from "../profile-followers/profile-followers";
 import { Button, Tooltip } from "@mantine/core";
 import { UsernameInfo } from "../username-info/username-info";
+import { QuackleContext } from "../../context/user-context";
 import EditIcon from "@mui/icons-material/Edit";
 import "./profile-details.css";
 
 export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
+  const { deleteQuack } = useContext(QuackleContext);
   const navigate = useNavigate();
   const params = useParams();
   return params.follow === "following" ? (
@@ -80,7 +82,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
           paramId={props.paramId}
           profileData={props.profileData}
           quackdata={props.quackData}
-          deleteQuack={props.matchesUser ? props.deleteQuack : undefined}
+          deleteQuack={props.matchesUser ? deleteQuack : undefined}
           loading={props.loading}
         />
       </div>

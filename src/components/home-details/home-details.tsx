@@ -17,21 +17,24 @@ interface IUserAvatar {
 }
 
 export const HomeDetails: React.FC = () => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, deleteQuack } = useContext(QuackleContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [friendResponse, setFriendResponse] = useState<IQuackResponse[]>([]);
   const [friendAvatars, setFriendAvatars] = useState<IUserAvatar[]>([]);
   const [friendQuacks, setFriendQuacks] = useState<IFriendQuacks[]>([]);
 
   const getFriendQuacks = async () => {
+    setLoading(true);
     if (!userData.following?.length) {
       return;
     }
     try {
-      const promises = userData.following.map(async (next) => {
-        const res = await axios.get(`${apiUrl}/user/${next}/quacks`);
-        return res.data;
-      });
+      const promises = userData.following
+        .concat([userData.username])
+        .map(async (next) => {
+          const res = await axios.get(`${apiUrl}/user/${next}/quacks`);
+          return res.data;
+        });
       const results = await Promise.all(promises);
       const responses = results.flat();
       setFriendResponse(responses);
@@ -46,10 +49,12 @@ export const HomeDetails: React.FC = () => {
       return;
     }
     try {
-      const promises = userData.following.map(async (next) => {
-        const res = await axios.get(`${apiUrl}/user/${next}`);
-        return res.data;
-      });
+      const promises = userData.following
+        .concat([userData.username])
+        .map(async (next) => {
+          const res = await axios.get(`${apiUrl}/user/${next}`);
+          return res.data;
+        });
       const results = await Promise.all(promises);
       const transformed = results.map((next) => {
         return {
@@ -67,7 +72,7 @@ export const HomeDetails: React.FC = () => {
   useEffect(() => {
     getFriendQuacks();
     getFriendAvatars();
-  }, []);
+  }, [userData.quacks]);
 
   useEffect(() => {
     if (!friendResponse || !friendAvatars) {
@@ -87,7 +92,7 @@ export const HomeDetails: React.FC = () => {
       .reverse();
     setFriendQuacks(sortedResults);
     setLoading(false);
-  }, [friendResponse, friendAvatars]);
+  }, [friendResponse, friendAvatars, userData.quacks]);
 
   return (
     <section className="home-details">
@@ -127,6 +132,9 @@ export const HomeDetails: React.FC = () => {
               requacks={0}
               likes={0}
               loading={loading}
+              deleteQuack={
+                next.username === userData.username ? deleteQuack : undefined
+              }
             />
           ))
         )}

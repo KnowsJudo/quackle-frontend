@@ -15,7 +15,7 @@ import { useImage } from "../../helpers/use-image";
 import "./quack-input.css";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, setUserData } = useContext(QuackleContext);
   const [quackContent, setQuackContent] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
   const [checkClose, setCheckClose] = useState<boolean>(false);
@@ -56,6 +56,8 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
       });
       props.setInitiateQuack?.(false);
       setQuackContent("");
+      const res = await axios.get(`${apiUrl}/user/${userData.username}`);
+      setUserData(res.data);
     } catch (error) {
       console.error(error);
     }

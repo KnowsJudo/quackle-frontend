@@ -75,6 +75,18 @@ const App: () => JSX.Element = () => {
     }
   };
 
+  const deleteQuack = async (quackId: string) => {
+    try {
+      await axios.delete(
+        `${apiUrl}/user/${userData.username}/quacks/${quackId}`,
+      );
+      const res = await axios.get(`${apiUrl}/user/${userData.username}`);
+      setUserData(res.data);
+    } catch (error) {
+      console.error(error, "Could not delete quack");
+    }
+  };
+
   return (
     <main className="App">
       <QuackleContext.Provider
@@ -86,6 +98,7 @@ const App: () => JSX.Element = () => {
           setInitiateQuack,
           followUser,
           unFollowUser,
+          deleteQuack,
         }}
       >
         <MantineProvider withGlobalStyles withNormalizeCSS>

@@ -43,6 +43,9 @@ export const ProfilePage: React.FC = () => {
   };
 
   const getProfileQuacks = async () => {
+    setLoading((prev) => {
+      return { ...prev, quacks: true };
+    });
     try {
       const res = await axios.get(`${apiUrl}/user/${params.userId}/quacks`);
       setQuackData(res.data);
@@ -51,30 +54,16 @@ export const ProfilePage: React.FC = () => {
       });
     } catch (error) {
       console.error(error);
+      setLoading((prev) => {
+        return { ...prev, quacks: false };
+      });
     }
   };
 
   useEffect(() => {
     getProfileData();
     getProfileQuacks();
-  }, [params, userData]);
-
-  const deleteQuack = async (quackId: string) => {
-    try {
-      setLoading((prev) => {
-        return { ...prev, quacks: true };
-      });
-      await axios.delete(`${apiUrl}/user/${params.userId}/quacks/${quackId}`);
-      const res = await axios.get(`${apiUrl}/user/${params.userId}/quacks`);
-      setQuackData(res.data);
-      setLoading((prev) => {
-        return { ...prev, quacks: false };
-      });
-    } catch (error) {
-      console.error(error, "Could not delete quack");
-      setLoading({ profile: false, quacks: false });
-    }
-  };
+  }, [params.userId, userData.quacks]);
 
   if (loading.profile) {
     return (
@@ -108,7 +97,6 @@ export const ProfilePage: React.FC = () => {
         quackData={quackData}
         profileData={profileData}
         paramId={params.userId}
-        deleteQuack={deleteQuack}
         loading={loading.quacks}
       />
       <ProfileSideBar loggedIn={userData.username ? true : false} />
