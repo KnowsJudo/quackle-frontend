@@ -70,6 +70,7 @@ export const SignUpPage: React.FC = () => {
         username: userData.username,
         password: pass,
         email: userData.email,
+        dateOfBirth: userData.dateOfBirth,
       });
       setLoading(false);
       navigate("/login");

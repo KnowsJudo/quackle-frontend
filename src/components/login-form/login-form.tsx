@@ -17,14 +17,14 @@ export const LoginForm: React.FC<ILoginForm> = (props) => {
         placeholder="Username"
         onChange={(e) => setUserInfo(e, "username")}
         value={userData.username}
-      ></TextInput>
+      />
       <TextInput
         label="Password"
         placeholder="Password"
         onChange={(e) => props.setPass(e.target.value)}
         type="password"
         value={props.pass}
-      ></TextInput>
+      />
     </form>
   );
 };

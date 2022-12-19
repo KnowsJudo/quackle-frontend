@@ -16,7 +16,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         value={userData.name}
         withAsterisk
         error={props.error.noName && "Enter your name"}
-      ></TextInput>
+      />
       <TextInput
         label="Username"
         placeholder="Username"
@@ -24,7 +24,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         value={userData.username}
         withAsterisk
         error={props.error.noUser && "Choose a username"}
-      ></TextInput>
+      />
       <Group>
         <TextInput
           label="Enter Password"
@@ -35,7 +35,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
           value={props.pass}
           withAsterisk
           error={props.error.noPass && "Password must be at least 7 characters"}
-        ></TextInput>
+        />
         <TextInput
           label="Confirm Password"
           autoComplete="off"
@@ -45,16 +45,16 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
           value={props.confirmPass}
           withAsterisk
           error={props.error.noMatch && "Must match password"}
-        ></TextInput>
+        />
       </Group>
       <TextInput
         label="Date of birth"
-        // type="date"
+        type="date"
         placeholder="D.O.B."
-        // onChange={(e) => setUserInfo(e, "dateOfBirth")}
-        // value={new Date()}
+        onChange={(e) => setUserInfo(e, "dateOfBirth")}
+        value={userData.dateOfBirth.toISOString().slice(0, 10)}
         withAsterisk
-      ></TextInput>
+      />
       <TextInput
         label="Email Address"
         type="email"
@@ -63,7 +63,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         value={userData.email}
         withAsterisk
         error={props.error.noEmail && "Enter a valid email address"}
-      ></TextInput>
+      />
       {props.error.usernameDup && (
         <Alert color="red">Username is already registered.</Alert>
       )}

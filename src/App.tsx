@@ -31,7 +31,13 @@ const App: () => JSX.Element = () => {
     field: string,
   ) => {
     event.preventDefault();
-    setUserData({ ...userData, [field]: event.target.value });
+    setUserData({
+      ...userData,
+      [field]:
+        field === "dateOfBirth"
+          ? new Date(event.target.value)
+          : event.target.value,
+    });
   };
 
   const followUser = async (
@@ -107,23 +113,23 @@ const App: () => JSX.Element = () => {
               <Route
                 path="/"
                 element={loggedIn ? <Navigate to="/home" /> : <SignUpPage />}
-              ></Route>
+              />
               <Route
                 path="/login"
                 element={loggedIn ? <Navigate to="/home" /> : <LoginPage />}
-              ></Route>
+              />
               <Route
                 path="/home"
                 element={loggedIn ? <HomePage /> : <Navigate to="/" />}
-              ></Route>
+              />
               <Route path="/profile/:userId/*" element={<ProfilePage />}>
                 <Route path=":follow" element={<Outlet />} />
               </Route>
               <Route
                 path="/settings"
                 element={loggedIn ? <SettingsPage /> : <Navigate to="/login" />}
-              ></Route>
-              <Route path="*" element={<NotFoundPage />}></Route>
+              />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </BrowserRouter>
         </MantineProvider>
