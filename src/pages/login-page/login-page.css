@@ -8,10 +8,17 @@
   display: flex;
   margin: auto;
   flex-direction: column;
-  height: 25vh;
-  width: 33vw;
+  height: 280px;
+  width: 650px;
   background-color: white;
   color: black;
   border-radius: 5px;
-  padding: 10px 10px 20px 10px;
+  padding: 30px;
+}
+
+@media (max-width: 750px) {
+  .login-section {
+    height: 80vh;
+    width: 100vw;
+  }
 }

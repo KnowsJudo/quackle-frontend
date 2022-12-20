@@ -3,10 +3,10 @@ import Cookies from "js-cookie";
 import { Button, Input } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
-import SearchIcon from "@mui/icons-material/Search";
 import { initialUserData, QuackleContext } from "../../context/user-context";
-import InputIcon from "@mui/icons-material/Input";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
+import InputIcon from "@mui/icons-material/Input";
+import SearchIcon from "@mui/icons-material/Search";
 import "./profile-sidebar.css";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {

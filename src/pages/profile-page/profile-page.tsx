@@ -48,7 +48,13 @@ export const ProfilePage: React.FC = () => {
     });
     try {
       const res = await axios.get(`${apiUrl}/user/${params.userId}/quacks`);
-      setQuackData(res.data);
+      const sortedResults = res.data
+        .sort(
+          (a: IQuackResponse, b: IQuackResponse) =>
+            Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
+        )
+        .reverse();
+      setQuackData(sortedResults);
       setLoading((prev) => {
         return { ...prev, quacks: false };
       });

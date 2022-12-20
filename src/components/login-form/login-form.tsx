@@ -1,6 +1,7 @@
-import { TextInput } from "@mantine/core";
 import React, { SetStateAction, useContext } from "react";
+import { TextInput } from "@mantine/core";
 import { QuackleContext } from "../../context/user-context";
+import "./login-form.css";
 
 interface ILoginForm {
   setPass: React.Dispatch<SetStateAction<string>>;
@@ -11,7 +12,7 @@ export const LoginForm: React.FC<ILoginForm> = (props) => {
   const { userData, setUserInfo } = useContext(QuackleContext);
 
   return (
-    <form>
+    <form className="login-form">
       <TextInput
         label="Username"
         placeholder="Username"
@@ -21,6 +22,7 @@ export const LoginForm: React.FC<ILoginForm> = (props) => {
       <TextInput
         label="Password"
         placeholder="Password"
+        autoComplete="off"
         onChange={(e) => props.setPass(e.target.value)}
         type="password"
         value={props.pass}

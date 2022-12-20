@@ -1,9 +1,9 @@
 import React from "react";
 import { Group, Image, Text } from "@mantine/core";
 import { Dropzone } from "@mantine/dropzone";
+import { IImageDrop } from "../../types/settings";
 import DoneIcon from "@mui/icons-material/Done";
 import ImageIcon from "@mui/icons-material/Image";
-import { IImageDrop } from "../../types/settings";
 
 export const ImageDrop: React.FC<IImageDrop> = (props) => {
   return (

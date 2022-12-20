@@ -8,8 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ILoginError } from "../../types/errors";
 import { apiUrl } from "../../helpers/api-url";
 import { initialLoginError } from "../../helpers/error-states";
-import "./login-page.css";
 import { LoginForm } from "../../components/login-form/login-form";
+import "./login-page.css";
 
 export const LoginPage: React.FC = () => {
   const { userData, setUserData } = useContext(QuackleContext);
