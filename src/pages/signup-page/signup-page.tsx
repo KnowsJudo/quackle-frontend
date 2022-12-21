@@ -73,7 +73,7 @@ export const SignUpPage: React.FC = () => {
         dateOfBirth: userData.dateOfBirth,
       });
       setLoading(false);
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       setLoading(false);
       const error = err as AxiosError;
@@ -108,7 +108,7 @@ export const SignUpPage: React.FC = () => {
       </section>
       <span>
         <Text size="md">Existing user?</Text>
-        <Link to="/login">
+        <Link to="/">
           <Button>LOGIN</Button>
         </Link>
       </span>

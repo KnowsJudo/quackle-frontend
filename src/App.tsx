@@ -20,6 +20,7 @@ import { HomePage } from "./pages/home-page/home-page";
 import { IFollowerData, IFollowingData } from "./types/follow-types";
 import { apiUrl } from "./helpers/api-url";
 import "./App.css";
+import { TrendingPage } from "./pages/trending-page/trending-page";
 
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);
@@ -112,11 +113,11 @@ const App: () => JSX.Element = () => {
             <Routes>
               <Route
                 path="/"
-                element={loggedIn ? <Navigate to="/home" /> : <SignUpPage />}
+                element={loggedIn ? <Navigate to="/home" /> : <LoginPage />}
               />
               <Route
-                path="/login"
-                element={loggedIn ? <Navigate to="/home" /> : <LoginPage />}
+                path="/signup"
+                element={loggedIn ? <Navigate to="/home" /> : <SignUpPage />}
               />
               <Route
                 path="/home"
@@ -127,8 +128,9 @@ const App: () => JSX.Element = () => {
               </Route>
               <Route
                 path="/settings"
-                element={loggedIn ? <SettingsPage /> : <Navigate to="/login" />}
+                element={loggedIn ? <SettingsPage /> : <Navigate to="/" />}
               />
+              <Route path="/trending" element={<TrendingPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </BrowserRouter>

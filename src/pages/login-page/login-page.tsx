@@ -88,8 +88,8 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="login-container">
+      <div className="login-background" />
       <LoadingOverlay visible={loading} overlayBlur={3} overlayOpacity={0.05} />
-      <Text>Login to Quackle</Text>
       <section className="login-section">
         <LoginForm setPass={setPass} pass={pass} />
         <span>
@@ -97,19 +97,19 @@ export const LoginPage: React.FC = () => {
             LOGIN
           </Button>
         </span>
+        {error.noUser && <Alert color="red">Enter your username</Alert>}
+        {error.noPass && <Alert color="red">Enter your password</Alert>}
+        {error.password && <Alert color="red">Incorrect Password</Alert>}
+        {error.network && <Alert color="red">Network Error</Alert>}
+        {error.user && <Alert color="red">User does not exist</Alert>}
+        <br />
+        <span className="login-signup">
+          <Text size="md">New to Quackle?&nbsp;</Text>
+          <Link to="/signup">
+            <Button>Sign Up</Button>
+          </Link>
+        </span>
       </section>
-      {error.noUser && <Alert color="red">Enter your username</Alert>}
-      {error.noPass && <Alert color="red">Enter your password</Alert>}
-      {error.password && <Alert color="red">Incorrect Password</Alert>}
-      {error.network && <Alert color="red">Network Error</Alert>}
-      {error.user && <Alert color="red">User does not exist</Alert>}
-      <br />
-      <span>
-        <Text size="md">New to Quackle?&nbsp;</Text>
-        <Link to="/">
-          <Button>Sign Up</Button>
-        </Link>
-      </span>
     </div>
   );
 };
