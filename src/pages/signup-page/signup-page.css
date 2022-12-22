@@ -1,3 +1,13 @@
+.signup-background {
+  background: url("../../img/quack2.png");
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
 .signup-container {
   display: flex;
   flex-direction: column;
@@ -11,13 +21,19 @@
 
 .signup-section {
   display: flex;
-  margin: 1% auto 3% auto;
+  /* margin: auto; */
   flex-direction: column;
-  height: 100%;
   background-color: white;
+  opacity: 0.95;
   color: black;
   border-radius: 5px;
-  padding: 10px 10px 20px 10px;
+  padding: 20px 20px 35px 20px;
+}
+
+.signup-login {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
 }
 
 @media (max-width: 750px) {

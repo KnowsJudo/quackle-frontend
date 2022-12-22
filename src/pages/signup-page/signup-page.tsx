@@ -92,10 +92,17 @@ export const SignUpPage: React.FC = () => {
 
   return (
     <div className="signup-container">
-      <LoadingOverlay visible={loading} overlayBlur={3} overlayOpacity={0.05} />
-      <Text>Quackle</Text>
-      <Text size="md">Join the avian world&apos;s largest social network</Text>
+      <div className="signup-background" />
       <section className="signup-section">
+        <LoadingOverlay
+          visible={loading}
+          overlayBlur={3}
+          overlayOpacity={0.05}
+        />
+        <Text>Quackle</Text>
+        <Text size="md">
+          Join the avian world&apos;s largest social network
+        </Text>
         <SignUpForm
           handleConfirm={handleConfirm}
           confirmPass={confirmPass}
@@ -105,13 +112,13 @@ export const SignUpPage: React.FC = () => {
         <span>
           <Button onClick={() => signUp()}>Get Quackin!</Button>
         </span>
+        <span className="signup-login">
+          <Text size="md">Existing user?</Text>
+          <Link to="/">
+            <Button>LOGIN</Button>
+          </Link>
+        </span>
       </section>
-      <span>
-        <Text size="md">Existing user?</Text>
-        <Link to="/">
-          <Button>LOGIN</Button>
-        </Link>
-      </span>
     </div>
   );
 };
