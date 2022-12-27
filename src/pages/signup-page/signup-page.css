@@ -1,5 +1,5 @@
 .signup-background {
-  background: url("../../img/quack2.png");
+  background: url("../../img/quack2.webp");
   background-size: cover;
   position: absolute;
   top: 0px;
@@ -21,7 +21,6 @@
 
 .signup-section {
   display: flex;
-  /* margin: auto; */
   flex-direction: column;
   background-color: white;
   opacity: 0.95;
