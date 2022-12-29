@@ -2,13 +2,20 @@ import React, { useContext, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { QuackleContext } from "../../context/user-context";
-import { Alert, Button, LoadingOverlay, Text } from "@mantine/core";
+import {
+  Alert,
+  Button,
+  LoadingOverlay,
+  Notification,
+  Text,
+} from "@mantine/core";
 import { stdHeader } from "../../helpers/api-header";
 import { Link, useNavigate } from "react-router-dom";
 import { ILoginError } from "../../types/errors";
 import { apiUrl } from "../../helpers/api-url";
 import { initialLoginError } from "../../helpers/error-states";
 import { LoginForm } from "../../components/login-form/login-form";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./login-page.css";
 
 export const LoginPage: React.FC = () => {
@@ -91,18 +98,48 @@ export const LoginPage: React.FC = () => {
       <div className="login-background" />
       <LoadingOverlay visible={loading} overlayBlur={3} overlayOpacity={0.05} />
       <section className="login-section">
-        <LoginForm setPass={setPass} pass={pass} />
+        <LoginForm
+          setPass={setPass}
+          pass={pass}
+          noUser={error.noUser}
+          noPass={error.noPass}
+        />
         <span>
           <Button onClick={() => login()} onKeyDown={onKeyDown}>
             LOGIN
           </Button>
         </span>
-        {error.noUser && <Alert color="red">Enter your username</Alert>}
-        {error.noPass && <Alert color="red">Enter your password</Alert>}
-        {error.password && <Alert color="red">Incorrect Password</Alert>}
-        {error.network && <Alert color="red">Network Error</Alert>}
-        {error.user && <Alert color="red">User does not exist</Alert>}
         <br />
+        {error.password && (
+          <Notification
+            color="red"
+            icon={<PriorityHighIcon />}
+            disallowClose
+            sx={{ marginRight: "6%" }}
+          >
+            Incorrect Password
+          </Notification>
+        )}
+        {error.network && (
+          <Notification
+            color="red"
+            icon={<PriorityHighIcon />}
+            disallowClose
+            sx={{ marginRight: "7%" }}
+          >
+            Network Error
+          </Notification>
+        )}
+        {error.user && (
+          <Notification
+            color="red"
+            icon={<PriorityHighIcon />}
+            disallowClose
+            sx={{ marginRight: "7%" }}
+          >
+            User does not exist
+          </Notification>
+        )}
         <span className="login-signup">
           <Text size="md">New to Quackle?&nbsp;</Text>
           <Link to="/signup">

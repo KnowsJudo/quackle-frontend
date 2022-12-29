@@ -6,6 +6,8 @@ import "./login-form.css";
 interface ILoginForm {
   setPass: React.Dispatch<SetStateAction<string>>;
   pass: string;
+  noUser: boolean;
+  noPass: boolean;
 }
 
 export const LoginForm: React.FC<ILoginForm> = (props) => {
@@ -18,6 +20,7 @@ export const LoginForm: React.FC<ILoginForm> = (props) => {
         placeholder="Username"
         onChange={(e) => setUserInfo(e, "username")}
         value={userData.username}
+        error={props.noUser && "Enter username"}
       />
       <TextInput
         label="Password"
@@ -26,6 +29,7 @@ export const LoginForm: React.FC<ILoginForm> = (props) => {
         onChange={(e) => props.setPass(e.target.value)}
         type="password"
         value={props.pass}
+        error={props.noPass && "Enter password"}
       />
     </form>
   );
