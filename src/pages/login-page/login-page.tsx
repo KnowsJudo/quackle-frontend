@@ -2,13 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { QuackleContext } from "../../context/user-context";
-import {
-  Alert,
-  Button,
-  LoadingOverlay,
-  Notification,
-  Text,
-} from "@mantine/core";
+import { Button, LoadingOverlay, Notification, Text } from "@mantine/core";
 import { stdHeader } from "../../helpers/api-header";
 import { Link, useNavigate } from "react-router-dom";
 import { ILoginError } from "../../types/errors";
