@@ -11,7 +11,7 @@ import { IImage } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./home-details.css";
 
-interface IUserAvatar {
+export interface IUserAvatar {
   username: string;
   avatar?: IImage;
 }
