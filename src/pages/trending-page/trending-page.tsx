@@ -6,7 +6,7 @@ import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
 import { Text } from "@mantine/core";
-import { IImage } from "../../types/user-types";
+import { IImage, IUser } from "../../types/user-types";
 import "./trending-page.css";
 
 interface ITrending {
@@ -17,12 +17,28 @@ interface ITrending {
 
 export const TrendingPage: React.FC = () => {
   const { userData, setInitiateQuack } = useContext(QuackleContext);
-  const trendingProfiles = ["Legolas", "Aragorn", "Gimli"];
   const [trending, setTrending] = useState<ITrending[]>([]);
+  const [trendingNames, setTrendingNames] = useState<string[]>([]);
+
+  const getTrendingNames = async () => {
+    try {
+      const data = await axios.get(`${apiUrl}/user`);
+      const response = data.data
+        .sort((a: IUser, b: IUser) => a.quacks + b.quacks)
+        .slice(0, 10);
+      setTrendingNames(response.map((next: IUser) => next.username));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getTrendingNames();
+  }, []);
 
   const getTrendingAvatars = async () => {
     try {
-      const promises = trendingProfiles.map(async (next) => {
+      const promises = trendingNames.map(async (next) => {
         const res = await axios.get(`${apiUrl}/user/${next}`);
         return res.data;
       });
@@ -41,8 +57,11 @@ export const TrendingPage: React.FC = () => {
   };
 
   useEffect(() => {
+    if (!trendingNames) {
+      return;
+    }
     getTrendingAvatars();
-  }, []);
+  }, [trendingNames]);
 
   return (
     <div className="trending-container">
