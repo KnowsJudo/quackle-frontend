@@ -1,1 +1,1 @@
-export const apiUrl = "//localhost:3001/api";
+export const apiUrl = `${window.origin.replace(/:\d+/, ":3001")}/api`;
