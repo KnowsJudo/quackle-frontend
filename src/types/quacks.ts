@@ -21,6 +21,7 @@ export interface IQuackResponse {
   username: string;
   quackedAt: string;
   message: string;
+  atUser: string;
 }
 
 export interface IFriendQuacks extends IQuackResponse {
@@ -33,6 +34,7 @@ export interface IQuackOutput {
   avatar?: IImage;
   quackedAt: string;
   content: string;
+  atUser: string;
   replies: [];
   requacks: number;
   likes: number;

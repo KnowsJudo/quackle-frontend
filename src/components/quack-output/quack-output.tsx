@@ -5,6 +5,7 @@ import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { useImage } from "../../helpers/use-image";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./quack-output.css";
+import { Link } from "react-router-dom";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
   const [modal, setModal] = useState<boolean>(false);
@@ -47,7 +48,25 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
           )}
         </span>
         <span className="quack-message">
-          <Text size="sm">{props.content}</Text>
+          <Text
+            size="sm"
+            style={{
+              textAlign: "initial",
+              paddingBottom: "5px",
+            }}
+          >
+            {props.content}
+          </Text>
+          {props.atUser !== "everyone" && (
+            <Link
+              to={`/profile/${props.atUser}`}
+              style={{
+                textDecoration: "none",
+                fontSize: "14px",
+                textAlign: "initial",
+              }}
+            >{`@${props.atUser}`}</Link>
+          )}
         </span>
         <span className="quack-options">
           <Text size="sm">{`🐤${props.replies.length}`}</Text>

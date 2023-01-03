@@ -26,6 +26,9 @@
 
 .quack-message {
   display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-evenly;
   word-break: break-all;
   padding: 6% 0;
 }

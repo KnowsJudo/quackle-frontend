@@ -128,6 +128,7 @@ export const HomeDetails: React.FC = () => {
               avatar={next.avatar}
               quackedAt={next.quackedAt}
               content={next.message}
+              atUser={next.atUser}
               replies={[]}
               requacks={0}
               likes={0}

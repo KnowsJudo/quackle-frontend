@@ -62,6 +62,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 avatar={props.profileData.avatar}
                 quackedAt={next.quackedAt}
                 content={next.message}
+                atUser={next.atUser}
                 replies={[]}
                 requacks={0}
                 likes={0}

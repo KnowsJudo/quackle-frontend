@@ -53,6 +53,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         name: userData.name,
         username: userData.username,
         message: quackContent,
+        atUser: props.atUser ? props.atUser : "",
       });
       props.setInitiateQuack?.(false);
       setQuackContent("");
