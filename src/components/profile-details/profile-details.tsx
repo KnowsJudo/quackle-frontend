@@ -84,6 +84,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
           quackdata={props.quackData}
           deleteQuack={props.matchesUser ? deleteQuack : undefined}
           loading={props.loading}
+          loggedIn={props.loggedIn}
         />
       </div>
     </section>

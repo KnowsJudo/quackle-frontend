@@ -25,7 +25,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       <ConfirmModal
         modal={modal}
         setModal={setModal}
-        title="Do you wish to sign out?"
+        title="Do you wish to logout?"
         confirmFunc={() => logout()}
       />
       {props.loggedIn && (

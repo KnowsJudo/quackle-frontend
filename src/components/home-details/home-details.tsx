@@ -131,8 +131,9 @@ export const HomeDetails: React.FC = () => {
               atUser={next.atUser}
               replies={[]}
               requacks={0}
-              likes={0}
+              likes={next.likes}
               loading={loading}
+              loggedIn={true}
               deleteQuack={
                 next.username === userData.username ? deleteQuack : undefined
               }

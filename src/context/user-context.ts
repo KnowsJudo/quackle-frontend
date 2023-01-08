@@ -15,6 +15,7 @@ export const initialUserData: IUser = {
   location: "",
   quacks: 0,
   reQuacks: 0,
+  likedQuacks: [],
   following: [],
   followers: [],
   usersBlocked: [],
@@ -29,4 +30,5 @@ export const QuackleContext = createContext<IUserContext>({
   followUser: () => null,
   unFollowUser: () => null,
   deleteQuack: () => null,
+  likeQuack: () => null,
 });

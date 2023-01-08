@@ -6,6 +6,7 @@ export interface IQuacksMenu {
   quackdata: IQuackResponse[];
   deleteQuack?: (quackId: string) => void;
   loading: boolean;
+  loggedIn: boolean;
 }
 
 export interface IQuackInput {
@@ -22,6 +23,7 @@ export interface IQuackResponse {
   quackedAt: string;
   message: string;
   atUser: string;
+  likes: string[];
 }
 
 export interface IFriendQuacks extends IQuackResponse {
@@ -37,9 +39,10 @@ export interface IQuackOutput {
   atUser: string;
   replies: [];
   requacks: number;
-  likes: number;
+  likes: string[];
   deleteQuack?: (quackId: string) => void;
   loading: boolean;
+  loggedIn: boolean;
 }
 
 export interface IEmptyQuackMenu {

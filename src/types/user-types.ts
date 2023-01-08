@@ -18,6 +18,7 @@ export interface IUser {
   location: string;
   quacks: number;
   reQuacks: number;
+  likedQuacks: string[];
   following: string[];
   followers: string[];
   usersBlocked: string[];

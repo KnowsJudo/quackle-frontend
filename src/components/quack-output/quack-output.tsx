@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IQuackOutput } from "../../types/quacks";
 import { Avatar, Button, Text, Tooltip } from "@mantine/core";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { useImage } from "../../helpers/use-image";
+import { Link } from "react-router-dom";
+import { QuackleContext } from "../../context/user-context";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./quack-output.css";
-import { Link } from "react-router-dom";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
+  const { likeQuack } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const avatarSrc = useImage(props.avatar);
 
@@ -69,9 +71,26 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
           )}
         </span>
         <span className="quack-options">
-          <Text size="sm">{`🐤${props.replies.length}`}</Text>
-          <Text size="sm">{`🐔${props.requacks}`}</Text>
-          <Text size="sm">{`♡${props.likes}`}</Text>
+          <Button
+            size="sm"
+            color="dark"
+            variant="outline"
+            disabled={!props.loggedIn}
+          >{`🐤 Reply ${props.replies.length}`}</Button>
+          <Button
+            size="sm"
+            color="dark"
+            variant="outline"
+            onClick={() => likeQuack(props.username, props.id, false)}
+          >{`🐔 Re-quacks ${props.requacks}`}</Button>
+          <Tooltip label={`Liked by ${props.likes}`}>
+            <Button
+              size="sm"
+              color="dark"
+              variant="outline"
+              onClick={() => likeQuack(props.username, props.id, true)}
+            >{`♡ Likes ${props.likes.length}`}</Button>
+          </Tooltip>
         </span>
       </div>
       <hr />

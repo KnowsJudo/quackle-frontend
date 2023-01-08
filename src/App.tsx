@@ -19,8 +19,8 @@ import { LoginPage } from "./pages/login-page/login-page";
 import { HomePage } from "./pages/home-page/home-page";
 import { IFollowerData, IFollowingData } from "./types/follow-types";
 import { apiUrl } from "./helpers/api-url";
-import "./App.css";
 import { TrendingPage } from "./pages/trending-page/trending-page";
+import "./App.css";
 
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(initialUserData);
@@ -94,6 +94,30 @@ const App: () => JSX.Element = () => {
     }
   };
 
+  const likeQuack = async (
+    username: string,
+    quackId: string,
+    liked: boolean,
+  ) => {
+    console.log("initial", userData.likedQuacks);
+    try {
+      await axios.patch(`${apiUrl}/user/${username}/quacks/${quackId}`, {
+        liked,
+        likedUsername: userData.username,
+      });
+      const res = await axios.get(`${apiUrl}/user/${userData.username}`);
+      console.log("res", res.data.likedQuacks);
+      console.log("user", userData);
+      const newLikes = [...res.data.likedQuacks];
+      setUserData((prev) => {
+        return { ...prev, likedQuacks: newLikes };
+      });
+      console.log("after", userData.likedQuacks);
+    } catch (error) {
+      console.error(error, "Could not update quack status");
+    }
+  };
+
   return (
     <main className="App">
       <QuackleContext.Provider
@@ -106,6 +130,7 @@ const App: () => JSX.Element = () => {
           followUser,
           unFollowUser,
           deleteQuack,
+          likeQuack,
         }}
       >
         <MantineProvider withGlobalStyles withNormalizeCSS>

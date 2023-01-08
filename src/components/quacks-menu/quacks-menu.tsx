@@ -65,9 +65,10 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 atUser={next.atUser}
                 replies={[]}
                 requacks={0}
-                likes={0}
+                likes={next.likes}
                 deleteQuack={props.deleteQuack}
                 loading={props.loading}
+                loggedIn={props.loggedIn}
               />
             );
           })
