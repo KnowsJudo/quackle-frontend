@@ -72,7 +72,7 @@ export const HomeDetails: React.FC = () => {
   useEffect(() => {
     getFriendQuacks();
     getFriendAvatars();
-  }, [userData.quacks]);
+  }, [userData.quacks, userData.likedQuacks]);
 
   useEffect(() => {
     if (!friendResponse || !friendAvatars) {
@@ -92,7 +92,7 @@ export const HomeDetails: React.FC = () => {
       .reverse();
     setFriendQuacks(sortedResults);
     setLoading(false);
-  }, [friendResponse, friendAvatars, userData.quacks]);
+  }, [friendResponse, friendAvatars, userData.quacks, userData.likedQuacks]);
 
   return (
     <section className="home-details">

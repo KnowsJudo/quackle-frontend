@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { initialUserData, QuackleContext } from "./context/user-context";
@@ -99,20 +99,13 @@ const App: () => JSX.Element = () => {
     quackId: string,
     liked: boolean,
   ) => {
-    console.log("initial", userData.likedQuacks);
     try {
       await axios.patch(`${apiUrl}/user/${username}/quacks/${quackId}`, {
         liked,
         likedUsername: userData.username,
       });
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
-      console.log("res", res.data.likedQuacks);
-      console.log("user", userData);
-      const newLikes = [...res.data.likedQuacks];
-      setUserData((prev) => {
-        return { ...prev, likedQuacks: newLikes };
-      });
-      console.log("after", userData.likedQuacks);
+      setUserData(res.data);
     } catch (error) {
       console.error(error, "Could not update quack status");
     }

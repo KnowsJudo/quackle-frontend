@@ -69,7 +69,12 @@ export const ProfilePage: React.FC = () => {
   useEffect(() => {
     getProfileData();
     getProfileQuacks();
-  }, [params.userId, userData.quacks]);
+  }, [
+    params.userId,
+    userData.quacks,
+    userData.likedQuacks,
+    userData.following,
+  ]);
 
   if (loading.profile) {
     return (
