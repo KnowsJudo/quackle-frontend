@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IQuackOutput } from "../../types/quacks";
 import { Avatar, Button, Text, Tooltip } from "@mantine/core";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
@@ -11,7 +11,36 @@ import "./quack-output.css";
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
   const { likeQuack } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
+  const [likeList, setLikeList] = useState<string>("");
   const avatarSrc = useImage(props.avatar);
+
+  const calclikeList = (likes: string[]) => {
+    switch (likes.length) {
+      case 0: {
+        setLikeList("Be the first to like this quack!");
+        break;
+      }
+      case 1: {
+        setLikeList(`Liked by ${likes}`);
+        break;
+      }
+      case 2: {
+        setLikeList(`Liked by ${likes[0]} and ${likes[1]}`);
+        break;
+      }
+      default: {
+        setLikeList(
+          `Liked by ${likes[0]}, ${likes[1]} and ${likes.length - 2} other${
+            likes.length - 2 > 1 ? "s" : ""
+          }`,
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    calclikeList(props.likes);
+  }, []);
 
   return (
     <section className="quack-output">
@@ -83,7 +112,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
             variant="outline"
             onClick={() => likeQuack(props.username, props.id, false)}
           >{`🐔 Re-quacks ${props.requacks}`}</Button>
-          <Tooltip label={`Liked by ${props.likes}`}>
+          <Tooltip label={likeList}>
             <Button
               size="sm"
               color="dark"
