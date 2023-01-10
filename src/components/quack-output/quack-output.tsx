@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import "./quack-output.css";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
-  const { userData, likeQuack } = useContext(QuackleContext);
+  const { likeQuack } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const [likeList, setLikeList] = useState<string>("");
   const avatarSrc = useImage(props.avatar);
@@ -86,7 +86,6 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
               paddingBottom: "5px",
             }}
           >
-            {likeList}
             {props.content}
           </Text>
           {props.atUser !== "everyone" && (
