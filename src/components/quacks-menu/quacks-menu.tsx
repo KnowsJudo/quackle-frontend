@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Loader, Tabs } from "@mantine/core";
+import { Loader, Tabs, Textarea } from "@mantine/core";
 import {
   IEmptyQuackMenu,
   IQuackResponse,
@@ -19,9 +19,17 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       return (
         <h6>
           This user has no&nbsp;
-          {props.likes ? "likes!" : `${props.requack ? "re-" : ""}quacks!`}
+          {props.likes
+            ? "likes"
+            : props.bio
+            ? "biography"
+            : `${props.requack ? "re-" : ""}quacks`}
         </h6>
       );
+    }
+
+    if (props.bio) {
+      return <Textarea placeholder="Enter your bio"></Textarea>;
     }
 
     return (
@@ -43,7 +51,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         <Tabs.Tab value="quacks">Quacks</Tabs.Tab>
         <Tabs.Tab value="requacks">Re-Quacks</Tabs.Tab>
         <Tabs.Tab value="likes">Likes</Tabs.Tab>
-        <Tabs.Tab value="media">Media</Tabs.Tab>
+        <Tabs.Tab value="bio">Bio</Tabs.Tab>
       </Tabs.List>
 
       <Tabs.Panel value="quacks">
@@ -80,8 +88,8 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       <Tabs.Panel value="likes">
         <EmptyQuacks likes={true} />
       </Tabs.Panel>
-      <Tabs.Panel value="media">
-        <EmptyQuacks quack={true} />
+      <Tabs.Panel value="bio">
+        <EmptyQuacks bio={true} />
       </Tabs.Panel>
     </Tabs>
   );

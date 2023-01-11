@@ -49,4 +49,5 @@ export interface IEmptyQuackMenu {
   quack?: boolean;
   requack?: boolean;
   likes?: boolean;
+  bio?: boolean;
 }
