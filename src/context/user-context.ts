@@ -13,6 +13,7 @@ export const initialUserData: IUser = {
   tagline: "",
   banner: undefined,
   location: "",
+  biography: "",
   quacks: 0,
   reQuacks: 0,
   likedQuacks: [],

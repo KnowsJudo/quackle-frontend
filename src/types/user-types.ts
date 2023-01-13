@@ -16,6 +16,7 @@ export interface IUser {
   tagline: string;
   banner?: IImage;
   location: string;
+  biography: string;
   quacks: number;
   reQuacks: number;
   likedQuacks: string[];

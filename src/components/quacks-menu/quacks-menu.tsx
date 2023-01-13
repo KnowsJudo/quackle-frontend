@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Loader, Tabs, Textarea } from "@mantine/core";
+import axios from "axios";
+import { Button, Loader, Tabs, Text, Textarea } from "@mantine/core";
 import {
   IEmptyQuackMenu,
   IQuackResponse,
@@ -7,12 +8,30 @@ import {
 } from "../../types/quacks";
 import { QuackOutput } from "../quack-output/quack-output";
 import { QuackleContext } from "../../context/user-context";
+import { apiUrl } from "../../helpers/api-url";
+import EditIcon from "@mui/icons-material/Edit";
 import "./quacks-menu.css";
 
 export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, setUserData } = useContext(QuackleContext);
   const [selectedTab, setSelectedTab] = useState<string | null>("quacks");
+  const [edit, setEdit] = useState<boolean>(false);
+  const [biography, setBiography] = useState<string>("");
   const paramId = props.paramId;
+
+  const submitBio = async () => {
+    try {
+      await axios.patch(`${apiUrl}/user/${userData.username}`, {
+        option: "biography",
+        setting: biography,
+      });
+      const res = await axios.get(`${apiUrl}/user/${userData.username}`);
+      setUserData(res.data);
+      setEdit(false);
+    } catch (error) {
+      console.error(`Could not update biography`, error);
+    }
+  };
 
   const EmptyQuacks: React.FC<IEmptyQuackMenu> = (props) => {
     if (!userData.username || userData.username !== paramId) {
@@ -28,8 +47,17 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       );
     }
 
-    if (props.bio) {
-      return <Textarea placeholder="Enter your bio"></Textarea>;
+    if (props.bio && userData.username === paramId) {
+      return (
+        <>
+          <Text size="md" color="dimmed">
+            Enter your biography
+          </Text>
+          <Button variant="outline" color="dark" onClick={() => setEdit(true)}>
+            <EditIcon />
+          </Button>
+        </>
+      );
     }
 
     return (
@@ -89,7 +117,40 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         <EmptyQuacks likes={true} />
       </Tabs.Panel>
       <Tabs.Panel value="bio">
-        <EmptyQuacks bio={true} />
+        {!props.profileData.biography && !edit ? (
+          <EmptyQuacks bio={true} />
+        ) : (
+          <>
+            <Text size="md" color={edit ? "dimmed" : "dark"}>
+              {props.profileData.biography}
+            </Text>
+            {edit && (
+              <>
+                <Textarea
+                  placeholder="Enter your bio"
+                  value={biography}
+                  onChange={(e) => setBiography(e.target.value)}
+                />
+                <Button
+                  variant="outline"
+                  color="dark"
+                  onClick={() => submitBio()}
+                >
+                  Update
+                </Button>
+              </>
+            )}
+            {!edit && userData.username === props.profileData.username && (
+              <Button
+                variant="outline"
+                color="dark"
+                onClick={() => setEdit(true)}
+              >
+                <EditIcon />
+              </Button>
+            )}
+          </>
+        )}
       </Tabs.Panel>
     </Tabs>
   );
