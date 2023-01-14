@@ -114,13 +114,38 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         <EmptyQuacks requack={true} />
       </Tabs.Panel>
       <Tabs.Panel value="likes">
-        <EmptyQuacks likes={true} />
+        {props.loading ? (
+          <Loader sx={{ marginTop: "25vh" }} />
+        ) : !props.likesData.length ? (
+          <EmptyQuacks likes={true} />
+        ) : (
+          props.likesData.map((next: IQuackResponse, i) => {
+            return (
+              <QuackOutput
+                key={i}
+                id={next._id}
+                name={next.name}
+                username={next.username}
+                // avatar={props.profileData.avatar}
+                quackedAt={next.quackedAt}
+                content={next.message}
+                atUser={next.atUser}
+                replies={[]}
+                requacks={0}
+                likes={next.likes}
+                deleteQuack={undefined}
+                loading={props.loading}
+                loggedIn={props.loggedIn}
+              />
+            );
+          })
+        )}
       </Tabs.Panel>
       <Tabs.Panel value="bio">
         {!props.profileData.biography && !edit ? (
           <EmptyQuacks bio={true} />
         ) : (
-          <>
+          <div className="biography-contents">
             <Text size="md" color={edit ? "dimmed" : "dark"}>
               {props.profileData.biography}
             </Text>
@@ -149,7 +174,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 <EditIcon />
               </Button>
             )}
-          </>
+          </div>
         )}
       </Tabs.Panel>
     </Tabs>

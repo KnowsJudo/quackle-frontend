@@ -20,9 +20,11 @@ export const ProfilePage: React.FC = () => {
     useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
+  const [likesData, setLikesData] = useState<IQuackResponse[]>([]);
   const [loading, setLoading] = useState<ILoading>({
     profile: true,
     quacks: true,
+    likes: true,
   });
 
   const getProfileData = async () => {
@@ -37,15 +39,12 @@ export const ProfilePage: React.FC = () => {
       });
     } catch (error) {
       console.error(error);
-      setLoading({ profile: false, quacks: false });
+      setLoading({ profile: false, quacks: false, likes: false });
       setProfileData(null);
     }
   };
 
   const getProfileQuacks = async () => {
-    setLoading((prev) => {
-      return { ...prev, quacks: true };
-    });
     try {
       const res = await axios.get(`${apiUrl}/user/${params.userId}/quacks`);
       const sortedResults = res.data
@@ -66,9 +65,34 @@ export const ProfilePage: React.FC = () => {
     }
   };
 
+  const getProfileLikes = async () => {
+    if (!userData.likedQuacks.length) {
+      setLoading((prev) => {
+        return { ...prev, likes: false };
+      });
+      return;
+    }
+    try {
+      const promises = userData.likedQuacks.map(async (next) => {
+        const res = await axios.get(`${apiUrl}/user/users/quacks/${next}`);
+        return res.data;
+      });
+      const results = await Promise.all(promises);
+      const responses = results.flat();
+      console.log(responses, "resp");
+      setLikesData(responses);
+    } catch (err) {
+      console.error(err);
+      setLoading((prev) => {
+        return { ...prev, likes: false };
+      });
+    }
+  };
+
   useEffect(() => {
     getProfileData();
     getProfileQuacks();
+    getProfileLikes();
   }, [params.userId, userData.quacks, userData.likedQuacks]);
 
   if (loading.profile) {
@@ -100,8 +124,9 @@ export const ProfilePage: React.FC = () => {
       <ProfileDetails
         matchesUser={userData.username === params.userId ? true : false}
         loggedIn={userData.username ? true : false}
-        quackData={quackData}
         profileData={profileData}
+        quackData={quackData}
+        likesData={likesData}
         paramId={params.userId}
         loading={loading.quacks}
       />

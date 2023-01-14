@@ -82,6 +82,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
           paramId={props.paramId}
           profileData={props.profileData}
           quackdata={props.quackData}
+          likesData={props.likesData}
           deleteQuack={props.matchesUser ? deleteQuack : undefined}
           loading={props.loading}
           loggedIn={props.loggedIn}

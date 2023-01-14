@@ -22,8 +22,9 @@ export interface IProfileDetails {
   matchesUser: boolean;
   loggedIn: boolean;
   profileData: IUser;
-  paramId?: string;
   quackData: IQuackResponse[];
+  likesData: IQuackResponse[];
+  paramId?: string;
   deleteQuack?: (quackId: string) => Promise<void>;
   loading: boolean;
 }
@@ -31,6 +32,7 @@ export interface IProfileDetails {
 export interface ILoading {
   profile: boolean;
   quacks: boolean;
+  likes: boolean;
 }
 
 export interface IProfileSideBar {

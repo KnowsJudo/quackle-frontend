@@ -51,13 +51,20 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
         confirmFunc={() => props.deleteQuack?.(props.id)}
       />
       <span className="quack-output-avatar">
-        <Avatar src={avatarSrc} alt="user avatar" radius="xl" size="lg" />
+        <Link to={`/profile/${props.username}`}>
+          <Avatar src={avatarSrc} alt="user avatar" radius="xl" size="lg" />
+        </Link>
       </span>
       <div className="quack-content">
         <span className="quack-user">
-          <Text size="md" weight="bold">
-            {props.name}&nbsp;
-          </Text>
+          <Link
+            to={`/profile/${props.username}`}
+            style={{ color: "black", textDecoration: "none" }}
+          >
+            <Text size="md" weight="bold">
+              {props.name}&nbsp;
+            </Text>
+          </Link>
           <Text size="md" color="dimmed">
             @{props.username}&nbsp;
           </Text>
