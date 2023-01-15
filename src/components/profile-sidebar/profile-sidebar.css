@@ -18,6 +18,8 @@
 
 .profile-search {
   display: flex;
+  background-color: white;
+  border-radius: 5px;
   align-items: center;
   margin-top: 20vh;
 }

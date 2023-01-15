@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import axios from "axios";
 import Cookies from "js-cookie";
 import { Button, Input } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,16 +9,31 @@ import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import InputIcon from "@mui/icons-material/Input";
 import SearchIcon from "@mui/icons-material/Search";
 import "./profile-sidebar.css";
+import { apiUrl } from "../../helpers/api-url";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const { setUserData } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
   const navigate = useNavigate();
 
   const logout = () => {
     Cookies.remove("jwtToken");
     setUserData(initialUserData);
     navigate("/");
+  };
+
+  const searchUsers = async () => {
+    if (search.length < 3) {
+      console.log("Must enter at least 3 characters");
+      return;
+    }
+    try {
+      const user = await axios.get(`${apiUrl}/user/${search}`);
+      console.log(user.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -49,9 +65,16 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
         </section>
       )}
       <span className="profile-search">
-        <SearchIcon />
-        &nbsp;
-        <Input placeholder="Search Quackle"></Input>
+        <Input
+          placeholder="Search Quackle Users"
+          value={search}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearch(e.target.value)
+          }
+        />
+        <Button variant="subtle" color="dark" onClick={() => searchUsers()}>
+          <SearchIcon fontSize="large" />
+        </Button>
       </span>
     </section>
   );

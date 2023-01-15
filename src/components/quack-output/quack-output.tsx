@@ -112,7 +112,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
             color="dark"
             variant="outline"
             disabled={!props.loggedIn}
-          >{`🐤 Reply ${props.replies.length}`}</Button>
+          >{`🐤 Replies ${props.replies.length}`}</Button>
           <Button
             size="sm"
             color="dark"

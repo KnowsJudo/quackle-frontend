@@ -79,7 +79,6 @@ export const ProfilePage: React.FC = () => {
       });
       const results = await Promise.all(promises);
       const responses = results.flat();
-      console.log(responses, "resp");
       setLikesData(responses);
     } catch (err) {
       console.error(err);
