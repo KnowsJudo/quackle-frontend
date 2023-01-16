@@ -6,15 +6,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
 import { initialUserData, QuackleContext } from "../../context/user-context";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
+import { apiUrl } from "../../helpers/api-url";
+import { UserPreview } from "../user-preview/user-preview";
+import { IUserPreview } from "../../types/user-types";
 import InputIcon from "@mui/icons-material/Input";
 import SearchIcon from "@mui/icons-material/Search";
 import "./profile-sidebar.css";
-import { apiUrl } from "../../helpers/api-url";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
-  const { setUserData } = useContext(QuackleContext);
+  const { userData, setUserData } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
+  const [selectData, setSelectData] = useState<IUserPreview[]>([]);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -28,9 +31,20 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       console.log("Must enter at least 3 characters");
       return;
     }
+    setSelectData([]);
     try {
-      const user = await axios.get(`${apiUrl}/user/${search}`);
-      console.log(user.data);
+      const data = await axios.get(`${apiUrl}/user/${search}`);
+      const user = data.data;
+      const singleUser: IUserPreview = {
+        id: user.id,
+        avatar: user.avatar,
+        name: user.name,
+        username: user.username,
+        tagline: user.tagline,
+        matchesUser: user.username === userData.username,
+      };
+      console.log();
+      setSelectData([singleUser]);
     } catch (error) {
       console.error(error);
     }
@@ -64,18 +78,33 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
           </Link>
         </section>
       )}
-      <span className="profile-search">
-        <Input
-          placeholder="Search Quackle Users"
-          value={search}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSearch(e.target.value)
-          }
-        />
-        <Button variant="subtle" color="dark" onClick={() => searchUsers()}>
-          <SearchIcon fontSize="large" />
-        </Button>
-      </span>
+      <div className="search-container">
+        <span className="profile-search">
+          <Input
+            placeholder="Search Quackle Users"
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+          />
+          <Button variant="subtle" color="dark" onClick={() => searchUsers()}>
+            <SearchIcon fontSize="large" />
+          </Button>
+        </span>
+        {selectData &&
+          selectData.map((next) => {
+            return (
+              <UserPreview
+                key={next.id}
+                avatar={next.avatar}
+                name={next.name}
+                username={next.username}
+                tagline={next.tagline}
+                matchesUser={next.matchesUser}
+              />
+            );
+          })}
+      </div>
     </section>
   );
 };
