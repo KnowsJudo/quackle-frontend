@@ -6,18 +6,13 @@ import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
 import { Text } from "@mantine/core";
-import { IImage, IUser } from "../../types/user-types";
+import { IImage, IUser, IUserPreview } from "../../types/user-types";
+import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./trending-page.css";
-
-interface ITrending {
-  name: string;
-  username: string;
-  avatar?: IImage;
-}
 
 export const TrendingPage: React.FC = () => {
   const { userData, setInitiateQuack } = useContext(QuackleContext);
-  const [trending, setTrending] = useState<ITrending[]>([]);
+  const [trending, setTrending] = useState<IUserPreview[]>([]);
   const [trendingNames, setTrendingNames] = useState<string[]>([]);
 
   const getTrendingNames = async () => {
@@ -43,11 +38,14 @@ export const TrendingPage: React.FC = () => {
         return res.data;
       });
       const results = await Promise.all(promises);
-      const transformed = results.map((next) => {
+      const transformed: IUserPreview[] = results.map((next) => {
         return {
+          id: next.id,
           name: next.name,
           username: next.username,
           avatar: next.avatar,
+          tagline: next.tagline,
+          matchesUser: next.username === userData.username,
         };
       });
       setTrending(transformed);
@@ -70,14 +68,23 @@ export const TrendingPage: React.FC = () => {
         setInitiateQuack={setInitiateQuack}
       />
       <section className="trending-list">
-        <Text>Most popular Ducks</Text>
+        <Text>The Pond</Text>
+        <HorizontalRuleRoundedIcon
+          preserveAspectRatio="none"
+          style={{
+            height: "30px",
+            width: "100%",
+          }}
+        />
         {trending.map((next) => {
           return (
             <UserPreview
-              key={next.username}
+              key={next.id}
               name={next.name}
               username={next.username}
               avatar={next.avatar}
+              tagline={next.tagline}
+              matchesUser={next.matchesUser}
             />
           );
         })}

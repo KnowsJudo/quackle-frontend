@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Button, Input } from "@mantine/core";
+import { Alert, Button, Input } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
 import { initialUserData, QuackleContext } from "../../context/user-context";
@@ -27,11 +27,11 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   };
 
   const searchUsers = async () => {
+    setSelectData([]);
     if (search.length < 3) {
       console.log("Must enter at least 3 characters");
       return;
     }
-    setSelectData([]);
     try {
       const data = await axios.get(`${apiUrl}/user/${search}`);
       const user = data.data;
@@ -43,7 +43,6 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
         tagline: user.tagline,
         matchesUser: user.username === userData.username,
       };
-      console.log();
       setSelectData([singleUser]);
     } catch (error) {
       console.error(error);
@@ -86,12 +85,18 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSearch(e.target.value)
             }
+            style={{ flex: "1 1 auto" }}
           />
-          <Button variant="subtle" color="dark" onClick={() => searchUsers()}>
+          <Button
+            variant="subtle"
+            color="dark"
+            onClick={() => searchUsers()}
+            style={{ marginLeft: "auto" }}
+          >
             <SearchIcon fontSize="large" />
           </Button>
         </span>
-        {selectData &&
+        {selectData.length ? (
           selectData.map((next) => {
             return (
               <UserPreview
@@ -103,7 +108,10 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
                 matchesUser={next.matchesUser}
               />
             );
-          })}
+          })
+        ) : (
+          <Alert color="gray">No users found</Alert>
+        )}
       </div>
     </section>
   );
