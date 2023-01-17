@@ -25,7 +25,9 @@ export const ConfirmModal: React.FC<IConfirmModal> = (props) => {
         <Button
           variant="outline"
           color="dark"
-          onClick={() => props.setModal(false)}
+          onClick={() =>
+            props.rejectFunc ? props.rejectFunc() : props.setModal(false)
+          }
         >
           No
         </Button>

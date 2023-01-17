@@ -10,6 +10,7 @@ import { QuackOutput } from "../quack-output/quack-output";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
 import EditIcon from "@mui/icons-material/Edit";
+import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./quacks-menu.css";
 
 export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
@@ -76,10 +77,18 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       sx={{ flex: "1 1 auto" }}
     >
       <Tabs.List sx={{ justifyContent: "space-evenly" }}>
-        <Tabs.Tab value="quacks">Quacks</Tabs.Tab>
-        <Tabs.Tab value="requacks">Re-Quacks</Tabs.Tab>
-        <Tabs.Tab value="likes">Likes</Tabs.Tab>
-        <Tabs.Tab value="bio">Bio</Tabs.Tab>
+        <Tabs.Tab color="cyan" value="quacks">
+          Quacks
+        </Tabs.Tab>
+        <Tabs.Tab color="cyan" value="requacks">
+          Re-Quacks
+        </Tabs.Tab>
+        <Tabs.Tab color="cyan" value="likes">
+          Likes
+        </Tabs.Tab>
+        <Tabs.Tab color="cyan" value="bio">
+          Bio
+        </Tabs.Tab>
       </Tabs.List>
 
       <Tabs.Panel value="quacks">
@@ -146,6 +155,13 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
           <EmptyQuacks bio={true} />
         ) : (
           <div className="biography-contents">
+            <HorizontalRuleRoundedIcon
+              preserveAspectRatio="none"
+              style={{
+                height: "30px",
+                width: "100%",
+              }}
+            />
             <Text size="md" color={edit ? "dimmed" : "dark"}>
               {props.profileData.biography}
             </Text>
@@ -174,6 +190,13 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 <EditIcon />
               </Button>
             )}
+            <HorizontalRuleRoundedIcon
+              preserveAspectRatio="none"
+              style={{
+                height: "30px",
+                width: "100%",
+              }}
+            />
           </div>
         )}
       </Tabs.Panel>

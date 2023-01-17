@@ -5,4 +5,5 @@ export interface IConfirmModal {
   setModal: React.Dispatch<SetStateAction<boolean>>;
   title: string;
   confirmFunc: () => void;
+  rejectFunc?: () => void;
 }

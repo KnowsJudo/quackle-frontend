@@ -49,7 +49,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
       )}
       <span>
         {props.loggedIn && (
-          <Button color="gray" onClick={() => props.setInitiateQuack(true)}>
+          <Button color="teal" onClick={() => props.setInitiateQuack(true)}>
             Quack!
           </Button>
         )}

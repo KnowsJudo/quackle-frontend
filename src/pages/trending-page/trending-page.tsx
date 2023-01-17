@@ -6,7 +6,7 @@ import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
 import { Text } from "@mantine/core";
-import { IImage, IUser, IUserPreview } from "../../types/user-types";
+import { IUser, IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./trending-page.css";
 

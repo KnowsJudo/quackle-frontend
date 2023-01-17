@@ -20,6 +20,11 @@ import { HomePage } from "./pages/home-page/home-page";
 import { IFollowerData, IFollowingData } from "./types/follow-types";
 import { apiUrl } from "./helpers/api-url";
 import { TrendingPage } from "./pages/trending-page/trending-page";
+import { NotificationsProvider } from "@mantine/notifications";
+import { showNotification } from "@mantine/notifications";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
+import { GiPlasticDuck, GiNestBirds } from "react-icons/gi";
 import "./App.css";
 
 const App: () => JSX.Element = () => {
@@ -58,9 +63,21 @@ const App: () => JSX.Element = () => {
           maxContentLength: 10485760,
         },
       );
-      console.log("Followed user!");
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      showNotification({
+        title: `Followed ${followingUsername}!`,
+        message: "Your pond is expanding. QUACK!",
+        icon: <GiPlasticDuck />,
+        color: "cyan",
+        styles: () => ({
+          root: { backgroundColor: "#282c34", borderColor: "#282c34" },
+          title: { color: "white" },
+          closeButton: {
+            color: "white",
+          },
+        }),
+      });
     } catch (error) {
       console.error(error);
     }
@@ -74,9 +91,21 @@ const App: () => JSX.Element = () => {
       await axios.delete(
         `${apiUrl}/user/${followingUser}/followers/${userData.username}`,
       );
-      console.log("UnFollowed user!");
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      showNotification({
+        title: `Un-followed ${followingUser}`,
+        message: "Removed from your pecking order",
+        icon: <GiNestBirds />,
+        color: "cyan",
+        styles: () => ({
+          root: { backgroundColor: "#282c34", borderColor: "#282c34" },
+          title: { color: "white" },
+          closeButton: {
+            color: "white",
+          },
+        }),
+      });
     } catch (error) {
       console.error(error, "Could not unfollow user");
     }
@@ -106,55 +135,72 @@ const App: () => JSX.Element = () => {
       });
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      showNotification({
+        title: `Quack ${!liked ? "un-" : ""}liked!`,
+        message: liked
+          ? "It can be viewed under your profile likes"
+          : "Removed from your profile likes",
+        icon: liked ? <FavoriteIcon /> : <HeartBrokenIcon />,
+        color: "cyan",
+        styles: () => ({
+          root: { backgroundColor: "#282c34", borderColor: "#282c34" },
+          title: { color: "white" },
+          closeButton: {
+            color: "white",
+          },
+        }),
+      });
     } catch (error) {
       console.error(error, "Could not update quack status");
     }
   };
 
   return (
-    <main className="App">
-      <QuackleContext.Provider
-        value={{
-          userData,
-          setUserData,
-          setUserInfo,
-          initiateQuack,
-          setInitiateQuack,
-          followUser,
-          unFollowUser,
-          deleteQuack,
-          likeQuack,
-        }}
-      >
-        <MantineProvider withGlobalStyles withNormalizeCSS>
-          <BrowserRouter>
-            <Routes>
-              <Route
-                path="/"
-                element={loggedIn ? <Navigate to="/home" /> : <LoginPage />}
-              />
-              <Route
-                path="/signup"
-                element={loggedIn ? <Navigate to="/home" /> : <SignUpPage />}
-              />
-              <Route
-                path="/home"
-                element={loggedIn ? <HomePage /> : <Navigate to="/" />}
-              />
-              <Route path="/profile/:userId/*" element={<ProfilePage />}>
-                <Route path=":follow" element={<Outlet />} />
-              </Route>
-              <Route
-                path="/settings"
-                element={loggedIn ? <SettingsPage /> : <Navigate to="/" />}
-              />
-              <Route path="/trending" element={<TrendingPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </BrowserRouter>
-        </MantineProvider>
-      </QuackleContext.Provider>
-    </main>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      <NotificationsProvider position="bottom-center">
+        <main className="App">
+          <QuackleContext.Provider
+            value={{
+              userData,
+              setUserData,
+              setUserInfo,
+              initiateQuack,
+              setInitiateQuack,
+              followUser,
+              unFollowUser,
+              deleteQuack,
+              likeQuack,
+            }}
+          >
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  path="/"
+                  element={loggedIn ? <Navigate to="/home" /> : <LoginPage />}
+                />
+                <Route
+                  path="/signup"
+                  element={loggedIn ? <Navigate to="/home" /> : <SignUpPage />}
+                />
+                <Route
+                  path="/home"
+                  element={loggedIn ? <HomePage /> : <Navigate to="/" />}
+                />
+                <Route path="/profile/:userId/*" element={<ProfilePage />}>
+                  <Route path=":follow" element={<Outlet />} />
+                </Route>
+                <Route
+                  path="/settings"
+                  element={loggedIn ? <SettingsPage /> : <Navigate to="/" />}
+                />
+                <Route path="/trending" element={<TrendingPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </BrowserRouter>
+          </QuackleContext.Provider>
+        </main>
+      </NotificationsProvider>
+    </MantineProvider>
   );
 };
 

@@ -44,34 +44,6 @@
   padding-top: 2%;
 }
 
-.save-quack {
-  position: fixed;
-  display: flex;
-  margin: auto;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-}
-
-.confirm-save {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: auto;
-  width: 30%;
-  height: 20%;
-  background-color: black;
-  border-radius: 10px;
-}
-
-.save-buttons {
-  display: flex;
-  margin-top: 5%;
-  justify-content: space-evenly;
-}
-
 @keyframes slidedown {
   from {
     margin-bottom: 80%;

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Alert, Button, Input } from "@mantine/core";
@@ -17,8 +17,13 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
+  const [searchError, setSearchError] = useState<boolean>(false);
   const [selectData, setSelectData] = useState<IUserPreview[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSearchError(false);
+  }, [selectData]);
 
   const logout = () => {
     Cookies.remove("jwtToken");
@@ -27,9 +32,8 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   };
 
   const searchUsers = async () => {
-    setSelectData([]);
     if (search.length < 3) {
-      console.log("Must enter at least 3 characters");
+      setSearchError(true);
       return;
     }
     try {
@@ -45,6 +49,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       };
       setSelectData([singleUser]);
     } catch (error) {
+      setSearchError(true);
       console.error(error);
     }
   };
@@ -59,7 +64,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       />
       {props.loggedIn && (
         <span className="profile-logout">
-          <Button onClick={() => setModal(true)}>
+          <Button onClick={() => setModal(true)} color="cyan">
             Logout&nbsp;&nbsp;
             <InputIcon />
           </Button>
@@ -96,7 +101,9 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
             <SearchIcon fontSize="large" />
           </Button>
         </span>
-        {selectData.length ? (
+        {searchError ? (
+          <Alert color="gray">No users found</Alert>
+        ) : (
           selectData.map((next) => {
             return (
               <UserPreview
@@ -109,8 +116,6 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
               />
             );
           })
-        ) : (
-          <Alert color="gray">No users found</Alert>
         )}
       </div>
     </section>

@@ -26,6 +26,7 @@ export const FollowButton: React.FC<IFollowButton> = (props) => {
         confirmFunc={() => unFollowUser(props.buttonOwner)}
       />
       <Button
+        color="cyan"
         className="follow-button"
         disabled={props.disabled}
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,6 +39,7 @@ export const FollowButton: React.FC<IFollowButton> = (props) => {
     </>
   ) : (
     <Button
+      color="cyan"
       className="follow-button"
       disabled={props.disabled}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => {

@@ -12,6 +12,9 @@ import { IQuackInput } from "../../types/quacks";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
 import { useImage } from "../../helpers/use-image";
+import { ConfirmModal } from "../confirm-modal/confirm-modal";
+import { showNotification } from "@mantine/notifications";
+import { AiFillDingtalkCircle } from "react-icons/ai";
 import "./quack-input.css";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {
@@ -59,6 +62,18 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
       setQuackContent("");
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      showNotification({
+        message: "Quacked!",
+        icon: <AiFillDingtalkCircle />,
+        color: "cyan",
+        styles: () => ({
+          root: { backgroundColor: "#282c34", borderColor: "#282c34" },
+          description: { color: "white" },
+          closeButton: {
+            color: "white",
+          },
+        }),
+      });
     } catch (error) {
       console.error(error);
     }
@@ -138,28 +153,20 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
           <Progress
             value={quackContent.length / 3}
             sx={{ width: "25%" }}
-            color={error ? "red" : "blue"}
+            color={error ? "red" : "cyan"}
           />
-          <Button onClick={submitQuack} disabled={!quackContent}>
+          <Button onClick={submitQuack} disabled={!quackContent} color="teal">
             Quack!
           </Button>
         </span>
       </div>
-      {checkClose && (
-        <div className="save-quack" onClick={() => setCheckClose(false)}>
-          <div className="confirm-save" onClick={(e) => e.stopPropagation()}>
-            <h4>Save Quack?</h4>
-            <span className="save-buttons">
-              <Button variant="default" onClick={() => saveQuack()}>
-                Save
-              </Button>
-              <Button variant="default" onClick={() => discardQuack()}>
-                Discard
-              </Button>
-            </span>
-          </div>
-        </div>
-      )}
+      <ConfirmModal
+        modal={checkClose}
+        setModal={setCheckClose}
+        title={"Save Quack?"}
+        confirmFunc={saveQuack}
+        rejectFunc={discardQuack}
+      />
     </section>
   );
 };
