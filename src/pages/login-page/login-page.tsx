@@ -99,7 +99,7 @@ export const LoginPage: React.FC = () => {
           noPass={error.noPass}
         />
         <span>
-          <Button onClick={() => login()} onKeyDown={onKeyDown}>
+          <Button onClick={() => login()} onKeyDown={onKeyDown} color="cyan">
             LOGIN
           </Button>
         </span>
@@ -137,7 +137,7 @@ export const LoginPage: React.FC = () => {
         <span className="login-signup">
           <Text size="md">New to Quackle?&nbsp;</Text>
           <Link to="/signup">
-            <Button>Sign Up</Button>
+            <Button color="cyan">Sign Up</Button>
           </Link>
         </span>
       </section>

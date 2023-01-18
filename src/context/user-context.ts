@@ -8,7 +8,7 @@ export const initialUserData: IUser = {
   name: "",
   username: "",
   email: "",
-  dateOfBirth: new Date("1989-09-13"),
+  dateOfBirth: new Date(),
   createdAt: new Date(),
   tagline: "",
   banner: undefined,

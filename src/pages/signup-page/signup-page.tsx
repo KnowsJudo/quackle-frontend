@@ -110,12 +110,14 @@ export const SignUpPage: React.FC = () => {
           error={error}
         />
         <span>
-          <Button onClick={() => signUp()}>Get Quackin!</Button>
+          <Button onClick={() => signUp()} color="cyan">
+            Get Quackin!
+          </Button>
         </span>
         <span className="signup-login">
           <Text size="md">Existing user?</Text>
           <Link to="/">
-            <Button>LOGIN</Button>
+            <Button color="cyan">LOGIN</Button>
           </Link>
         </span>
       </section>
