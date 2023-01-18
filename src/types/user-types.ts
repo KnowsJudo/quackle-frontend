@@ -11,7 +11,7 @@ export interface IUser {
   name: string;
   username: string;
   email: string;
-  dateOfBirth: Date;
+  dateOfBirth: Date | null;
   createdAt: Date;
   tagline: string;
   banner?: IImage;

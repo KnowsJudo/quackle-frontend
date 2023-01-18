@@ -12,6 +12,7 @@ export interface ISignUpError {
   noPass: boolean;
   noMatch: boolean;
   noEmail: boolean;
+  noDoB: boolean;
   usernameDup: boolean;
   network: boolean;
 }

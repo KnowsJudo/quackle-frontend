@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import { Alert, Group, TextInput } from "@mantine/core";
 import { QuackleContext } from "../../context/user-context";
 import { ISignUp } from "../../types/signup-types";
+import { DatePicker } from "@mantine/dates";
 import "./signup-form.css";
 
 export const SignUpForm: React.FC<ISignUp> = (props) => {
-  const { userData, setUserInfo } = useContext(QuackleContext);
+  const { userData, setUserData, setUserInfo } = useContext(QuackleContext);
 
   return (
     <form className="signup-form">
@@ -47,13 +48,17 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
           error={props.error.noMatch && "Must match password"}
         />
       </Group>
-      <TextInput
+      <DatePicker
         label="Date of birth"
-        type="date"
-        placeholder="D.O.B."
-        onChange={(e) => setUserInfo(e, "dateOfBirth")}
-        value={userData.dateOfBirth.toISOString().slice(0, 10)}
+        onChange={(e) =>
+          setUserData({
+            ...userData,
+            dateOfBirth: e,
+          })
+        }
+        value={userData.dateOfBirth}
         withAsterisk
+        error={props.error.noDoB && "Enter your date of birth"}
       />
       <TextInput
         label="Email Address"

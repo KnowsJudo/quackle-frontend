@@ -13,12 +13,6 @@
   flex-direction: column;
 }
 
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
 .signup-section {
   display: flex;
   flex-direction: column;

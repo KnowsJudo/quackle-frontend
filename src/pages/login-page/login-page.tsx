@@ -9,6 +9,7 @@ import { ILoginError } from "../../types/errors";
 import { apiUrl } from "../../helpers/api-url";
 import { initialLoginError } from "../../helpers/error-states";
 import { LoginForm } from "../../components/login-form/login-form";
+import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./login-page.css";
 
@@ -92,6 +93,7 @@ export const LoginPage: React.FC = () => {
       <div className="login-background" />
       <LoadingOverlay visible={loading} overlayBlur={3} overlayOpacity={0.05} />
       <section className="login-section">
+        <QuackleTitle />
         <LoginForm
           setPass={setPass}
           pass={pass}

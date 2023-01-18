@@ -1,3 +1,5 @@
+import { ISignUpError } from "../types/errors";
+
 export const initialLoginError = {
   noUser: false,
   noPass: false,
@@ -6,12 +8,13 @@ export const initialLoginError = {
   user: false,
 };
 
-export const initialSignUpError = {
+export const initialSignUpError: ISignUpError = {
   noName: false,
   noUser: false,
   noPass: false,
   noMatch: false,
   noEmail: false,
+  noDoB: false,
   usernameDup: false,
   network: false,
 };

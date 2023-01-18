@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "../../components/signup-form/signup-form";
 import { QuackleContext } from "../../context/user-context";
 import { Button, LoadingOverlay, Text } from "@mantine/core";
-import { Link } from "react-router-dom";
 import { apiUrl } from "../../helpers/api-url";
 import { initialSignUpError } from "../../helpers/error-states";
+import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {
@@ -57,6 +57,12 @@ export const SignUpPage: React.FC = () => {
       });
       return;
     }
+    if (!userData.dateOfBirth) {
+      setError((prev) => {
+        return { ...prev, noDoB: true };
+      });
+      return;
+    }
     if (!userData.email.includes("@")) {
       setError((prev) => {
         return { ...prev, noEmail: true };
@@ -99,7 +105,7 @@ export const SignUpPage: React.FC = () => {
           overlayBlur={3}
           overlayOpacity={0.05}
         />
-        <Text>Quackle</Text>
+        <QuackleTitle />
         <Text size="md">
           Join the avian world&apos;s largest social network
         </Text>
@@ -113,12 +119,6 @@ export const SignUpPage: React.FC = () => {
           <Button onClick={() => signUp()} color="cyan">
             Get Quackin!
           </Button>
-        </span>
-        <span className="signup-login">
-          <Text size="md">Existing user?</Text>
-          <Link to="/">
-            <Button color="cyan">LOGIN</Button>
-          </Link>
         </span>
       </section>
     </div>
