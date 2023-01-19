@@ -38,6 +38,7 @@ export interface IUserPreview {
   followingSince?: Date;
   matchesUser?: boolean;
   id?: string;
+  quacks?: number;
 }
 
 export interface IUsernameInfo {

@@ -5,7 +5,7 @@ import { ProfileUser } from "../../components/profile-user/profile-user";
 import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
-import { Loader, Text } from "@mantine/core";
+import { Badge, Loader, Text } from "@mantine/core";
 import { IUser, IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./trending-page.css";
@@ -48,6 +48,7 @@ export const TrendingPage: React.FC = () => {
           avatar: next.avatar,
           tagline: next.tagline,
           matchesUser: next.username === userData.username,
+          quacks: next.quacks,
         };
       });
       setTrending(transformed);
@@ -84,14 +85,23 @@ export const TrendingPage: React.FC = () => {
         ) : (
           trending.map((next) => {
             return (
-              <UserPreview
-                key={next.id}
-                name={next.name}
-                username={next.username}
-                avatar={next.avatar}
-                tagline={next.tagline}
-                matchesUser={next.matchesUser}
-              />
+              <span key={next.id} className="trending-stats">
+                <UserPreview
+                  name={next.name}
+                  username={next.username}
+                  avatar={next.avatar}
+                  tagline={next.tagline}
+                  matchesUser={next.matchesUser}
+                />
+                <Badge
+                  size="lg"
+                  radius="xl"
+                  color="cyan"
+                  style={{ marginRight: "auto" }}
+                >
+                  {next.quacks} Quacks
+                </Badge>
+              </span>
             );
           })
         )}

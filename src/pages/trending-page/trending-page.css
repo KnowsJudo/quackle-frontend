@@ -19,3 +19,8 @@
   height: max-content;
   max-width: 38%;
 }
+
+.trending-stats {
+  display: flex;
+  align-items: center;
+}

@@ -78,7 +78,13 @@ export const ProfilePage: React.FC = () => {
         return res.data;
       });
       const results = await Promise.all(promises);
-      const responses = results.flat();
+      const responses = results
+        .flat()
+        .sort(
+          (a: IQuackResponse, b: IQuackResponse) =>
+            Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
+        )
+        .reverse();
       setLikesData(responses);
     } catch (err) {
       console.error(err);

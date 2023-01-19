@@ -99,13 +99,13 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
     setCheckClose(false);
     props.setInitiateQuack?.(false);
     setQuackContent("");
-    sessionStorage.clear();
+    sessionStorage.removeItem("Unfinished Quack");
   };
 
   const restoreSave = () => {
     setQuackContent(savedQuack);
     setSavedQuack("");
-    sessionStorage.clear();
+    sessionStorage.removeItem("Unfinished Quack");
   };
 
   return (
@@ -127,7 +127,9 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         )}
         <span className="quack-input-user">
           <Avatar size="lg" src={avatarSrc} radius="xl" />
-          <Text size="md">&nbsp;&nbsp;{`@${props.atUser}`}</Text>
+          <Text size="md" weight="bold">
+            &nbsp;&nbsp;{`@${props.atUser}`}
+          </Text>
           {savedQuack && (
             <Button
               sx={{ marginLeft: "auto" }}

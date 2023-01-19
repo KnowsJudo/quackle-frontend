@@ -6,13 +6,17 @@ import { useImage } from "../../helpers/use-image";
 import { Link } from "react-router-dom";
 import { QuackleContext } from "../../context/user-context";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "./quack-output.css";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
-  const { likeQuack } = useContext(QuackleContext);
+  const { userData, likeQuack } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const [likeList, setLikeList] = useState<string>("");
   const avatarSrc = useImage(props.avatar);
+
+  const checkLiked = props.likes.includes(userData.username);
 
   const calclikeList = (likes: string[]) => {
     switch (likes.length) {
@@ -48,7 +52,10 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
         modal={modal}
         setModal={setModal}
         title="Do you really want to delete this quack?"
-        confirmFunc={() => props.deleteQuack?.(props.id)}
+        confirmFunc={() => {
+          props.deleteQuack?.(props.id);
+          setModal(false);
+        }}
       />
       <span className="quack-output-avatar">
         <Link to={`/profile/${props.username}`}>
@@ -111,21 +118,39 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
             size="sm"
             color="dark"
             variant="outline"
-            disabled={!props.loggedIn}
+            disabled
           >{`🐤 Replies ${props.replies.length}`}</Button>
           <Button
             size="sm"
             color="dark"
             variant="outline"
-            onClick={() => likeQuack(props.username, props.id, false)}
+            disabled
           >{`🐔 Re-quacks ${props.requacks}`}</Button>
           <Tooltip label={likeList}>
             <Button
               size="sm"
               color="dark"
               variant="outline"
-              onClick={() => likeQuack(props.username, props.id, true)}
-            >{`♡ Likes ${props.likes.length}`}</Button>
+              onClick={() => likeQuack(props.username, props.id, props.likes)}
+            >
+              {checkLiked ? (
+                <FavoriteIcon
+                  fontSize="small"
+                  style={{
+                    marginRight: "2px",
+                    color: "#1ba5a5",
+                  }}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  fontSize="small"
+                  style={{
+                    marginRight: "2px",
+                  }}
+                />
+              )}
+              {`Likes ${props.likes.length}`}
+            </Button>
           </Tooltip>
         </span>
       </div>

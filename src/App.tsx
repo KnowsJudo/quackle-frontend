@@ -126,8 +126,9 @@ const App: () => JSX.Element = () => {
   const likeQuack = async (
     username: string,
     quackId: string,
-    liked: boolean,
+    likesUsers: string[],
   ) => {
+    const liked = !likesUsers.includes(userData.username);
     try {
       await axios.patch(`${apiUrl}/user/${username}/quacks/${quackId}`, {
         liked,
