@@ -7,14 +7,15 @@ import { Button, LoadingOverlay, Text } from "@mantine/core";
 import { apiUrl } from "../../helpers/api-url";
 import { initialSignUpError } from "../../helpers/error-states";
 import { QuackleTitle } from "../../components/quackle-title/quackle-title";
+import { ISignUpError } from "../../types/errors";
 import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {
   const { userData } = useContext(QuackleContext);
-  const [pass, setPass] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
-  const [error, setError] = useState(initialSignUpError);
-  const [loading, setLoading] = useState(false);
+  const [pass, setPass] = useState<string>("");
+  const [confirmPass, setConfirmPass] = useState<string>("");
+  const [error, setError] = useState<ISignUpError>(initialSignUpError);
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +43,12 @@ export const SignUpPage: React.FC = () => {
     if (!userData.username) {
       setError((prev) => {
         return { ...prev, noUser: true };
+      });
+      return;
+    }
+    if (userData.username.length < 3) {
+      setError((prev) => {
+        return { ...prev, shortUser: true };
       });
       return;
     }

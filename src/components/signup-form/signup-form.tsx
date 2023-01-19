@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { Alert, Group, TextInput } from "@mantine/core";
+import { Alert, Group, Notification, TextInput } from "@mantine/core";
 import { QuackleContext } from "../../context/user-context";
 import { ISignUp } from "../../types/signup-types";
 import { DatePicker } from "@mantine/dates";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./signup-form.css";
 
 export const SignUpForm: React.FC<ISignUp> = (props) => {
@@ -69,8 +70,15 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         withAsterisk
         error={props.error.noEmail && "Enter a valid email address"}
       />
+      {props.error.shortUser && (
+        <Notification color="red" icon={<PriorityHighIcon />} disallowClose>
+          Username must be at least 3 characters long
+        </Notification>
+      )}
       {props.error.usernameDup && (
-        <Alert color="red">Username is already registered.</Alert>
+        <Notification color="red" icon={<PriorityHighIcon />} disallowClose>
+          Username is already registered.
+        </Notification>
       )}
       {props.error.network && <Alert color="red">Network Error</Alert>}
     </form>

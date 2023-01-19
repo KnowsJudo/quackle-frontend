@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Alert, Button, Input } from "@mantine/core";
+import { Alert, Avatar, Button, Input, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
 import { initialUserData, QuackleContext } from "../../context/user-context";
@@ -11,6 +11,7 @@ import { UserPreview } from "../user-preview/user-preview";
 import { IUserPreview } from "../../types/user-types";
 import InputIcon from "@mui/icons-material/Input";
 import SearchIcon from "@mui/icons-material/Search";
+import { useImage } from "../../helpers/use-image";
 import "./profile-sidebar.css";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
@@ -20,6 +21,8 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const [searchError, setSearchError] = useState<boolean>(false);
   const [selectData, setSelectData] = useState<IUserPreview[]>([]);
   const navigate = useNavigate();
+
+  const avatarSrc = useImage(userData.avatar);
 
   useEffect(() => {
     setSearchError(false);
@@ -64,6 +67,20 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       />
       {props.loggedIn && (
         <span className="profile-logout">
+          <span className="profile-id">
+            <Avatar
+              size="sm"
+              radius="xl"
+              src={avatarSrc}
+              style={{ marginLeft: "5px" }}
+            />
+            <Text size="xs" style={{ marginLeft: "5px" }}>
+              {userData.name}
+            </Text>
+            <Text size="xs" style={{ marginLeft: "5px" }} color="dimmed">
+              @{userData.username}
+            </Text>
+          </span>
           <Button onClick={() => setModal(true)} color="cyan">
             Logout&nbsp;&nbsp;
             <InputIcon />

@@ -5,7 +5,7 @@ import { ProfileUser } from "../../components/profile-user/profile-user";
 import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
-import { Text } from "@mantine/core";
+import { Loader, Text } from "@mantine/core";
 import { IUser, IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./trending-page.css";
@@ -14,13 +14,15 @@ export const TrendingPage: React.FC = () => {
   const { userData, setInitiateQuack } = useContext(QuackleContext);
   const [trending, setTrending] = useState<IUserPreview[]>([]);
   const [trendingNames, setTrendingNames] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getTrendingNames = async () => {
+    setLoading(true);
     try {
       const data = await axios.get(`${apiUrl}/user`);
       const response = data.data
         .sort((a: IUser, b: IUser) => b.quacks - a.quacks)
-        .slice(0, 10);
+        .slice(0, 9);
       setTrendingNames(response.map((next: IUser) => next.username));
     } catch (error) {
       console.error(error);
@@ -49,6 +51,7 @@ export const TrendingPage: React.FC = () => {
         };
       });
       setTrending(transformed);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -76,18 +79,22 @@ export const TrendingPage: React.FC = () => {
             width: "100%",
           }}
         />
-        {trending.map((next) => {
-          return (
-            <UserPreview
-              key={next.id}
-              name={next.name}
-              username={next.username}
-              avatar={next.avatar}
-              tagline={next.tagline}
-              matchesUser={next.matchesUser}
-            />
-          );
-        })}
+        {loading ? (
+          <Loader sx={{ margin: "auto" }} />
+        ) : (
+          trending.map((next) => {
+            return (
+              <UserPreview
+                key={next.id}
+                name={next.name}
+                username={next.username}
+                avatar={next.avatar}
+                tagline={next.tagline}
+                matchesUser={next.matchesUser}
+              />
+            );
+          })
+        )}
       </section>
       <ProfileSideBar loggedIn={userData.username ? true : false} />
     </div>

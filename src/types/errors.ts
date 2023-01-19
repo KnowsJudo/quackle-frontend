@@ -9,6 +9,7 @@ export interface ILoginError {
 export interface ISignUpError {
   noName: boolean;
   noUser: boolean;
+  shortUser: boolean;
   noPass: boolean;
   noMatch: boolean;
   noEmail: boolean;

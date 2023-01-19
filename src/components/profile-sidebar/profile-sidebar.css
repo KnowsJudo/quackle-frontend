@@ -1,6 +1,15 @@
 .profile-logout {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 318px;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.profile-id {
+  display: flex;
   align-items: center;
 }
 

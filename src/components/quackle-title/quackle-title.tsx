@@ -6,7 +6,7 @@ import "./quackle-title.css";
 
 export const QuackleTitle: React.FC = () => {
   return (
-    <Link to={"/"} style={{ color: "black", textDecoration: "none" }}>
+    <Link to="/" style={{ color: "black", textDecoration: "none" }}>
       <span className="quackle-head">
         <GiNestBirds style={{ marginRight: "10px", color: "#282c34" }} />
         <Text>Quackle</Text>

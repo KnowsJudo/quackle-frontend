@@ -3,3 +3,8 @@
   align-items: center;
   justify-content: center;
 }
+
+.quackle-head:hover {
+  background-color: #f8f8f8;
+  transition: 0.2s;
+}
