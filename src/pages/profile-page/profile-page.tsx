@@ -12,9 +12,9 @@ import { ILoading } from "../../types/profile-types";
 import { apiUrl } from "../../helpers/api-url";
 import { ProfileUser } from "../../components/profile-user/profile-user";
 import { ProfileSideBar } from "../../components/profile-sidebar/profile-sidebar";
-import "./profile-page.css";
 import { getAvatars, getQuacks } from "../../helpers/quack-getters";
 import { IUserAvatar } from "../../components/home-details/home-details";
+import "./profile-page.css";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
@@ -72,7 +72,7 @@ export const ProfilePage: React.FC = () => {
   useEffect(() => {
     getProfileData();
     getProfileQuacks();
-  }, [params.userId, userData.quacks]);
+  }, [params.userId, userData.quacks, userData.likedQuacks]);
 
   useEffect(() => {
     const getProfileLikes = async () => {
@@ -88,11 +88,9 @@ export const ProfilePage: React.FC = () => {
       }
       const likes = await getQuacks(profileData.likedQuacks, "", true);
       likes && setLikesResponse(likes);
-      console.log("user", userData);
     };
     getProfileLikes();
-    console.log("likes", likesResponse);
-  }, [profileData]);
+  }, [profileData, userData.likedQuacks]);
 
   useEffect(() => {
     if (!likesResponse) {
@@ -104,7 +102,6 @@ export const ProfilePage: React.FC = () => {
       avatars && setLikesAvatars(avatars);
     };
     getLikesAvatars();
-    console.log("avs", likesAvatars);
   }, [likesResponse]);
 
   useEffect(() => {
@@ -123,7 +120,6 @@ export const ProfilePage: React.FC = () => {
           Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
       )
       .reverse();
-    console.log("sorted", sortedResults);
     setLikedQuacks(sortedResults);
     setLoading((prev) => {
       return { ...prev, likes: false };

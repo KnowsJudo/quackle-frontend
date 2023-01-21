@@ -1,16 +1,14 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Loader } from "@mantine/core";
-import { apiUrl } from "../../helpers/api-url";
 import { QuackleContext } from "../../context/user-context";
 import { IFriendQuacks, IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
 import { QuackOutput } from "../quack-output/quack-output";
 import { Link } from "react-router-dom";
 import { IImage } from "../../types/user-types";
+import { getAvatars, getQuacks } from "../../helpers/quack-getters";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./home-details.css";
-import { getAvatars, getQuacks } from "../../helpers/quack-getters";
 
 export interface IUserAvatar {
   username: string;
@@ -24,54 +22,10 @@ export const HomeDetails: React.FC = () => {
   const [friendAvatars, setFriendAvatars] = useState<IUserAvatar[]>([]);
   const [friendQuacks, setFriendQuacks] = useState<IFriendQuacks[]>([]);
 
-  // const getFriendQuacks = async () => {
-  //   if (!userData.following?.length) {
-  //     return;
-  //   }
-  //   try {
-  //     const promises = userData.following
-  //       .concat([userData.username])
-  //       .map(async (next) => {
-  //         const res = await axios.get(`${apiUrl}/user/${next}/quacks`);
-  //         return res.data;
-  //       });
-  //     const results = await Promise.all(promises);
-  //     const responses = results.flat();
-  //     setFriendResponse(responses);
-  //   } catch (err) {
-  //     console.error(err);
-  //     setLoading(false);
-  //   }
-  // };
-
   const getFriendQuacks = async () => {
     const quacks = await getQuacks(userData.following, userData.username);
     quacks && setFriendResponse(quacks);
   };
-
-  // const getFriendAvatars = async () => {
-  //   if (!userData.following?.length) {
-  //     return;
-  //   }
-  //   try {
-  //     const promises = userData.following
-  //       .concat([userData.username])
-  //       .map(async (next) => {
-  //         const res = await axios.get(`${apiUrl}/user/${next}`);
-  //         return res.data;
-  //       });
-  //     const results = await Promise.all(promises);
-  //     const transformed = results.map((next) => {
-  //       return {
-  //         username: next.username,
-  //         avatar: next.avatar,
-  //       };
-  //     });
-  //     setFriendAvatars(transformed);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const getFriendAvatars = async () => {
     const avatars: IUserAvatar[] | undefined = await getAvatars(
