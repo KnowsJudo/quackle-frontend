@@ -7,12 +7,14 @@ import { IUser } from "../../types/user-types";
 import { QuackleContext } from "../../context/user-context";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { ProfileDetails } from "../../components/profile-details/profile-details";
-import { IQuackResponse } from "../../types/quacks";
+import { IFriendQuacks, IQuackResponse } from "../../types/quacks";
 import { ILoading } from "../../types/profile-types";
 import { apiUrl } from "../../helpers/api-url";
 import { ProfileUser } from "../../components/profile-user/profile-user";
 import { ProfileSideBar } from "../../components/profile-sidebar/profile-sidebar";
 import "./profile-page.css";
+import { getAvatars, getQuacks } from "../../helpers/quack-getters";
+import { IUserAvatar } from "../../components/home-details/home-details";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
@@ -20,7 +22,9 @@ export const ProfilePage: React.FC = () => {
     useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
-  const [likesData, setLikesData] = useState<IQuackResponse[]>([]);
+  const [likesResponse, setLikesResponse] = useState<IQuackResponse[]>([]);
+  const [likesAvatars, setLikesAvatars] = useState<IUserAvatar[]>([]);
+  const [likedQuacks, setLikedQuacks] = useState<IFriendQuacks[]>([]);
   const [loading, setLoading] = useState<ILoading>({
     profile: true,
     quacks: true,
@@ -65,40 +69,66 @@ export const ProfilePage: React.FC = () => {
     }
   };
 
-  const getProfileLikes = async () => {
-    if (!userData.likedQuacks.length) {
-      setLoading((prev) => {
-        return { ...prev, likes: false };
-      });
-      return;
-    }
-    try {
-      const promises = userData.likedQuacks.map(async (next) => {
-        const res = await axios.get(`${apiUrl}/user/users/quacks/${next}`);
-        return res.data;
-      });
-      const results = await Promise.all(promises);
-      const responses = results
-        .flat()
-        .sort(
-          (a: IQuackResponse, b: IQuackResponse) =>
-            Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
-        )
-        .reverse();
-      setLikesData(responses);
-    } catch (err) {
-      console.error(err);
-      setLoading((prev) => {
-        return { ...prev, likes: false };
-      });
-    }
-  };
-
   useEffect(() => {
     getProfileData();
     getProfileQuacks();
+  }, [params.userId, userData.quacks]);
+
+  useEffect(() => {
+    const getProfileLikes = async () => {
+      if (!profileData) {
+        return;
+      }
+      if (!profileData.likedQuacks.length) {
+        setLikesResponse([]);
+        setLoading((prev) => {
+          return { ...prev, likes: false };
+        });
+        return;
+      }
+      const likes = await getQuacks(profileData.likedQuacks, "", true);
+      likes && setLikesResponse(likes);
+      console.log("user", userData);
+    };
     getProfileLikes();
-  }, [params.userId, userData.quacks, userData.likedQuacks]);
+    console.log("likes", likesResponse);
+  }, [profileData]);
+
+  useEffect(() => {
+    if (!likesResponse) {
+      return;
+    }
+    const getLikesAvatars = async () => {
+      const usernames = likesResponse.map((next) => next.username);
+      const avatars = await getAvatars(usernames);
+      avatars && setLikesAvatars(avatars);
+    };
+    getLikesAvatars();
+    console.log("avs", likesAvatars);
+  }, [likesResponse]);
+
+  useEffect(() => {
+    if (!likesResponse || !likesAvatars) {
+      return;
+    }
+    const combinedArray = likesResponse.map((next) => {
+      const combined = likesAvatars.find(
+        (match) => match.username === next.username,
+      );
+      return { ...next, ...combined };
+    });
+    const sortedResults = combinedArray
+      .sort(
+        (a: IQuackResponse, b: IQuackResponse) =>
+          Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
+      )
+      .reverse();
+    console.log("sorted", sortedResults);
+    setLikedQuacks(sortedResults);
+    setLoading((prev) => {
+      return { ...prev, likes: false };
+    });
+  }, [likesResponse, likesAvatars]);
 
   if (loading.profile) {
     return (
@@ -131,7 +161,7 @@ export const ProfilePage: React.FC = () => {
         loggedIn={userData.username ? true : false}
         profileData={profileData}
         quackData={quackData}
-        likesData={likesData}
+        likesData={likedQuacks}
         paramId={params.userId}
         loading={loading.quacks}
       />

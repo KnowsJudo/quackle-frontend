@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Loader, Tabs, Text, Textarea } from "@mantine/core";
 import {
   IEmptyQuackMenu,
+  IFriendQuacks,
   IQuackResponse,
   IQuacksMenu,
 } from "../../types/quacks";
@@ -128,14 +129,14 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         ) : !props.likesData.length ? (
           <EmptyQuacks likes={true} />
         ) : (
-          props.likesData.map((next: IQuackResponse, i) => {
+          props.likesData.map((next: IFriendQuacks, i) => {
             return (
               <QuackOutput
                 key={i}
                 id={next._id}
                 name={next.name}
                 username={next.username}
-                // avatar={props.profileData.avatar}
+                avatar={next.avatar}
                 quackedAt={next.quackedAt}
                 content={next.message}
                 atUser={next.atUser}

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { IImage } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./home-details.css";
+import { getAvatars, getQuacks } from "../../helpers/quack-getters";
 
 export interface IUserAvatar {
   username: string;
@@ -23,55 +24,68 @@ export const HomeDetails: React.FC = () => {
   const [friendAvatars, setFriendAvatars] = useState<IUserAvatar[]>([]);
   const [friendQuacks, setFriendQuacks] = useState<IFriendQuacks[]>([]);
 
+  // const getFriendQuacks = async () => {
+  //   if (!userData.following?.length) {
+  //     return;
+  //   }
+  //   try {
+  //     const promises = userData.following
+  //       .concat([userData.username])
+  //       .map(async (next) => {
+  //         const res = await axios.get(`${apiUrl}/user/${next}/quacks`);
+  //         return res.data;
+  //       });
+  //     const results = await Promise.all(promises);
+  //     const responses = results.flat();
+  //     setFriendResponse(responses);
+  //   } catch (err) {
+  //     console.error(err);
+  //     setLoading(false);
+  //   }
+  // };
+
   const getFriendQuacks = async () => {
-    setLoading(true);
-    if (!userData.following?.length) {
-      return;
-    }
-    try {
-      const promises = userData.following
-        .concat([userData.username])
-        .map(async (next) => {
-          const res = await axios.get(`${apiUrl}/user/${next}/quacks`);
-          return res.data;
-        });
-      const results = await Promise.all(promises);
-      const responses = results.flat();
-      setFriendResponse(responses);
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-    }
+    const quacks = await getQuacks(userData.following, userData.username);
+    quacks && setFriendResponse(quacks);
   };
 
+  // const getFriendAvatars = async () => {
+  //   if (!userData.following?.length) {
+  //     return;
+  //   }
+  //   try {
+  //     const promises = userData.following
+  //       .concat([userData.username])
+  //       .map(async (next) => {
+  //         const res = await axios.get(`${apiUrl}/user/${next}`);
+  //         return res.data;
+  //       });
+  //     const results = await Promise.all(promises);
+  //     const transformed = results.map((next) => {
+  //       return {
+  //         username: next.username,
+  //         avatar: next.avatar,
+  //       };
+  //     });
+  //     setFriendAvatars(transformed);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   const getFriendAvatars = async () => {
-    if (!userData.following?.length) {
-      return;
-    }
-    try {
-      const promises = userData.following
-        .concat([userData.username])
-        .map(async (next) => {
-          const res = await axios.get(`${apiUrl}/user/${next}`);
-          return res.data;
-        });
-      const results = await Promise.all(promises);
-      const transformed = results.map((next) => {
-        return {
-          username: next.username,
-          avatar: next.avatar,
-        };
-      });
-      setFriendAvatars(transformed);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
+    const avatars: IUserAvatar[] | undefined = await getAvatars(
+      userData.following,
+      userData.username,
+    );
+    avatars && setFriendAvatars(avatars);
   };
 
   useEffect(() => {
+    setLoading(true);
     getFriendQuacks();
     getFriendAvatars();
+    setLoading(false);
   }, [userData.quacks, userData.likedQuacks]);
 
   useEffect(() => {
