@@ -72,7 +72,7 @@ export const TrendingPage: React.FC = () => {
         setInitiateQuack={setInitiateQuack}
       />
       <section className="trending-list">
-        <Text>The Pond</Text>
+        <Text size="xl">Currently Quacking</Text>
         <HorizontalRuleRoundedIcon
           preserveAspectRatio="none"
           style={{

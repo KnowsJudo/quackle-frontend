@@ -18,7 +18,8 @@ export const getQuacks = async (
       return res.data;
     });
     const results = await Promise.all(promises);
-    const responses = results.flat();
+    //Check quacks exist and combine array results
+    const responses = results.filter((a) => a).flat();
     return responses;
   } catch (err) {
     console.error(err);
