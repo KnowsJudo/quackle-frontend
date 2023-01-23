@@ -8,6 +8,7 @@ import { apiUrl } from "../../helpers/api-url";
 import { Badge, Loader, Text } from "@mantine/core";
 import { IUser, IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
 import "./trending-page.css";
 
 export const TrendingPage: React.FC = () => {
@@ -72,7 +73,10 @@ export const TrendingPage: React.FC = () => {
         setInitiateQuack={setInitiateQuack}
       />
       <section className="trending-list">
-        <Text size="xl">Currently Quacking</Text>
+        <span style={{ alignItems: "center" }}>
+          <Text size="xl"> Currently Quacking</Text>
+          <ShowChartIcon />
+        </span>
         <HorizontalRuleRoundedIcon
           preserveAspectRatio="none"
           style={{

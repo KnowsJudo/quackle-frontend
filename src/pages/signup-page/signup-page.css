@@ -30,7 +30,7 @@
 }
 
 @media (max-width: 750px) {
-  .signup-container {
-    height: 95vh;
+  .signup-section {
+    margin: 10% auto;
   }
 }

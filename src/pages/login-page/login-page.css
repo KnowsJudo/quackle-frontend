@@ -31,12 +31,18 @@
 }
 
 .login-signup {
+  display: flex;
+  flex-direction: column;
   color: white;
 }
 
 @media (max-width: 750px) {
   .login-section {
-    height: 80vh;
-    width: 100vw;
+    margin: 30% auto;
+    height: 280px;
+    width: 96vw;
+  }
+  .login-signup {
+    margin: 35% auto;
   }
 }

@@ -1,3 +1,7 @@
+.hamburger {
+  display: none;
+}
+
 .profile-user {
   display: flex;
   flex-direction: column;
@@ -12,4 +16,46 @@
 
 .profile-user > * + * {
   margin-top: 10%;
+}
+
+.hamburger-menu {
+  display: none;
+}
+
+.user-quack {
+  display: none;
+}
+
+@media (max-width: 1300px) {
+  .hamburger {
+    display: block;
+    background: url("../../img/hamburger.svg");
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    z-index: 5;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+
+  .hamburger-menu:hover {
+    color: black;
+  }
+
+  .profile-user {
+    display: none;
+    position: static;
+  }
+
+  .user-quack {
+    display: block;
+    position: absolute;
+    top: 140px;
+    left: 10px;
+    z-index: 5;
+  }
 }

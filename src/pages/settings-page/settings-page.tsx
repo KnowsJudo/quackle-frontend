@@ -108,14 +108,18 @@ export const SettingsPage: React.FC = () => {
           matchesUser={true}
         />
         <br />
-        <Text size="sm">
-          Hatched on {userData.createdAt.toString().slice(0, 10)}
-        </Text>
-        <Text size="sm">
-          Registered email: <b>{userData.email}</b>
-        </Text>
-        <div className="settings-quacks">
-          <Button color="gray">Manage Blocked Users</Button>
+        <span className="settings-stats">
+          <Text size="sm">
+            Hatched on {userData.createdAt.toString().slice(0, 10)}
+          </Text>
+          <Text size="sm">
+            Registered email: <b>{userData.email}</b>
+          </Text>
+          <Text size="sm">Total quacks: {userData.quacks}</Text>
+        </span>
+        <br />
+        <div className="settings-blocked">
+          <Button disabled>Manage Blocked Users</Button>
         </div>
       </section>
     </div>

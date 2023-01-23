@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button } from "@mantine/core";
+import { Button, Menu } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { QuackleContext } from "../../context/user-context";
 import { IProfileUser } from "../../types/profile-types";
@@ -23,45 +23,127 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
   };
 
   return (
-    <section className="profile-user">
-      <Link to="/" style={linkStyle}>
-        🦆
-      </Link>
-      {props.loggedIn && (
-        <Link to="/home" style={linkStyle}>
-          <WaterIcon style={{ marginRight: "7px" }} /> Home
-        </Link>
-      )}
-      <Link to="/trending" style={linkStyle}>
-        <ShowChartIcon style={{ marginRight: "7px" }} /> Trending Ducks
-      </Link>
-      {props.loggedIn && (
-        <Link to="/settings" style={linkStyle}>
-          <EggIcon style={{ marginRight: "7px" }} /> Settings
-        </Link>
-      )}
-      {props.loggedIn && (
-        <Link to={`/profile/${userData.username}`} style={linkStyle}>
-          <SiDuckduckgo style={{ marginRight: "7px" }} /> View Profile
-        </Link>
-      )}
-      {props.loggedIn && (
-        <Link to={`/profile/${userData.username}/following`} style={linkStyle}>
-          <GiDuck style={{ marginRight: "7px" }} /> Following
-        </Link>
-      )}
-      {props.loggedIn && (
-        <Link to={`/profile/${userData.username}/followers`} style={linkStyle}>
-          <GiNestBirds style={{ marginRight: "7px" }} /> Followers
-        </Link>
-      )}
-      <span>
+    <>
+      <Menu shadow="sm" width={300}>
+        <Menu.Target>
+          <Button color="dark" className="hamburger" />
+        </Menu.Target>
+        <Menu.Dropdown
+          style={{ backgroundColor: "#282c34", color: "red" }}
+          className="hamburger-menu"
+        >
+          <Menu.Item color="dark">
+            <Link to="/" style={linkStyle}>
+              🦆
+            </Link>
+          </Menu.Item>
+          {props.loggedIn && (
+            <Menu.Item color="dark">
+              <Link to="/home" style={linkStyle}>
+                <WaterIcon style={{ marginRight: "7px" }} /> Home
+              </Link>
+            </Menu.Item>
+          )}
+          <Menu.Item color="dark">
+            <Link to="/trending" style={linkStyle}>
+              <ShowChartIcon style={{ marginRight: "7px" }} /> Trending Ducks
+            </Link>
+          </Menu.Item>
+          {props.loggedIn && (
+            <Menu.Item color="dark">
+              <Link to="/settings" style={linkStyle}>
+                <EggIcon style={{ marginRight: "7px" }} /> Settings
+              </Link>
+            </Menu.Item>
+          )}
+          {props.loggedIn && (
+            <Menu.Item color="dark">
+              <Link to={`/profile/${userData.username}`} style={linkStyle}>
+                <SiDuckduckgo style={{ marginRight: "7px" }} /> View Profile
+              </Link>
+            </Menu.Item>
+          )}
+          {props.loggedIn && (
+            <Menu.Item color="dark">
+              <Link
+                to={`/profile/${userData.username}/following`}
+                style={linkStyle}
+              >
+                <GiDuck style={{ marginRight: "7px" }} /> Following
+              </Link>
+            </Menu.Item>
+          )}
+          {props.loggedIn && (
+            <Menu.Item color="dark">
+              <Link
+                to={`/profile/${userData.username}/followers`}
+                style={linkStyle}
+              >
+                <GiNestBirds style={{ marginRight: "7px" }} /> Followers
+              </Link>
+            </Menu.Item>
+          )}
+          {/* <Menu.Divider />
+          {props.loggedIn && (
+            <Button color="teal" onClick={() => props.setInitiateQuack(true)}>
+              Quack!
+            </Button>
+          )} */}
+        </Menu.Dropdown>
+      </Menu>
+      <span className="user-quack">
         {props.loggedIn && (
           <Button color="teal" onClick={() => props.setInitiateQuack(true)}>
             Quack!
           </Button>
         )}
       </span>
-    </section>
+      <section className="profile-user">
+        <Link to="/" style={linkStyle}>
+          🦆
+        </Link>
+        {props.loggedIn && (
+          <Link to="/home" style={linkStyle}>
+            <WaterIcon style={{ marginRight: "7px" }} /> Home
+          </Link>
+        )}
+        <Link to="/trending" style={linkStyle}>
+          <ShowChartIcon style={{ marginRight: "7px" }} /> Trending Ducks
+        </Link>
+        {props.loggedIn && (
+          <Link to="/settings" style={linkStyle}>
+            <EggIcon style={{ marginRight: "7px" }} /> Settings
+          </Link>
+        )}
+        {props.loggedIn && (
+          <Link to={`/profile/${userData.username}`} style={linkStyle}>
+            <SiDuckduckgo style={{ marginRight: "7px" }} /> View Profile
+          </Link>
+        )}
+        {props.loggedIn && (
+          <Link
+            to={`/profile/${userData.username}/following`}
+            style={linkStyle}
+          >
+            <GiDuck style={{ marginRight: "7px" }} /> Following
+          </Link>
+        )}
+        {props.loggedIn && (
+          <Link
+            to={`/profile/${userData.username}/followers`}
+            style={linkStyle}
+          >
+            <GiNestBirds style={{ marginRight: "7px" }} /> Followers
+          </Link>
+        )}
+        <span>
+          {props.loggedIn && (
+            <Button color="teal" onClick={() => props.setInitiateQuack(true)}>
+              Quack!
+            </Button>
+          )}
+        </span>
+      </section>
+    </>
   );
 };
