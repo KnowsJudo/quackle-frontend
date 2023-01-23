@@ -23,7 +23,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
   };
 
   return (
-    <>
+    <section className="profile-user">
       <Menu shadow="sm" width={300}>
         <Menu.Target>
           <Button color="dark" className="hamburger" />
@@ -32,11 +32,6 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           style={{ backgroundColor: "#282c34", color: "red" }}
           className="hamburger-menu"
         >
-          <Menu.Item color="dark">
-            <Link to="/" style={linkStyle}>
-              🦆
-            </Link>
-          </Menu.Item>
           {props.loggedIn && (
             <Menu.Item color="dark">
               <Link to="/home" style={linkStyle}>
@@ -50,58 +45,50 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
             </Link>
           </Menu.Item>
           {props.loggedIn && (
-            <Menu.Item color="dark">
-              <Link to="/settings" style={linkStyle}>
-                <EggIcon style={{ marginRight: "7px" }} /> Settings
-              </Link>
-            </Menu.Item>
+            <>
+              <Menu.Item color="dark">
+                <Link to="/settings" style={linkStyle}>
+                  <EggIcon style={{ marginRight: "7px" }} /> Settings
+                </Link>
+              </Menu.Item>
+              <Menu.Item color="dark">
+                <Link to={`/profile/${userData.username}`} style={linkStyle}>
+                  <SiDuckduckgo style={{ marginRight: "7px" }} /> View Profile
+                </Link>
+              </Menu.Item>
+              <Menu.Item color="dark">
+                <Link
+                  to={`/profile/${userData.username}/following`}
+                  style={linkStyle}
+                >
+                  <GiDuck style={{ marginRight: "7px" }} /> Following
+                </Link>
+              </Menu.Item>
+              <Menu.Item color="dark">
+                <Link
+                  to={`/profile/${userData.username}/followers`}
+                  style={linkStyle}
+                >
+                  <GiNestBirds style={{ marginRight: "7px" }} /> Followers
+                </Link>
+              </Menu.Item>
+            </>
           )}
-          {props.loggedIn && (
-            <Menu.Item color="dark">
-              <Link to={`/profile/${userData.username}`} style={linkStyle}>
-                <SiDuckduckgo style={{ marginRight: "7px" }} /> View Profile
-              </Link>
-            </Menu.Item>
-          )}
-          {props.loggedIn && (
-            <Menu.Item color="dark">
-              <Link
-                to={`/profile/${userData.username}/following`}
-                style={linkStyle}
-              >
-                <GiDuck style={{ marginRight: "7px" }} /> Following
-              </Link>
-            </Menu.Item>
-          )}
-          {props.loggedIn && (
-            <Menu.Item color="dark">
-              <Link
-                to={`/profile/${userData.username}/followers`}
-                style={linkStyle}
-              >
-                <GiNestBirds style={{ marginRight: "7px" }} /> Followers
-              </Link>
-            </Menu.Item>
-          )}
-          {/* <Menu.Divider />
-          {props.loggedIn && (
-            <Button color="teal" onClick={() => props.setInitiateQuack(true)}>
-              Quack!
-            </Button>
-          )} */}
         </Menu.Dropdown>
       </Menu>
       <span className="user-quack">
         {props.loggedIn && (
-          <Button color="teal" onClick={() => props.setInitiateQuack(true)}>
-            Quack!
+          <Button
+            color="teal"
+            size="xs"
+            onClick={() => props.setInitiateQuack(true)}
+          >
+            🦆
           </Button>
         )}
       </span>
-      <section className="profile-user">
-        <Link to="/" style={linkStyle}>
-          🦆
-        </Link>
+
+      <span className="profile-user-list">
         {props.loggedIn && (
           <Link to="/home" style={linkStyle}>
             <WaterIcon style={{ marginRight: "7px" }} /> Home
@@ -111,30 +98,26 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           <ShowChartIcon style={{ marginRight: "7px" }} /> Trending Ducks
         </Link>
         {props.loggedIn && (
-          <Link to="/settings" style={linkStyle}>
-            <EggIcon style={{ marginRight: "7px" }} /> Settings
-          </Link>
-        )}
-        {props.loggedIn && (
-          <Link to={`/profile/${userData.username}`} style={linkStyle}>
-            <SiDuckduckgo style={{ marginRight: "7px" }} /> View Profile
-          </Link>
-        )}
-        {props.loggedIn && (
-          <Link
-            to={`/profile/${userData.username}/following`}
-            style={linkStyle}
-          >
-            <GiDuck style={{ marginRight: "7px" }} /> Following
-          </Link>
-        )}
-        {props.loggedIn && (
-          <Link
-            to={`/profile/${userData.username}/followers`}
-            style={linkStyle}
-          >
-            <GiNestBirds style={{ marginRight: "7px" }} /> Followers
-          </Link>
+          <>
+            <Link to="/settings" style={linkStyle}>
+              <EggIcon style={{ marginRight: "7px" }} /> Settings
+            </Link>
+            <Link to={`/profile/${userData.username}`} style={linkStyle}>
+              <SiDuckduckgo style={{ marginRight: "7px" }} /> View Profile
+            </Link>
+            <Link
+              to={`/profile/${userData.username}/following`}
+              style={linkStyle}
+            >
+              <GiDuck style={{ marginRight: "7px" }} /> Following
+            </Link>
+            <Link
+              to={`/profile/${userData.username}/followers`}
+              style={linkStyle}
+            >
+              <GiNestBirds style={{ marginRight: "7px" }} /> Followers
+            </Link>
+          </>
         )}
         <span>
           {props.loggedIn && (
@@ -143,7 +126,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
             </Button>
           )}
         </span>
-      </section>
-    </>
+      </span>
+    </section>
   );
 };

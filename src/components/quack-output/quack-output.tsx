@@ -114,23 +114,25 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
           )}
         </span>
         <span className="quack-options">
-          <Button
-            size="sm"
-            color="dark"
-            variant="outline"
-            disabled
-          >{`🐤 Replies ${props.replies.length}`}</Button>
-          <Button
-            size="sm"
-            color="dark"
-            variant="outline"
-            disabled
-          >{`🐔 Re-quacks ${props.requacks}`}</Button>
+          <Tooltip label={`${props.replies.length} replies`}>
+            <Button
+              size="sm"
+              color="dark"
+              variant="subtle"
+            >{`🐤 ${props.replies.length}`}</Button>
+          </Tooltip>
+          <Tooltip label={`${props.requacks} re-quacks`}>
+            <Button
+              size="sm"
+              color="dark"
+              variant="subtle"
+            >{`🐔 ${props.requacks}`}</Button>
+          </Tooltip>
           <Tooltip label={likeList}>
             <Button
               size="sm"
               color="dark"
-              variant="outline"
+              variant="subtle"
               onClick={() => likeQuack(props.username, props.id, props.likes)}
             >
               {checkLiked ? (
@@ -149,7 +151,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
                   }}
                 />
               )}
-              {`Likes ${props.likes.length}`}
+              {`${props.likes.length}`}
             </Button>
           </Tooltip>
         </span>

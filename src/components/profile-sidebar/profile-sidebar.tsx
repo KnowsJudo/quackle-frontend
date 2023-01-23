@@ -9,9 +9,9 @@ import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { apiUrl } from "../../helpers/api-url";
 import { UserPreview } from "../user-preview/user-preview";
 import { IUserPreview } from "../../types/user-types";
+import { useImage } from "../../helpers/use-image";
 import InputIcon from "@mui/icons-material/Input";
 import SearchIcon from "@mui/icons-material/Search";
-import { useImage } from "../../helpers/use-image";
 import "./profile-sidebar.css";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
@@ -72,7 +72,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
               size="sm"
               radius="xl"
               src={avatarSrc}
-              style={{ marginLeft: "5px" }}
+              style={{ margin: "0 0 3px 5px" }}
             />
             <Text size="xs" style={{ marginLeft: "5px" }}>
               {userData.name}

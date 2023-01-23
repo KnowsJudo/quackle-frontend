@@ -38,3 +38,28 @@
   flex-direction: column;
   width: 318px;
 }
+
+@media (max-width: 1300px) {
+  .profile-logout {
+    flex-direction: column;
+    padding: 8px;
+    width: 20vw;
+    justify-content: space-evenly;
+  }
+
+  .profile-search {
+    display: block;
+    width: 20vw;
+    padding: 0;
+  }
+
+  .search-container {
+    width: 20vw;
+  }
+}
+
+@media (max-width: 750px) {
+  .profile-sidebar {
+    display: none;
+  }
+}
