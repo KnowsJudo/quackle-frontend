@@ -20,7 +20,7 @@
   height: 100vh;
   width: 20%;
   position: fixed;
-  margin: auto 10% auto 80%;
+  margin: auto 10% auto 86%;
   padding: 2%;
 }
 
@@ -30,6 +30,9 @@
     padding: 8px;
     width: 20vw;
     justify-content: space-evenly;
+  }
+  .profile-sidebar {
+    margin: auto 10% auto 79%;
   }
 }
 
