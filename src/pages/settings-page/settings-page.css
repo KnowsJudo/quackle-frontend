@@ -1,33 +1,12 @@
 .settings-container {
   display: flex;
-  flex-direction: column;
   height: 100vh;
-  width: 75vw;
+  width: 100vw;
   overflow: auto;
   justify-content: space-evenly;
-  background-color: white;
 }
 
-.settings-data {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: left;
-  background-color: white;
-  color: black;
-  height: 100vh;
-  width: 20%;
-  position: fixed;
-  margin: auto auto auto 57%;
-  padding: 2%;
-  border-left: 1px solid grey;
-}
-
-.settings-blocked {
-  display: flex;
-}
-
-.settings-user {
+.settings-details {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -37,18 +16,34 @@
   min-height: 100vh;
   height: max-content;
   max-width: 38%;
-  line-height: 1;
+}
+
+.settings-blocked {
+  display: flex;
+  margin-top: 5%;
+  padding: 2%;
+}
+
+.settings-data {
+  padding: 2%;
+}
+
+.settings-stats {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 2%;
 }
 
 @media (max-width: 1300px) {
-  .settings-user {
+  .settings-details {
     max-width: 70%;
-    width: 60%;
+    width: 55%;
     margin-left: auto;
   }
 }
 @media (max-width: 750px) {
-  .settings-user {
+  .settings-details {
     max-width: 100%;
     width: 100%;
     margin: auto;

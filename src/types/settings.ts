@@ -15,6 +15,12 @@ export interface ISettings {
   avatar?: FormData;
   banner?: FormData;
 }
+
+export interface ISettingsError {
+  name: boolean;
+  tagline: boolean;
+  location: boolean;
+}
 export interface ISettingsOptions {
   changeSetting: (option: string) => Promise<void>;
   option: keyof ISettings;
@@ -22,6 +28,7 @@ export interface ISettingsOptions {
   setEditOption: React.Dispatch<SetStateAction<IEditSettings>>;
   setting: ISettings;
   setSetting: React.Dispatch<SetStateAction<ISettings>>;
+  settingsError: ISettingsError;
 }
 
 export interface IImageDrop {

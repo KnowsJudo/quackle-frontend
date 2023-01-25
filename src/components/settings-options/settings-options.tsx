@@ -19,6 +19,18 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
 
   const imageSrc = imageSource(props.option);
 
+  const calcError = (option: string) => {
+    if (option === "name" && props.settingsError.name) {
+      return "Name must be less than 25 characters";
+    }
+    if (option === "tagline" && props.settingsError.tagline) {
+      return "Tagline must be less than 65 characters";
+    }
+    if (option === "location" && props.settingsError.location) {
+      return "Location must be less than 25 characters";
+    }
+  };
+
   const handleDrop = (file: FileWithPath[]) => {
     setImagePreview(URL.createObjectURL(file[0]));
     const formData = new FormData();
@@ -128,6 +140,7 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
                     })
                   }
                   sx={{ flex: "1 1 auto", margin: "0 2%" }}
+                  error={calcError(props.option)}
                 />
               )}
               {!props.editOption[props.option] && (

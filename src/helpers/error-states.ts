@@ -1,4 +1,5 @@
 import { ISignUpError } from "../types/errors";
+import { ISettingsError } from "../types/settings";
 
 export const initialLoginError = {
   noUser: false,
@@ -18,4 +19,10 @@ export const initialSignUpError: ISignUpError = {
   noDoB: false,
   usernameDup: false,
   network: false,
+};
+
+export const initialSettingsError: ISettingsError = {
+  name: false,
+  tagline: false,
+  location: false,
 };

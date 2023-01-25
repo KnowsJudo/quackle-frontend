@@ -127,7 +127,6 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
             size="xs"
             onClick={() => {
               setModal(true);
-              console.log(modal);
             }}
             color="cyan"
           >
