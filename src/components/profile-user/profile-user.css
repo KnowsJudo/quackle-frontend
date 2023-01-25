@@ -13,7 +13,6 @@
   position: fixed;
   margin: auto 67% auto 8%;
   padding: 2%;
-
   text-align: left;
 }
 
@@ -22,6 +21,10 @@
 }
 
 .hamburger-menu {
+  display: none;
+}
+
+.user-logout {
   display: none;
 }
 
@@ -58,7 +61,6 @@
     position: absolute;
     top: 140px;
     left: 25px;
-    z-index: 5;
   }
 }
 
@@ -80,6 +82,13 @@
 
   .profile-user-list {
     display: none;
+  }
+
+  .user-logout {
+    display: block;
+    position: absolute;
+    top: 550px;
+    left: 4px;
   }
 
   .user-quack {

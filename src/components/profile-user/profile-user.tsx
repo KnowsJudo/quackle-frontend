@@ -1,19 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import Cookies from "js-cookie";
 import { Button, Menu } from "@mantine/core";
-import { Link } from "react-router-dom";
-import { QuackleContext } from "../../context/user-context";
+import { Link, useNavigate } from "react-router-dom";
+import { initialUserData, QuackleContext } from "../../context/user-context";
 import { IProfileUser } from "../../types/profile-types";
 import { GiDuck } from "react-icons/gi";
 import { GiNestBirds } from "react-icons/gi";
 import { SiDuckduckgo } from "react-icons/si";
+import { SearchUsers } from "../search-users/search-users";
+import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import EggIcon from "@mui/icons-material/Egg";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import WaterIcon from "@mui/icons-material/Water";
+import InputIcon from "@mui/icons-material/Input";
 import "./profile-user.css";
-import { SearchUsers } from "../search-users/search-users";
 
 export const ProfileUser: React.FC<IProfileUser> = (props) => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, setUserData } = useContext(QuackleContext);
+  const [modal, setModal] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    Cookies.remove("jwtToken");
+    setUserData(initialUserData);
+    navigate("/");
+  };
 
   const linkStyle = {
     display: "flex",
@@ -25,12 +36,18 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
 
   return (
     <section className="profile-user">
+      <ConfirmModal
+        modal={modal}
+        setModal={setModal}
+        title="Do you wish to logout?"
+        confirmFunc={() => logout()}
+      />
       <Menu shadow="sm" width={300}>
         <Menu.Target>
           <Button color="dark" className="hamburger" />
         </Menu.Target>
         <Menu.Dropdown
-          style={{ backgroundColor: "#282c34", color: "red" }}
+          style={{ backgroundColor: "#282c34" }}
           className="hamburger-menu"
         >
           {props.loggedIn && (
@@ -45,6 +62,18 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
               <ShowChartIcon style={{ marginRight: "7px" }} /> Trending Ducks
             </Link>
           </Menu.Item>
+          {!props.loggedIn && (
+            <section className="profile-prompt">
+              <h5>Not part of the pond?</h5>
+              <Link to="/signup">
+                <Button color="cyan">Sign Up</Button>
+              </Link>
+              <h5>Existing User?</h5>
+              <Link to="/">
+                <Button color="cyan">LOGIN</Button>
+              </Link>
+            </section>
+          )}
           {props.loggedIn && (
             <>
               <Menu.Item color="dark">
@@ -77,6 +106,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           )}
         </Menu.Dropdown>
       </Menu>
+
       <span className="user-quack">
         {props.loggedIn && (
           <Button
@@ -90,6 +120,21 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
       </span>
 
       <SearchUsers compact={true} />
+
+      {props.loggedIn && (
+        <span className="user-logout">
+          <Button
+            size="xs"
+            onClick={() => {
+              setModal(true);
+              console.log(modal);
+            }}
+            color="cyan"
+          >
+            <InputIcon sx={{ fontSize: "16px" }} />
+          </Button>
+        </span>
+      )}
 
       <span className="profile-user-list">
         {props.loggedIn && (
