@@ -10,6 +10,7 @@ import { apiUrl } from "../../helpers/api-url";
 import { initialLoginError } from "../../helpers/error-states";
 import { LoginForm } from "../../components/login-form/login-form";
 import { QuackleTitle } from "../../components/quackle-title/quackle-title";
+import { QuackleFooter } from "../../components/footer/footer";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./login-page.css";
 
@@ -142,6 +143,7 @@ export const LoginPage: React.FC = () => {
             <Button color="cyan">Sign Up</Button>
           </Link>
         </span>
+        <QuackleFooter />
       </section>
     </div>
   );

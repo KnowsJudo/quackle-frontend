@@ -63,16 +63,20 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
             </Link>
           </Menu.Item>
           {!props.loggedIn && (
-            <section className="profile-prompt">
-              <h5>Not part of the pond?</h5>
-              <Link to="/signup">
-                <Button color="cyan">Sign Up</Button>
-              </Link>
-              <h5>Existing User?</h5>
-              <Link to="/">
-                <Button color="cyan">LOGIN</Button>
-              </Link>
-            </section>
+            <>
+              <Menu.Divider />
+              <Menu.Label>Browsing as guest</Menu.Label>
+              <Menu.Item color="dark">
+                <Link to="/signup" style={linkStyle}>
+                  Sign up to Quackle
+                </Link>
+              </Menu.Item>
+              <Menu.Item color="dark">
+                <Link to="/" style={linkStyle}>
+                  Login
+                </Link>
+              </Menu.Item>
+            </>
           )}
           {props.loggedIn && (
             <>

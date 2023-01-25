@@ -42,7 +42,10 @@
     height: 280px;
     width: 96vw;
   }
+}
+
+@media (max-width: 550px) {
   .login-signup {
-    margin: 35% auto;
+    margin: 15% auto;
   }
 }

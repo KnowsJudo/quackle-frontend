@@ -22,9 +22,9 @@ import { apiUrl } from "./helpers/api-url";
 import { TrendingPage } from "./pages/trending-page/trending-page";
 import { NotificationsProvider } from "@mantine/notifications";
 import { showNotification } from "@mantine/notifications";
+import { GiPlasticDuck, GiNestBirds } from "react-icons/gi";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
-import { GiPlasticDuck, GiNestBirds } from "react-icons/gi";
 import "./App.css";
 
 const App: () => JSX.Element = () => {
@@ -50,6 +50,9 @@ const App: () => JSX.Element = () => {
     followingData: IFollowingData,
     followerData: IFollowerData,
   ) => {
+    if (!loggedIn) {
+      return;
+    }
     const { username, followingUsername } = followingData;
     try {
       await axios.post(`${apiUrl}/user/${username}/following`, followingData);
@@ -84,6 +87,9 @@ const App: () => JSX.Element = () => {
   };
 
   const unFollowUser = async (followingUser: string) => {
+    if (!loggedIn) {
+      return;
+    }
     try {
       await axios.delete(
         `${apiUrl}/user/${userData.username}/following/${followingUser}`,
@@ -128,6 +134,9 @@ const App: () => JSX.Element = () => {
     quackId: string,
     likesUsers: string[],
   ) => {
+    if (!loggedIn) {
+      return;
+    }
     const liked = !likesUsers.includes(userData.username);
     try {
       await axios.patch(`${apiUrl}/user/${username}/quacks/${quackId}`, {

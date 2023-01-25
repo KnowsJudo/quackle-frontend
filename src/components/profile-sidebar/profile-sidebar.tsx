@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Cookies from "js-cookie";
-import { Avatar, Button, Text } from "@mantine/core";
+import { Avatar, Badge, Button, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
 import { initialUserData, QuackleContext } from "../../context/user-context";
@@ -66,6 +66,23 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
         </section>
       )}
       <SearchUsers compact={false} />
+      <Badge
+        size="sm"
+        radius="xl"
+        style={{
+          margin: "auto",
+          padding: "15px",
+          backgroundColor: "#282c34",
+          marginTop: "auto",
+        }}
+      >
+        <a
+          href="https://lachieb.dev"
+          style={{ color: "white", textDecoration: "none" }}
+        >
+          &copy; LachieB.dev 2023
+        </a>
+      </Badge>
     </section>
   );
 };
