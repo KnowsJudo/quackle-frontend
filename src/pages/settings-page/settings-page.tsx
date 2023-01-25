@@ -7,10 +7,12 @@ import { QuackInput } from "../../components/quack-input/quack-input";
 import { UserPreview } from "../../components/user-preview/user-preview";
 import { apiUrl } from "../../helpers/api-url";
 import { SettingsOptions } from "../../components/settings-options/settings-options";
-import { IEditSettings, ISettings, ISettingsError } from "../../types/settings";
-import "./settings-page.css";
+import { IEditSettings, ISettings } from "../../types/settings";
 import { ProfileSideBar } from "../../components/profile-sidebar/profile-sidebar";
 import { initialSettingsError } from "../../helpers/error-states";
+import { Filter } from "profanity-check";
+import { ISettingsError } from "../../types/errors";
+import "./settings-page.css";
 
 export const SettingsPage: React.FC = () => {
   const { userData, setUserData, initiateQuack, setInitiateQuack } =
@@ -33,13 +35,14 @@ export const SettingsPage: React.FC = () => {
     useState<ISettingsError>(initialSettingsError);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    setSettingsError(initialSettingsError);
-  }, [setting]);
-
+  const defaultFilter = new Filter();
   const settingsOptions = Object.keys(setting);
   const maxTaglineLength = 65;
   const maxDataLength = 25;
+
+  useEffect(() => {
+    setSettingsError(initialSettingsError);
+  }, [setting]);
 
   const changeSetting = async (option: keyof ISettings) => {
     if (!editOption[option]) {
@@ -48,23 +51,41 @@ export const SettingsPage: React.FC = () => {
       });
       return;
     }
-    //Check length of text option input
+    //Validate text option input
     setSettingsError(initialSettingsError);
     if (option === "name" && setting.name.length > maxDataLength) {
       setSettingsError((prev) => {
-        return { ...prev, name: true };
+        return { ...prev, nameLength: true };
+      });
+      return;
+    }
+    if (option === "name" && defaultFilter.isProfane(setting.name)) {
+      setSettingsError((prev) => {
+        return { ...prev, nameProfanity: true };
       });
       return;
     }
     if (option === "tagline" && setting.tagline.length > maxTaglineLength) {
       setSettingsError((prev) => {
-        return { ...prev, tagline: true };
+        return { ...prev, taglineLength: true };
+      });
+      return;
+    }
+    if (option === "tagline" && defaultFilter.isProfane(setting.tagline)) {
+      setSettingsError((prev) => {
+        return { ...prev, taglineProfanity: true };
       });
       return;
     }
     if (option === "location" && setting.location.length > maxDataLength) {
       setSettingsError((prev) => {
-        return { ...prev, location: true };
+        return { ...prev, locationLength: true };
+      });
+      return;
+    }
+    if (option === "location" && defaultFilter.isProfane(setting.location)) {
+      setSettingsError((prev) => {
+        return { ...prev, locationProfanity: true };
       });
       return;
     }

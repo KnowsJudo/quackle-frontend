@@ -8,12 +8,26 @@ export interface ILoginError {
 
 export interface ISignUpError {
   noName: boolean;
+  nameProfanity: boolean;
+  nameLength: boolean;
   noUser: boolean;
-  shortUser: boolean;
+  userProfanity: boolean;
+  userLength: boolean;
   noPass: boolean;
+  passLength: boolean;
   noMatch: boolean;
-  noEmail: boolean;
   noDoB: boolean;
+  noEmail: boolean;
+  emailLength: boolean;
   usernameDup: boolean;
   network: boolean;
+}
+
+export interface ISettingsError {
+  nameLength: boolean;
+  nameProfanity: boolean;
+  taglineLength: boolean;
+  taglineProfanity: boolean;
+  locationProfanity: boolean;
+  locationLength: boolean;
 }

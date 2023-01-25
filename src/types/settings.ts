@@ -1,5 +1,6 @@
 import { FileWithPath } from "@mantine/dropzone";
 import { SetStateAction } from "react";
+import { ISettingsError } from "./errors";
 
 export interface IEditSettings {
   name: boolean;
@@ -16,11 +17,6 @@ export interface ISettings {
   banner?: FormData;
 }
 
-export interface ISettingsError {
-  name: boolean;
-  tagline: boolean;
-  location: boolean;
-}
 export interface ISettingsOptions {
   changeSetting: (option: string) => Promise<void>;
   option: keyof ISettings;

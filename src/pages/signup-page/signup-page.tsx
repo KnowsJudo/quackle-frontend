@@ -8,6 +8,7 @@ import { apiUrl } from "../../helpers/api-url";
 import { initialSignUpError } from "../../helpers/error-states";
 import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 import { ISignUpError } from "../../types/errors";
+import { Filter } from "profanity-check";
 import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {
@@ -17,6 +18,7 @@ export const SignUpPage: React.FC = () => {
   const [error, setError] = useState<ISignUpError>(initialSignUpError);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const defaultFilter = new Filter();
 
   useEffect(() => {
     setError(initialSignUpError);
@@ -40,21 +42,45 @@ export const SignUpPage: React.FC = () => {
       });
       return;
     }
+    if (defaultFilter.isProfane(userData.name)) {
+      setError((prev) => {
+        return { ...prev, nameProfanity: true };
+      });
+      return;
+    }
+    if (userData.name.length > 30) {
+      setError((prev) => {
+        return { ...prev, nameLength: true };
+      });
+      return;
+    }
     if (!userData.username) {
       setError((prev) => {
         return { ...prev, noUser: true };
       });
       return;
     }
-    if (userData.username.length < 3) {
+    if (userData.username.length < 3 || userData.username.length > 20) {
       setError((prev) => {
-        return { ...prev, shortUser: true };
+        return { ...prev, userLength: true };
       });
       return;
     }
-    if (!pass) {
+    if (defaultFilter.isProfane(userData.username)) {
+      setError((prev) => {
+        return { ...prev, userProfanity: true };
+      });
+      return;
+    }
+    if (pass.length < 7) {
       setError((prev) => {
         return { ...prev, noPass: true };
+      });
+      return;
+    }
+    if (pass.length > 100) {
+      setError((prev) => {
+        return { ...prev, passLength: true };
       });
       return;
     }
@@ -73,6 +99,12 @@ export const SignUpPage: React.FC = () => {
     if (!userData.email.includes("@")) {
       setError((prev) => {
         return { ...prev, noEmail: true };
+      });
+      return;
+    }
+    if (userData.email.length > 100) {
+      setError((prev) => {
+        return { ...prev, emailLength: true };
       });
       return;
     }

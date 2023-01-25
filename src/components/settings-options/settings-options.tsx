@@ -20,14 +20,23 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
   const imageSrc = imageSource(props.option);
 
   const calcError = (option: string) => {
-    if (option === "name" && props.settingsError.name) {
+    if (option === "name" && props.settingsError.nameLength) {
       return "Name must be less than 25 characters";
     }
-    if (option === "tagline" && props.settingsError.tagline) {
+    if (option === "name" && props.settingsError.nameProfanity) {
+      return "Real ducks dont use such words";
+    }
+    if (option === "tagline" && props.settingsError.taglineLength) {
       return "Tagline must be less than 65 characters";
     }
-    if (option === "location" && props.settingsError.location) {
+    if (option === "tagline" && props.settingsError.taglineProfanity) {
+      return "Real ducks dont use such words";
+    }
+    if (option === "location" && props.settingsError.locationLength) {
       return "Location must be less than 25 characters";
+    }
+    if (option === "location" && props.settingsError.locationProfanity) {
+      return "Real ducks dont use such words";
     }
   };
 

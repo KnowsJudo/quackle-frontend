@@ -1,5 +1,4 @@
-import { ISignUpError } from "../types/errors";
-import { ISettingsError } from "../types/settings";
+import { ISettingsError, ISignUpError } from "../types/errors";
 
 export const initialLoginError = {
   noUser: false,
@@ -11,18 +10,26 @@ export const initialLoginError = {
 
 export const initialSignUpError: ISignUpError = {
   noName: false,
+  nameProfanity: false,
+  nameLength: false,
   noUser: false,
-  shortUser: false,
+  userProfanity: false,
+  userLength: false,
   noPass: false,
+  passLength: false,
   noMatch: false,
-  noEmail: false,
   noDoB: false,
+  noEmail: false,
+  emailLength: false,
   usernameDup: false,
   network: false,
 };
 
 export const initialSettingsError: ISettingsError = {
-  name: false,
-  tagline: false,
-  location: false,
+  nameLength: false,
+  nameProfanity: false,
+  taglineLength: false,
+  taglineProfanity: false,
+  locationLength: false,
+  locationProfanity: false,
 };

@@ -9,6 +9,39 @@ import "./signup-form.css";
 export const SignUpForm: React.FC<ISignUp> = (props) => {
   const { userData, setUserData, setUserInfo } = useContext(QuackleContext);
 
+  const calcError = (field: string) => {
+    if (field === "name" && props.error.noName) {
+      return "Enter your name";
+    }
+    if (field === "name" && props.error.nameProfanity) {
+      return "Real ducks dont use such words";
+    }
+    if (field === "name" && props.error.nameLength) {
+      return "Maximum name length is 30 characters";
+    }
+    if (field === "username" && props.error.noUser) {
+      return "Choose a username";
+    }
+    if (field === "username" && props.error.userLength) {
+      return "Username must be at between 3 and 20 characters long";
+    }
+    if (field === "username" && props.error.userProfanity) {
+      return "Real ducks dont use such words";
+    }
+    if (field === "password" && props.error.noPass) {
+      return "Password must be at least 7 characters";
+    }
+    if (field === "password" && props.error.passLength) {
+      return "Invalid Password";
+    }
+    if (field === "email" && props.error.noEmail) {
+      return "Enter a valid email address";
+    }
+    if (field === "email" && props.error.emailLength) {
+      return "Invalid Email";
+    }
+  };
+
   return (
     <form className="signup-form">
       <TextInput
@@ -17,7 +50,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         onChange={(e) => setUserInfo(e, "name")}
         value={userData.name}
         withAsterisk
-        error={props.error.noName && "Enter your name"}
+        error={calcError("name")}
       />
       <TextInput
         label="Username"
@@ -25,7 +58,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         onChange={(e) => setUserInfo(e, "username")}
         value={userData.username}
         withAsterisk
-        error={props.error.noUser && "Choose a username"}
+        error={calcError("username")}
       />
       <Group>
         <TextInput
@@ -36,7 +69,7 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
           onChange={(e) => props.handleConfirm(e, "pass")}
           value={props.pass}
           withAsterisk
-          error={props.error.noPass && "Password must be at least 7 characters"}
+          error={calcError("password")}
         />
         <TextInput
           label="Confirm Password"
@@ -68,13 +101,8 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
         onChange={(e) => setUserInfo(e, "email")}
         value={userData.email}
         withAsterisk
-        error={props.error.noEmail && "Enter a valid email address"}
+        error={calcError("email")}
       />
-      {props.error.shortUser && (
-        <Notification color="red" icon={<PriorityHighIcon />} disallowClose>
-          Username must be at least 3 characters long
-        </Notification>
-      )}
       {props.error.usernameDup && (
         <Notification color="red" icon={<PriorityHighIcon />} disallowClose>
           Username is already registered.

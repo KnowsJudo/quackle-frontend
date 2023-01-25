@@ -119,6 +119,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
               size="sm"
               color="dark"
               variant="subtle"
+              disabled
             >{`🐤 ${props.replies.length}`}</Button>
           </Tooltip>
           <Tooltip label={`${props.requacks} re-quacks`}>
@@ -126,6 +127,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
               size="sm"
               color="dark"
               variant="subtle"
+              disabled
             >{`🐔 ${props.requacks}`}</Button>
           </Tooltip>
           <Tooltip label={likeList}>
