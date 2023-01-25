@@ -1,0 +1,44 @@
+.profile-search {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 5px;
+  align-items: center;
+  margin-top: 20vh;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  width: 318px;
+}
+
+.search-container-compact {
+  display: none;
+}
+
+@media (max-width: 1300px) {
+  .profile-search {
+    display: block;
+    width: 20vw;
+    padding: 0;
+  }
+
+  .search-container {
+    width: 20vw;
+  }
+}
+
+@media (max-width: 750px) {
+  .search-container-compact {
+    display: flex;
+    position: fixed;
+    top: 200px;
+    left: 0;
+  }
+
+  .menu-search {
+    display: flex;
+    width: 90vw;
+  }
+}

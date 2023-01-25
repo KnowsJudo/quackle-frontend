@@ -10,6 +10,7 @@ import EggIcon from "@mui/icons-material/Egg";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import WaterIcon from "@mui/icons-material/Water";
 import "./profile-user.css";
+import { SearchUsers } from "../search-users/search-users";
 
 export const ProfileUser: React.FC<IProfileUser> = (props) => {
   const { userData } = useContext(QuackleContext);
@@ -87,6 +88,8 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
           </Button>
         )}
       </span>
+
+      <SearchUsers compact={true} />
 
       <span className="profile-user-list">
         {props.loggedIn && (

@@ -52,3 +52,16 @@
     margin-bottom: 28%;
   }
 }
+
+@media (max-width: 1300px) {
+  .input-anywhere-inner {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 750px) {
+  .input-anywhere-inner {
+    width: 95vw;
+    height: 40vh;
+  }
+}

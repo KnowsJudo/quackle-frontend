@@ -1,60 +1,26 @@
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 import Cookies from "js-cookie";
-import { Alert, Avatar, Button, Input, Text } from "@mantine/core";
+import { Avatar, Button, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
 import { initialUserData, QuackleContext } from "../../context/user-context";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
-import { apiUrl } from "../../helpers/api-url";
-import { UserPreview } from "../user-preview/user-preview";
-import { IUserPreview } from "../../types/user-types";
 import { useImage } from "../../helpers/use-image";
+import { SearchUsers } from "../search-users/search-users";
 import InputIcon from "@mui/icons-material/Input";
-import SearchIcon from "@mui/icons-material/Search";
 import "./profile-sidebar.css";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
-  const [search, setSearch] = useState<string>("");
-  const [searchError, setSearchError] = useState<boolean>(false);
-  const [selectData, setSelectData] = useState<IUserPreview[]>([]);
   const navigate = useNavigate();
 
   const avatarSrc = useImage(userData.avatar);
-
-  useEffect(() => {
-    setSearchError(false);
-  }, [selectData]);
 
   const logout = () => {
     Cookies.remove("jwtToken");
     setUserData(initialUserData);
     navigate("/");
-  };
-
-  const searchUsers = async () => {
-    if (search.length < 3) {
-      setSearchError(true);
-      return;
-    }
-    try {
-      const data = await axios.get(`${apiUrl}/user/${search}`);
-      const user = data.data;
-      const singleUser: IUserPreview = {
-        id: user.id,
-        avatar: user.avatar,
-        name: user.name,
-        username: user.username,
-        tagline: user.tagline,
-        matchesUser: user.username === userData.username,
-      };
-      setSelectData([singleUser]);
-    } catch (error) {
-      setSearchError(true);
-      console.error(error);
-    }
   };
 
   return (
@@ -99,42 +65,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
           </Link>
         </section>
       )}
-      <div className="search-container">
-        <span className="profile-search">
-          <Input
-            placeholder="Search Quackle Users"
-            value={search}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearch(e.target.value)
-            }
-            style={{ flex: "1 1 auto" }}
-          />
-          <Button
-            variant="subtle"
-            color="dark"
-            onClick={() => searchUsers()}
-            style={{ marginLeft: "auto" }}
-          >
-            <SearchIcon fontSize="large" />
-          </Button>
-        </span>
-        {searchError ? (
-          <Alert color="gray">No users found</Alert>
-        ) : (
-          selectData.map((next) => {
-            return (
-              <UserPreview
-                key={next.id}
-                avatar={next.avatar}
-                name={next.name}
-                username={next.username}
-                tagline={next.tagline}
-                matchesUser={next.matchesUser}
-              />
-            );
-          })
-        )}
-      </div>
+      <SearchUsers compact={false} />
     </section>
   );
 };

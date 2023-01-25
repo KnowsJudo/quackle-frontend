@@ -24,37 +24,12 @@
   padding: 2%;
 }
 
-.profile-search {
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-  border-radius: 5px;
-  align-items: center;
-  margin-top: 20vh;
-}
-
-.search-container {
-  display: flex;
-  flex-direction: column;
-  width: 318px;
-}
-
 @media (max-width: 1300px) {
   .profile-logout {
     flex-direction: column;
     padding: 8px;
     width: 20vw;
     justify-content: space-evenly;
-  }
-
-  .profile-search {
-    display: block;
-    width: 20vw;
-    padding: 0;
-  }
-
-  .search-container {
-    width: 20vw;
   }
 }
 
