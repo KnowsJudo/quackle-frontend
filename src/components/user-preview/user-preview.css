@@ -6,14 +6,14 @@
 .user-follow {
   display: flex;
   justify-content: space-between;
-  width: 238px;
+  max-width: 190px;
 }
 
 .user-preview {
   display: flex;
   margin: 0 auto;
-  max-width: 350px;
-  padding: 2%;
+  width: 305px;
+  padding: 3%;
   border-bottom: 1px solid grey;
 }
 
@@ -32,4 +32,10 @@
 .user-names {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 750px) {
+  .user-preview {
+    border-bottom: none;
+  }
 }

@@ -121,7 +121,9 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
           {props.location && (
             <>
               <Text size="sm" color="dimmed">
-                <LocationOnIcon />
+                <Tooltip label={`${props.username}'s location`}>
+                  <LocationOnIcon />
+                </Tooltip>
               </Text>
               <Text size="sm">{props.location}</Text>
             </>

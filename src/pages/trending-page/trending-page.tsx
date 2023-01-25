@@ -5,7 +5,7 @@ import { ProfileUser } from "../../components/profile-user/profile-user";
 import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
-import { Badge, Loader, Text } from "@mantine/core";
+import { Badge, Loader, Text, Tooltip } from "@mantine/core";
 import { IUser, IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
@@ -97,14 +97,16 @@ export const TrendingPage: React.FC = () => {
                   tagline={next.tagline}
                   matchesUser={next.matchesUser}
                 />
-                <Badge
-                  size="lg"
-                  radius="xl"
-                  color="cyan"
-                  style={{ marginRight: "auto" }}
-                >
-                  {next.quacks} Quacks
-                </Badge>
+                <Tooltip label={`${next.quacks} Quacks`}>
+                  <Badge
+                    size="lg"
+                    radius="xl"
+                    color="cyan"
+                    style={{ margin: "auto", padding: "10px" }}
+                  >
+                    {next.quacks}🦆
+                  </Badge>
+                </Tooltip>
               </span>
             );
           })

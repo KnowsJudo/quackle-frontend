@@ -24,3 +24,22 @@
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 1300px) {
+  .trending-list {
+    margin: auto;
+    max-width: 45%;
+  }
+}
+@media (max-width: 750px) {
+  .trending-list {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .trending-stats {
+    flex-direction: column;
+    justify-content: center;
+    padding: 3px 0;
+  }
+}
