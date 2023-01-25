@@ -68,14 +68,14 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
             to={`/profile/${props.username}`}
             style={{ color: "black", textDecoration: "none" }}
           >
-            <Text size="md" weight="bold">
+            <Text size="sm" weight="bold">
               {props.name}&nbsp;
             </Text>
           </Link>
-          <Text size="md" color="dimmed">
+          <Text size="xs" color="dimmed">
             @{props.username}&nbsp;
           </Text>
-          <Text size="md" color="dimmed">
+          <Text size="xs" color="dimmed">
             {props.quackedAt.slice(0, 10)}
           </Text>
           {props.deleteQuack && (

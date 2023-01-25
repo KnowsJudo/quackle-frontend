@@ -1,6 +1,6 @@
 .settings-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100vh;
   width: 75vw;
   overflow: auto;
@@ -38,4 +38,19 @@
   height: max-content;
   max-width: 38%;
   line-height: 1;
+}
+
+@media (max-width: 1300px) {
+  .settings-user {
+    max-width: 70%;
+    width: 60%;
+    margin-left: auto;
+  }
+}
+@media (max-width: 750px) {
+  .settings-user {
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
+  }
 }

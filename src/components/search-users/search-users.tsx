@@ -5,9 +5,9 @@ import { Alert, Button, Input, Modal } from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
 import { UserPreview } from "../user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
+import { useParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import "./search-users.css";
-import { useParams } from "react-router-dom";
 
 interface ISearch {
   compact: boolean;

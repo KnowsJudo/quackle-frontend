@@ -31,3 +31,18 @@
   align-items: flex-start;
   padding: 1% 4%;
 }
+
+@media (max-width: 1300px) {
+  .profile-details {
+    max-width: 70%;
+    width: 60%;
+    margin-left: auto;
+  }
+}
+@media (max-width: 750px) {
+  .profile-details {
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
+  }
+}

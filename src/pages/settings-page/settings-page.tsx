@@ -9,6 +9,7 @@ import { apiUrl } from "../../helpers/api-url";
 import { SettingsOptions } from "../../components/settings-options/settings-options";
 import { IEditSettings, ISettings } from "../../types/settings";
 import "./settings-page.css";
+import { ProfileSideBar } from "../../components/profile-sidebar/profile-sidebar";
 
 export const SettingsPage: React.FC = () => {
   const { userData, setUserData, initiateQuack, setInitiateQuack } =
@@ -80,7 +81,6 @@ export const SettingsPage: React.FC = () => {
       )}
       <ProfileUser setInitiateQuack={setInitiateQuack} loggedIn={true} />
       <section className="settings-user">
-        <h5>Quack Quack, {userData.name}!</h5>
         {loading ? (
           <Loader sx={{ margin: "auto" }} />
         ) : (
@@ -122,6 +122,7 @@ export const SettingsPage: React.FC = () => {
           <Button disabled>Manage Blocked Users</Button>
         </div>
       </section>
+      <ProfileSideBar loggedIn={true} />
     </div>
   );
 };

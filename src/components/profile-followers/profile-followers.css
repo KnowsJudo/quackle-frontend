@@ -15,3 +15,18 @@
   height: max-content;
   max-width: 38%;
 }
+
+@media (max-width: 1300px) {
+  .profile-followers {
+    max-width: 70%;
+    width: 60%;
+    margin-left: auto;
+  }
+}
+@media (max-width: 750px) {
+  .profile-followers {
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
+  }
+}
