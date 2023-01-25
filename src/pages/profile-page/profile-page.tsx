@@ -18,7 +18,7 @@ import "./profile-page.css";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
-  const { userData, initiateQuack, setInitiateQuack } =
+  const { userData, initiateQuack, setInitiateQuack, loggedIn } =
     useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
@@ -150,18 +150,18 @@ export const ProfilePage: React.FC = () => {
       )}
       <ProfileUser
         setInitiateQuack={setInitiateQuack}
-        loggedIn={userData.username ? true : false}
+        loggedIn={loggedIn ? true : false}
       />
       <ProfileDetails
         matchesUser={userData.username === params.userId ? true : false}
-        loggedIn={userData.username ? true : false}
+        loggedIn={loggedIn ? true : false}
         profileData={profileData}
         quackData={quackData}
         likesData={likedQuacks}
         paramId={params.userId}
         loading={loading.quacks}
       />
-      <ProfileSideBar loggedIn={userData.username ? true : false} />
+      <ProfileSideBar loggedIn={loggedIn ? true : false} />
     </div>
   );
 };

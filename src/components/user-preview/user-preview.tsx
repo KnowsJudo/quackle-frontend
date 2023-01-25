@@ -8,7 +8,7 @@ import { FollowButton } from "../follow-button/follow-button";
 import "./user-preview.css";
 
 export const UserPreview: React.FC<IUserPreview> = (props) => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, loggedIn } = useContext(QuackleContext);
   const avatarSrc = useImage(props.avatar);
   const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ export const UserPreview: React.FC<IUserPreview> = (props) => {
           {!props.matchesUser && (
             <FollowButton
               buttonOwner={props.username}
-              disabled={!userData.username}
+              disabled={!loggedIn}
               isUserFollowing={isUserFollowing}
               followingData={followingData}
               followerData={followerData}

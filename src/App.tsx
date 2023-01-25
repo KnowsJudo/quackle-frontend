@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { initialUserData, QuackleContext } from "./context/user-context";
@@ -28,7 +28,7 @@ import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import "./App.css";
 
 const App: () => JSX.Element = () => {
-  const [userData, setUserData] = useState<IUser>(initialUserData);
+  const [userData, setUserData] = useState<IUser>(() => initialUserData());
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
   const loggedIn = Cookies.get("jwtToken");
 
@@ -45,6 +45,18 @@ const App: () => JSX.Element = () => {
           : event.target.value,
     });
   };
+
+  useEffect(() => {
+    sessionStorage.setItem("User Context", JSON.stringify(userData));
+  }, [userData]);
+
+  useEffect(() => {
+    //Check username against cookie to make sure user is still logged in
+    if (userData.username) {
+      return;
+    }
+    loggedIn && Cookies.remove("jwtToken");
+  }, [userData.username]);
 
   const followUser = async (
     followingData: IFollowingData,
@@ -180,6 +192,7 @@ const App: () => JSX.Element = () => {
               unFollowUser,
               deleteQuack,
               likeQuack,
+              loggedIn,
             }}
           >
             <BrowserRouter>

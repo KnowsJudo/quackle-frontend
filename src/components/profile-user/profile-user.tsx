@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Cookies from "js-cookie";
 import { Button, Menu } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
-import { initialUserData, QuackleContext } from "../../context/user-context";
+import { clearUser, QuackleContext } from "../../context/user-context";
 import { IProfileUser } from "../../types/profile-types";
 import { GiDuck } from "react-icons/gi";
 import { GiNestBirds } from "react-icons/gi";
@@ -22,7 +22,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
 
   const logout = () => {
     Cookies.remove("jwtToken");
-    setUserData(initialUserData);
+    setUserData(clearUser);
     navigate("/");
   };
 

@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { IUserContext } from "../types/user-context";
 import { IUser } from "../types/user-types";
 
-export const initialUserData: IUser = {
+export const clearUser = {
   id: "",
   avatar: undefined,
   name: "",
@@ -22,8 +22,13 @@ export const initialUserData: IUser = {
   usersBlocked: [],
 };
 
+export const initialUserData: () => IUser = () => {
+  const stored = JSON.parse(sessionStorage.getItem("User Context") as string);
+  return stored ? stored : clearUser;
+};
+
 export const QuackleContext = createContext<IUserContext>({
-  userData: initialUserData,
+  userData: initialUserData(),
   setUserData: () => initialUserData,
   setUserInfo: () => null,
   initiateQuack: false,
@@ -32,4 +37,5 @@ export const QuackleContext = createContext<IUserContext>({
   unFollowUser: () => null,
   deleteQuack: () => null,
   likeQuack: () => null,
+  loggedIn: "",
 });

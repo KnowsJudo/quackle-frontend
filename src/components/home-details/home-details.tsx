@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Loader } from "@mantine/core";
+import { Badge, Loader } from "@mantine/core";
 import { QuackleContext } from "../../context/user-context";
 import { IFriendQuacks, IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
@@ -77,12 +77,22 @@ export const HomeDetails: React.FC = () => {
         {!userData.following?.length ? (
           <>
             <h6>Your pond is empty!</h6>
-            <Link
-              to="/trending"
-              style={{ color: "black", textDecoration: "none" }}
+            <Badge
+              size="lg"
+              radius="xl"
+              style={{
+                margin: "auto",
+                padding: "25px",
+                backgroundColor: "#282c34",
+              }}
             >
-              See popular ducks
-            </Link>
+              <Link
+                to="/trending"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                See popular ducks
+              </Link>
+            </Badge>
           </>
         ) : loading ? (
           <Loader sx={{ marginTop: "25vh" }} />

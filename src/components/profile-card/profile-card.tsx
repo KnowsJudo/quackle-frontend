@@ -9,7 +9,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "./profile-card.css";
 
 export const ProfileCard: React.FC<IProfileCard> = (props) => {
-  const { userData } = useContext(QuackleContext);
+  const { userData, loggedIn } = useContext(QuackleContext);
 
   const avatarSrc = useImage(props.avatar);
   const bannerSrc = useImage(props.banner);
@@ -67,7 +67,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
               <span>
                 <FollowButton
                   buttonOwner={props.username}
-                  disabled={!userData.username}
+                  disabled={!loggedIn}
                   isUserFollowing={isUserFollowing}
                   followingData={followingData}
                   followerData={followerData}

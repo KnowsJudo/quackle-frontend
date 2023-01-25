@@ -12,7 +12,7 @@ import ShowChartIcon from "@mui/icons-material/ShowChart";
 import "./trending-page.css";
 
 export const TrendingPage: React.FC = () => {
-  const { userData, setInitiateQuack } = useContext(QuackleContext);
+  const { userData, setInitiateQuack, loggedIn } = useContext(QuackleContext);
   const [trending, setTrending] = useState<IUserPreview[]>([]);
   const [trendingNames, setTrendingNames] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -69,7 +69,7 @@ export const TrendingPage: React.FC = () => {
   return (
     <div className="trending-container">
       <ProfileUser
-        loggedIn={userData.username ? true : false}
+        loggedIn={loggedIn ? true : false}
         setInitiateQuack={setInitiateQuack}
       />
       <section className="trending-list">
@@ -112,7 +112,7 @@ export const TrendingPage: React.FC = () => {
           })
         )}
       </section>
-      <ProfileSideBar loggedIn={userData.username ? true : false} />
+      <ProfileSideBar loggedIn={loggedIn ? true : false} />
     </div>
   );
 };

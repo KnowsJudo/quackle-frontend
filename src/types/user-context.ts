@@ -17,4 +17,5 @@ export interface IUserContext {
   unFollowUser: (followingUser: string) => void;
   deleteQuack: (quackId: string) => void;
   likeQuack: (username: string, quackId: string, likesUsers: string[]) => void;
+  loggedIn?: string;
 }

@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { Avatar, Badge, Button, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
-import { initialUserData, QuackleContext } from "../../context/user-context";
+import { clearUser, QuackleContext } from "../../context/user-context";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { useImage } from "../../helpers/use-image";
 import { SearchUsers } from "../search-users/search-users";
@@ -19,7 +19,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
 
   const logout = () => {
     Cookies.remove("jwtToken");
-    setUserData(initialUserData);
+    setUserData(clearUser);
     navigate("/");
   };
 
@@ -34,12 +34,14 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       {props.loggedIn && (
         <span className="profile-logout">
           <span className="profile-id">
-            <Avatar
-              size="sm"
-              radius="xl"
-              src={avatarSrc}
-              style={{ margin: "0 0 3px 5px" }}
-            />
+            <Link to={`/profile/${userData.username}`}>
+              <Avatar
+                size="sm"
+                radius="xl"
+                src={avatarSrc}
+                style={{ margin: "0 0 3px 5px" }}
+              />
+            </Link>
             <Text size="xs" style={{ marginLeft: "5px" }}>
               {userData.name}
             </Text>
