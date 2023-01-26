@@ -1,1 +1,1 @@
-export const apiUrl = `${window.origin.replace(/:\d+/, ":3001")}/api`;
+export const apiUrl = process.env.REACT_APP_API_URI;
