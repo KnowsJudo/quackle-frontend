@@ -1,7 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { apiUrl } from "../../helpers/api-url";
-import { Alert, Button, Input, Modal } from "@mantine/core";
+import {
+  Alert,
+  Button,
+  Input,
+  Loader,
+  LoadingOverlay,
+  Modal,
+} from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
 import { UserPreview } from "../user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
@@ -16,6 +23,7 @@ interface ISearch {
 export const SearchUsers: React.FC<ISearch> = (props) => {
   const { userData } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const [searchError, setSearchError] = useState<boolean>(false);
   const [selectData, setSelectData] = useState<IUserPreview[]>([]);
@@ -23,7 +31,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
 
   useEffect(() => {
     setSearchError(false);
-  }, [selectData]);
+  }, [search, selectData]);
 
   useEffect(() => {
     setModal(false);
@@ -34,6 +42,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
       setSearchError(true);
       return;
     }
+    setLoading(true);
     try {
       const data = await axios.get(`${apiUrl}/user/${search}`);
       const user = data.data;
@@ -46,9 +55,11 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
         matchesUser: user.username === userData.username,
       };
       setSelectData([singleUser]);
+      setLoading(false);
     } catch (error) {
       setSearchError(true);
       console.error(error);
+      setLoading(false);
     }
   };
 
@@ -85,12 +96,18 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
             variant="subtle"
             color="dark"
             onClick={() => searchUsers()}
-            style={{ marginLeft: "auto" }}
+            style={{ marginLeft: "auto", padding: "5px" }}
           >
             <SearchIcon sx={{ fontSize: "30px" }} />
           </Button>
         </span>
-        {searchError ? (
+        {loading ? (
+          <LoadingOverlay
+            visible={loading}
+            overlayBlur={3}
+            overlayOpacity={0.05}
+          />
+        ) : searchError ? (
           <Alert color="gray">No users found</Alert>
         ) : (
           selectData.map((next) => {
@@ -128,7 +145,9 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
           <SearchIcon fontSize="large" />
         </Button>
       </span>
-      {searchError ? (
+      {loading ? (
+        <Loader style={{ margin: " 10px auto" }} />
+      ) : searchError ? (
         <Alert color="gray">No users found</Alert>
       ) : (
         selectData.map((next) => {

@@ -15,10 +15,9 @@ export const TrendingPage: React.FC = () => {
   const { userData, setInitiateQuack, loggedIn } = useContext(QuackleContext);
   const [trending, setTrending] = useState<IUserPreview[]>([]);
   const [trendingNames, setTrendingNames] = useState<string[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getTrendingNames = async () => {
-    setLoading(true);
     try {
       const data = await axios.get(`${apiUrl}/user`);
       const response = data.data
@@ -53,7 +52,7 @@ export const TrendingPage: React.FC = () => {
         };
       });
       setTrending(transformed);
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -64,6 +63,7 @@ export const TrendingPage: React.FC = () => {
       return;
     }
     getTrendingAvatars();
+    setLoading(false);
   }, [trendingNames]);
 
   return (
@@ -85,7 +85,7 @@ export const TrendingPage: React.FC = () => {
           }}
         />
         {loading ? (
-          <Loader sx={{ margin: "auto" }} />
+          <Loader sx={{ margin: "25vh auto auto auto" }} />
         ) : (
           trending.map((next) => {
             return (
