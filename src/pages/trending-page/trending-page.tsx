@@ -52,9 +52,10 @@ export const TrendingPage: React.FC = () => {
         };
       });
       setTrending(transformed);
-      // setLoading(false);
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 
@@ -63,7 +64,6 @@ export const TrendingPage: React.FC = () => {
       return;
     }
     getTrendingAvatars();
-    setLoading(false);
   }, [trendingNames]);
 
   return (
