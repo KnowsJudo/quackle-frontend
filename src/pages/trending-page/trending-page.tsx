@@ -40,22 +40,22 @@ export const TrendingPage: React.FC = () => {
         return res.data;
       });
       const results = await Promise.all(promises);
-      const transformed: IUserPreview[] = results.map((next) => {
-        return {
-          id: next.id,
-          name: next.name,
-          username: next.username,
-          avatar: next.avatar,
-          tagline: next.tagline,
-          matchesUser: next.username === userData.username,
-          quacks: next.quacks,
-        };
-      });
+      const transformed: IUserPreview[] = results
+        .filter((a) => a)
+        .map((next) => {
+          return {
+            id: next.id,
+            name: next.name,
+            username: next.username,
+            avatar: next.avatar,
+            tagline: next.tagline,
+            matchesUser: next.username === userData.username,
+            quacks: next.quacks,
+          };
+        });
       setTrending(transformed);
-      setLoading(false);
     } catch (error) {
       console.error(error);
-      setLoading(false);
     }
   };
 
@@ -65,6 +65,14 @@ export const TrendingPage: React.FC = () => {
     }
     getTrendingAvatars();
   }, [trendingNames]);
+
+  useEffect(() => {
+    if (!trending) {
+      return;
+    }
+    setLoading(false);
+    console.log("test");
+  }, [trending]);
 
   return (
     <div className="trending-container">
