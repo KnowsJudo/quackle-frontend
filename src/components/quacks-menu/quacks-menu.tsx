@@ -75,7 +75,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
     <Tabs
       value={selectedTab}
       onTabChange={setSelectedTab}
-      sx={{ flex: "1 1 auto" }}
+      sx={{ flex: "1 1 auto", maxWidth: "100%" }}
     >
       <Tabs.List sx={{ justifyContent: "space-evenly" }}>
         <Tabs.Tab color="cyan" value="quacks">
