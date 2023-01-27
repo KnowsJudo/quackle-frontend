@@ -37,7 +37,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
         >
           <UsernameInfo name={props.profileData.name} />
           {props.matchesUser && (
-            <span style={{ padding: " 1% 4%" }}>
+            <span className="profile-edit">
               <Tooltip label="Edit profile">
                 <Button
                   variant="outline"

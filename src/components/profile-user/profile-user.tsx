@@ -139,7 +139,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
         </span>
       )}
 
-      <span className="profile-user-list">
+      <nav className="profile-user-list">
         {props.loggedIn && (
           <Link to="/home" style={linkStyle}>
             <WaterIcon style={{ marginRight: "7px" }} /> Home
@@ -177,7 +177,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
             </Button>
           )}
         </span>
-      </span>
+      </nav>
     </section>
   );
 };

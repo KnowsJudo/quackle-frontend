@@ -73,7 +73,7 @@ export const TrendingPage: React.FC = () => {
         setInitiateQuack={setInitiateQuack}
       />
       <section className="trending-list">
-        <span style={{ alignItems: "center" }}>
+        <span className="quacking-current">
           <Text size="xl"> Currently Quacking</Text>
           <ShowChartIcon />
         </span>
