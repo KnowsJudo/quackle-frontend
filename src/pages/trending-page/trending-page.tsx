@@ -4,13 +4,13 @@ import { ProfileSideBar } from "../../components/profile-sidebar/profile-sidebar
 import { ProfileUser } from "../../components/profile-user/profile-user";
 import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
+import { QuackInput } from "../../components/quack-input/quack-input";
 import { apiUrl } from "../../helpers/api-url";
 import { Badge, Loader, Text, Tooltip } from "@mantine/core";
 import { IUser, IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import "./trending-page.css";
-import { QuackInput } from "../../components/quack-input/quack-input";
 
 export const TrendingPage: React.FC = () => {
   const { userData, initiateQuack, setInitiateQuack, loggedIn } =
