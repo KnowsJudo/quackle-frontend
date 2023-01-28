@@ -98,6 +98,8 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
             style={{
               textAlign: "initial",
               paddingBottom: "5px",
+              maxHeight: "220px",
+              overflowY: "auto",
             }}
           >
             {props.content}

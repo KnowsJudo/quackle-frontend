@@ -15,8 +15,8 @@ import { useImage } from "../../helpers/use-image";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { showNotification } from "@mantine/notifications";
 import { AiFillDingtalkCircle } from "react-icons/ai";
-import "./quack-input.css";
 import { stdHeader } from "../../helpers/api-header";
+import "./quack-input.css";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
