@@ -13,6 +13,7 @@ import { initialSettingsError } from "../../helpers/error-states";
 import { Filter } from "profanity-check";
 import { ISettingsError } from "../../types/errors";
 import "./settings-page.css";
+import { stdHeader } from "../../helpers/api-header";
 
 export const SettingsPage: React.FC = () => {
   const { userData, setUserData, initiateQuack, setInitiateQuack } =
@@ -95,17 +96,17 @@ export const SettingsPage: React.FC = () => {
         await axios.patch(
           `${apiUrl}/user/${userData.username}`,
           setting[option],
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          },
+          stdHeader(true),
         );
       } else {
-        await axios.patch(`${apiUrl}/user/${userData.username}`, {
-          option,
-          setting: setting[option],
-        });
+        await axios.patch(
+          `${apiUrl}/user/${userData.username}`,
+          {
+            option,
+            setting: setting[option],
+          },
+          stdHeader(),
+        );
       }
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);

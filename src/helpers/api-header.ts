@@ -1,10 +1,11 @@
 import Cookies from "js-cookie";
 
-export const stdHeader = () => {
+export const stdHeader = (image?: boolean) => {
   const token = Cookies.get("jwtToken");
+  console.log(token, "token");
   const headers = {
-    "Content-Type": "application/json",
-    Authorization: token ? "Bearer " + token : "",
+    "Content-Type": image ? "multipart/form-data" : "application/json",
+    authorization: token ? token : "",
   };
-  return { headers: headers };
+  return { headers };
 };

@@ -71,7 +71,6 @@ export const TrendingPage: React.FC = () => {
       return;
     }
     setLoading(false);
-    console.log("test");
   }, [trending]);
 
   return (
