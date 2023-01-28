@@ -12,8 +12,10 @@ import { ProfileSideBar } from "../../components/profile-sidebar/profile-sidebar
 import { initialSettingsError } from "../../helpers/error-states";
 import { Filter } from "profanity-check";
 import { ISettingsError } from "../../types/errors";
-import "./settings-page.css";
 import { stdHeader } from "../../helpers/api-header";
+import { showNotification } from "@mantine/notifications";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
+import "./settings-page.css";
 
 export const SettingsPage: React.FC = () => {
   const { userData, setUserData, initiateQuack, setInitiateQuack } =
@@ -116,6 +118,16 @@ export const SettingsPage: React.FC = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      showNotification({
+        message: `Failed to update ${option}`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
       console.error(`Could not update ${option}`, error);
     }
   };
