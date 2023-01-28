@@ -10,9 +10,11 @@ import { IUser, IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import "./trending-page.css";
+import { QuackInput } from "../../components/quack-input/quack-input";
 
 export const TrendingPage: React.FC = () => {
-  const { userData, setInitiateQuack, loggedIn } = useContext(QuackleContext);
+  const { userData, initiateQuack, setInitiateQuack, loggedIn } =
+    useContext(QuackleContext);
   const [trending, setTrending] = useState<IUserPreview[]>([]);
   const [trendingNames, setTrendingNames] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -71,6 +73,14 @@ export const TrendingPage: React.FC = () => {
 
   return (
     <div className="trending-container">
+      {initiateQuack && (
+        <QuackInput
+          setInitiateQuack={setInitiateQuack}
+          fixed={true}
+          avatar={userData.avatar}
+          atUser="everyone"
+        />
+      )}
       <ProfileUser
         loggedIn={loggedIn ? true : false}
         setInitiateQuack={setInitiateQuack}
