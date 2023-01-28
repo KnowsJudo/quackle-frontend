@@ -14,6 +14,7 @@ import { Filter } from "profanity-check";
 import { ISettingsError } from "../../types/errors";
 import { stdHeader } from "../../helpers/api-header";
 import { showNotification } from "@mantine/notifications";
+import DoneIcon from "@mui/icons-material/Done";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./settings-page.css";
 
@@ -98,7 +99,7 @@ export const SettingsPage: React.FC = () => {
         await axios.patch(
           `${apiUrl}/user/${userData.username}`,
           setting[option],
-          stdHeader(true),
+          { ...stdHeader(true), maxContentLength: 2000000 },
         );
       } else {
         await axios.patch(
@@ -116,6 +117,17 @@ export const SettingsPage: React.FC = () => {
         return { ...prev, [option]: false };
       });
       setLoading(false);
+      showNotification({
+        message: `${option} updated`,
+        icon: <DoneIcon />,
+        color: "cyan",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+            textTransform: "capitalize",
+          },
+        }),
+      });
     } catch (error) {
       setLoading(false);
       showNotification({

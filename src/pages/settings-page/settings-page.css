@@ -44,7 +44,7 @@
 }
 @media (max-width: 750px) {
   .settings-details {
-    max-width: 100%;
+    max-width: 85%;
     width: 100%;
     margin: auto;
   }

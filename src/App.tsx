@@ -75,7 +75,7 @@ const App: () => JSX.Element = () => {
           ...followerData,
         },
         {
-          maxContentLength: 10485760,
+          maxContentLength: 3000000,
         },
       );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);

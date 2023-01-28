@@ -99,7 +99,10 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
               {!props.editOption[props.option] && userData[props.option] && (
                 <Image
                   src={imageSrc}
-                  width={props.option === "avatar" ? 150 : 400}
+                  style={{
+                    maxWidth: "100%",
+                    width: props.option === "avatar" ? 150 : 400,
+                  }}
                   height={150}
                   radius={props.option === "avatar" ? 100 : 0}
                 />
