@@ -16,6 +16,7 @@ import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { showNotification } from "@mantine/notifications";
 import { AiFillDingtalkCircle } from "react-icons/ai";
 import "./quack-input.css";
+import { stdHeader } from "../../helpers/api-header";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
@@ -51,13 +52,17 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
       return;
     }
     try {
-      await axios.post(`${apiUrl}/user/${userData.username}/quacks`, {
-        user: userData.id,
-        name: userData.name,
-        username: userData.username,
-        message: quackContent,
-        atUser: props.atUser ? props.atUser : "",
-      });
+      await axios.post(
+        `${apiUrl}/user/${userData.username}/quacks`,
+        {
+          user: userData.id,
+          name: userData.name,
+          username: userData.username,
+          message: quackContent,
+          atUser: props.atUser ? props.atUser : "",
+        },
+        stdHeader(),
+      );
       props.setInitiateQuack?.(false);
       setQuackContent("");
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);

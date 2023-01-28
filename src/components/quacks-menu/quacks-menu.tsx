@@ -10,6 +10,7 @@ import {
 import { QuackOutput } from "../quack-output/quack-output";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
+import { stdHeader } from "../../helpers/api-header";
 import EditIcon from "@mui/icons-material/Edit";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./quacks-menu.css";
@@ -23,10 +24,14 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
 
   const submitBio = async () => {
     try {
-      await axios.patch(`${apiUrl}/user/${userData.username}`, {
-        option: "biography",
-        setting: biography,
-      });
+      await axios.patch(
+        `${apiUrl}/user/${userData.username}`,
+        {
+          option: "biography",
+          setting: biography,
+        },
+        stdHeader(),
+      );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
       setEdit(false);

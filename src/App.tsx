@@ -23,8 +23,10 @@ import { TrendingPage } from "./pages/trending-page/trending-page";
 import { NotificationsProvider } from "@mantine/notifications";
 import { showNotification } from "@mantine/notifications";
 import { GiPlasticDuck, GiNestBirds } from "react-icons/gi";
+import { stdHeader } from "./helpers/api-header";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
+import DoneIcon from "@mui/icons-material/Done";
 import "./App.css";
 
 const App: () => JSX.Element = () => {
@@ -67,16 +69,18 @@ const App: () => JSX.Element = () => {
     }
     const { username, followingUsername } = followingData;
     try {
-      await axios.post(`${apiUrl}/user/${username}/following`, followingData);
+      await axios.post(
+        `${apiUrl}/user/${username}/following`,
+        followingData,
+        stdHeader(),
+      );
       await axios.post(
         `${apiUrl}/user/${followingUsername}/followers`,
         {
           username: followingUsername,
           ...followerData,
         },
-        {
-          maxContentLength: 3000000,
-        },
+        { ...stdHeader(), maxContentLength: 3000000 },
       );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
@@ -136,6 +140,16 @@ const App: () => JSX.Element = () => {
       );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      showNotification({
+        message: `Quack deleted`,
+        icon: <DoneIcon />,
+        color: "cyan",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
     } catch (error) {
       console.error(error, "Could not delete quack");
     }
@@ -151,10 +165,14 @@ const App: () => JSX.Element = () => {
     }
     const liked = !likesUsers.includes(userData.username);
     try {
-      await axios.patch(`${apiUrl}/user/${username}/quacks/${quackId}`, {
-        liked,
-        likedUsername: userData.username,
-      });
+      await axios.patch(
+        `${apiUrl}/user/${username}/quacks/${quackId}`,
+        {
+          liked,
+          likedUsername: userData.username,
+        },
+        stdHeader(),
+      );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
       showNotification({
