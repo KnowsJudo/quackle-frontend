@@ -17,6 +17,7 @@ import { showNotification } from "@mantine/notifications";
 import DoneIcon from "@mui/icons-material/Done";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./settings-page.css";
+import { regex } from "../../helpers/regex";
 
 export const SettingsPage: React.FC = () => {
   const { userData, setUserData, initiateQuack, setInitiateQuack } =
@@ -63,7 +64,10 @@ export const SettingsPage: React.FC = () => {
       });
       return;
     }
-    if (option === "name" && defaultFilter.isProfane(setting.name)) {
+    if (
+      (option === "name" && defaultFilter.isProfane(setting.name)) ||
+      (option === "name" && regex.test(setting.name))
+    ) {
       setSettingsError((prev) => {
         return { ...prev, nameProfanity: true };
       });
@@ -75,7 +79,10 @@ export const SettingsPage: React.FC = () => {
       });
       return;
     }
-    if (option === "tagline" && defaultFilter.isProfane(setting.tagline)) {
+    if (
+      (option === "tagline" && defaultFilter.isProfane(setting.tagline)) ||
+      (option === "tagline" && regex.test(setting.tagline))
+    ) {
       setSettingsError((prev) => {
         return { ...prev, taglineProfanity: true };
       });
@@ -87,7 +94,10 @@ export const SettingsPage: React.FC = () => {
       });
       return;
     }
-    if (option === "location" && defaultFilter.isProfane(setting.location)) {
+    if (
+      (option === "location" && defaultFilter.isProfane(setting.location)) ||
+      (option === "location" && regex.test(setting.location))
+    ) {
       setSettingsError((prev) => {
         return { ...prev, locationProfanity: true };
       });

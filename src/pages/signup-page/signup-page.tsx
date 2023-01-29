@@ -10,6 +10,7 @@ import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 import { ISignUpError } from "../../types/errors";
 import { Filter } from "profanity-check";
 import "./signup-page.css";
+import { regex } from "../../helpers/regex";
 
 export const SignUpPage: React.FC = () => {
   const { userData } = useContext(QuackleContext);
@@ -42,7 +43,7 @@ export const SignUpPage: React.FC = () => {
       });
       return;
     }
-    if (defaultFilter.isProfane(userData.name)) {
+    if (defaultFilter.isProfane(userData.name) || regex.test(userData.name)) {
       setError((prev) => {
         return { ...prev, nameProfanity: true };
       });
@@ -66,7 +67,10 @@ export const SignUpPage: React.FC = () => {
       });
       return;
     }
-    if (defaultFilter.isProfane(userData.username)) {
+    if (
+      defaultFilter.isProfane(userData.username) ||
+      regex.test(userData.username)
+    ) {
       setError((prev) => {
         return { ...prev, userProfanity: true };
       });
