@@ -24,7 +24,7 @@ export const TrendingPage: React.FC = () => {
       const data = await axios.get(`${apiUrl}/user`);
       const response = data.data
         .sort((a: IUser, b: IUser) => b.quacks - a.quacks)
-        .slice(0, 9);
+        .slice(0, 8);
       setTrendingNames(response.map((next: IUser) => next.username));
     } catch (error) {
       console.error(error);

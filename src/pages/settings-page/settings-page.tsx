@@ -14,10 +14,10 @@ import { Filter } from "profanity-check";
 import { ISettingsError } from "../../types/errors";
 import { stdHeader } from "../../helpers/api-header";
 import { showNotification } from "@mantine/notifications";
+import { regex } from "../../helpers/regex";
 import DoneIcon from "@mui/icons-material/Done";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./settings-page.css";
-import { regex } from "../../helpers/regex";
 
 export const SettingsPage: React.FC = () => {
   const { userData, setUserData, initiateQuack, setInitiateQuack } =

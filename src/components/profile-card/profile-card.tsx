@@ -51,7 +51,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
             size="xl"
             src={avatarSrc}
             alt="This user has no avatar"
-            radius={50}
+            style={{ border: "solid 4px white", borderRadius: "50%" }}
           />
           &nbsp;
           <Text size="md" color="dimmed">
