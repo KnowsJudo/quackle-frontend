@@ -30,6 +30,7 @@ export const FollowButton: React.FC<IFollowButton> = (props) => {
         className="follow-button"
         disabled={props.disabled}
         loading={reqLoad}
+        styles={{ leftIcon: { margin: "auto" } }}
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.stopPropagation();
           setModal(true);
@@ -44,6 +45,7 @@ export const FollowButton: React.FC<IFollowButton> = (props) => {
       className="follow-button"
       disabled={props.disabled}
       loading={reqLoad}
+      styles={{ leftIcon: { margin: "auto" } }}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         followUser(props.followingData, props.followerData);

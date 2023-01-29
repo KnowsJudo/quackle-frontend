@@ -86,6 +86,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
                 size="xs"
                 loading={reqLoad}
                 sx={{ marginLeft: "auto" }}
+                styles={{ leftIcon: { margin: "auto" } }}
                 onClick={() => setModal(true)}
               >
                 {!reqLoad && <DeleteIcon fontSize="small" />}
@@ -138,6 +139,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
               size="sm"
               color="dark"
               variant="subtle"
+              styles={{ leftIcon: { margin: "auto" } }}
               loading={reqLoad}
               onClick={() => likeQuack(props.username, props.id, props.likes)}
             >
