@@ -19,11 +19,11 @@
   background-color: white;
   color: black;
   flex: 0.5 1 auto;
-  margin: 0 25% 0 20%;
+  margin: auto;
   padding-top: 2%;
   min-height: 100vh;
   height: max-content;
-  max-width: 38%;
+  max-width: 45%;
 }
 
 .trending-stats {

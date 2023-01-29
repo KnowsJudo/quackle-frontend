@@ -66,10 +66,14 @@ export const TrendingPage: React.FC = () => {
       return;
     }
     getTrendingAvatars();
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
   }, [trendingNames]);
+
+  useEffect(() => {
+    if (!trending.length) {
+      return;
+    }
+    setLoading(false);
+  }, [trending]);
 
   return (
     <div className="trending-container">
