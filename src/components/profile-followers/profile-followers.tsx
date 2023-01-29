@@ -46,7 +46,7 @@ export const ProfileFollowers: React.FC<IProfileFollow> = (props) => {
 
   return (
     <section className="profile-followers">
-      <UsernameInfo name={props.name} />
+      <UsernameInfo name={props.name} username={props.username} />
       <Text size="xl">Followers:</Text>
       <div className="followers-list">
         {loading ? (

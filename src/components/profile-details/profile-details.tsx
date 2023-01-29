@@ -35,7 +35,10 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
             justifyContent: "space-between",
           }}
         >
-          <UsernameInfo name={props.profileData.name} />
+          <UsernameInfo
+            name={props.profileData.name}
+            username={props.profileData.username}
+          />
           {props.matchesUser && (
             <span className="profile-edit">
               <Tooltip label="Edit profile">

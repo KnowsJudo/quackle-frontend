@@ -40,7 +40,3 @@ export interface IUserPreview {
   id?: string;
   quacks?: number;
 }
-
-export interface IUsernameInfo {
-  name: string;
-}

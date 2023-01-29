@@ -24,9 +24,10 @@ import { NotificationsProvider } from "@mantine/notifications";
 import { showNotification } from "@mantine/notifications";
 import { GiPlasticDuck, GiNestBirds } from "react-icons/gi";
 import { stdHeader } from "./helpers/api-header";
+import DoneIcon from "@mui/icons-material/Done";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
-import DoneIcon from "@mui/icons-material/Done";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./App.css";
 
 const App: () => JSX.Element = () => {
@@ -101,6 +102,16 @@ const App: () => JSX.Element = () => {
       });
       setReqLoad(false);
     } catch (error) {
+      showNotification({
+        message: `Failed to follow ${followingUsername}. Try logging in again.`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
       setReqLoad(false);
       console.error(error);
     }
@@ -135,6 +146,16 @@ const App: () => JSX.Element = () => {
       });
       setReqLoad(false);
     } catch (error) {
+      showNotification({
+        message: `Failed to Un-follow ${followingUser}. Try logging in again.`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
       setReqLoad(false);
       console.error(error, "Could not unfollow user");
     }
@@ -160,6 +181,16 @@ const App: () => JSX.Element = () => {
         }),
       });
     } catch (error) {
+      showNotification({
+        message: `Failed to delete Quack. Try logging in again.`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
       setReqLoad(false);
       console.error(error, "Could not delete quack");
     }
@@ -203,6 +234,18 @@ const App: () => JSX.Element = () => {
         }),
       });
     } catch (error) {
+      showNotification({
+        message: `Failed to ${
+          !liked ? "un-" : ""
+        }like Quack. Try logging in again.`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
       setReqLoad(false);
       console.error(error, "Could not update quack status");
     }
