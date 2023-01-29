@@ -1,3 +1,4 @@
+import { ILoading } from "./profile-types";
 import { IImage, IUser } from "./user-types";
 
 export interface IQuacksMenu {
@@ -6,7 +7,7 @@ export interface IQuacksMenu {
   quackdata: IQuackResponse[];
   likesData: IQuackResponse[];
   deleteQuack?: (quackId: string) => void;
-  loading: boolean;
+  loading: ILoading;
   loggedIn: boolean;
 }
 

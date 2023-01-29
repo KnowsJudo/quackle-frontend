@@ -11,8 +11,11 @@ import { QuackOutput } from "../quack-output/quack-output";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
 import { stdHeader } from "../../helpers/api-header";
+import { showNotification } from "@mantine/notifications";
 import EditIcon from "@mui/icons-material/Edit";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
+import DoneIcon from "@mui/icons-material/Done";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./quacks-menu.css";
 
 export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
@@ -20,9 +23,11 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
   const [selectedTab, setSelectedTab] = useState<string | null>("quacks");
   const [edit, setEdit] = useState<boolean>(false);
   const [biography, setBiography] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const paramId = props.paramId;
 
   const submitBio = async () => {
+    setLoading(true);
     try {
       await axios.patch(
         `${apiUrl}/user/${userData.username}`,
@@ -35,7 +40,30 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
       setEdit(false);
+      setLoading(false);
+      showNotification({
+        message: `Biography updated`,
+        icon: <DoneIcon />,
+        color: "cyan",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+            textTransform: "capitalize",
+          },
+        }),
+      });
     } catch (error) {
+      setLoading(false);
+      showNotification({
+        message: `Failed to update biography`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
       console.error(`Could not update biography`, error);
     }
   };
@@ -98,7 +126,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       </Tabs.List>
 
       <Tabs.Panel value="quacks">
-        {props.loading ? (
+        {props.loading.quacks ? (
           <Loader sx={{ marginTop: "25vh" }} />
         ) : !props.quackdata.length ? (
           <EmptyQuacks quack={true} />
@@ -118,7 +146,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 requacks={0}
                 likes={next.likes}
                 deleteQuack={props.deleteQuack}
-                loading={props.loading}
+                loading={props.loading.quacks}
                 loggedIn={props.loggedIn}
               />
             );
@@ -129,7 +157,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         <EmptyQuacks requack={true} />
       </Tabs.Panel>
       <Tabs.Panel value="likes">
-        {props.loading ? (
+        {props.loading.likes ? (
           <Loader sx={{ marginTop: "25vh" }} />
         ) : !props.likesData.length ? (
           <EmptyQuacks likes={true} />
@@ -149,7 +177,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 requacks={0}
                 likes={next.likes}
                 deleteQuack={undefined}
-                loading={props.loading}
+                loading={props.loading.likes}
                 loggedIn={props.loggedIn}
               />
             );
@@ -157,7 +185,9 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         )}
       </Tabs.Panel>
       <Tabs.Panel value="bio">
-        {!props.profileData.biography && !edit ? (
+        {loading ? (
+          <Loader sx={{ marginTop: "25vh" }} />
+        ) : !props.profileData.biography && !edit ? (
           <EmptyQuacks bio={true} />
         ) : (
           <div className="biography-contents">

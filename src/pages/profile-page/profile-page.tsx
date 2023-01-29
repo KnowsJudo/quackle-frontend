@@ -159,7 +159,7 @@ export const ProfilePage: React.FC = () => {
         quackData={quackData}
         likesData={likedQuacks}
         paramId={params.userId}
-        loading={loading.quacks}
+        loading={loading}
       />
       <ProfileSideBar loggedIn={loggedIn ? true : false} />
     </div>

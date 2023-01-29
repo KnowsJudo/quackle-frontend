@@ -78,7 +78,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
           <Text size="xs" color="dimmed">
             {props.quackedAt.slice(0, 10)}
           </Text>
-          {props.deleteQuack && (
+          {props.deleteQuack && !props.loading && (
             <Tooltip label="Delete Quack">
               <Button
                 color="dark"

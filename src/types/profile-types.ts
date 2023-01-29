@@ -26,7 +26,7 @@ export interface IProfileDetails {
   likesData: IFriendQuacks[];
   paramId?: string;
   deleteQuack?: (quackId: string) => Promise<void>;
-  loading: boolean;
+  loading: ILoading;
 }
 
 export interface ILoading {

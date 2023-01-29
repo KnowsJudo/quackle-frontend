@@ -228,7 +228,10 @@ const App: () => JSX.Element = () => {
                   element={loggedIn ? <HomePage /> : <Navigate to="/" />}
                 />
                 <Route path="/profile/:userId/*" element={<ProfilePage />}>
-                  <Route path=":follow" element={<Outlet />} />
+                  <Route
+                    path=":follow"
+                    element={loggedIn ? <Outlet /> : <Navigate to="/" />}
+                  />
                 </Route>
                 <Route
                   path="/settings"

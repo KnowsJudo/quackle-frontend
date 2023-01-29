@@ -114,7 +114,9 @@ export const TrendingPage: React.FC = () => {
                   tagline={next.tagline}
                   matchesUser={next.matchesUser}
                 />
-                <Tooltip label={`${next.quacks} Quacks`}>
+                <Tooltip
+                  label={`${next.quacks} Quack${next.quacks === 1 ? "" : "s"}`}
+                >
                   <Badge
                     size="lg"
                     radius="xl"
