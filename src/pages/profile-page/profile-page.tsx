@@ -69,26 +69,41 @@ export const ProfilePage: React.FC = () => {
     }
   };
 
+  const getProfileLikes = async () => {
+    if (!profileData) {
+      return;
+    }
+    if (!profileData.likedQuacks.length) {
+      setLikesResponse([]);
+      setLoading((prev) => {
+        return { ...prev, likes: false };
+      });
+      return;
+    }
+    const likes = await getQuacks(profileData.likedQuacks, "", true);
+    likes && setLikesResponse(likes);
+  };
+
+  const getLikesAvatars = async () => {
+    const usernames = likesResponse.map((next) => next.username);
+    const avatars = await getAvatars(usernames);
+    avatars && setLikesAvatars(avatars);
+  };
+
+  useEffect(() => {
+    setLoading({
+      profile: true,
+      quacks: true,
+      likes: true,
+    });
+  }, [params.userId]);
+
   useEffect(() => {
     getProfileData();
     getProfileQuacks();
   }, [params.userId, userData.quacks, userData.likedQuacks]);
 
   useEffect(() => {
-    const getProfileLikes = async () => {
-      if (!profileData) {
-        return;
-      }
-      if (!profileData.likedQuacks.length) {
-        setLikesResponse([]);
-        setLoading((prev) => {
-          return { ...prev, likes: false };
-        });
-        return;
-      }
-      const likes = await getQuacks(profileData.likedQuacks, "", true);
-      likes && setLikesResponse(likes);
-    };
     getProfileLikes();
   }, [profileData, userData.likedQuacks]);
 
@@ -96,11 +111,6 @@ export const ProfilePage: React.FC = () => {
     if (!likesResponse) {
       return;
     }
-    const getLikesAvatars = async () => {
-      const usernames = likesResponse.map((next) => next.username);
-      const avatars = await getAvatars(usernames);
-      avatars && setLikesAvatars(avatars);
-    };
     getLikesAvatars();
   }, [likesResponse]);
 
