@@ -38,4 +38,5 @@ export const QuackleContext = createContext<IUserContext>({
   deleteQuack: () => null,
   likeQuack: () => null,
   loggedIn: "",
+  reqLoad: false,
 });

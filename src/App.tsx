@@ -32,6 +32,7 @@ import "./App.css";
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(() => initialUserData());
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
+  const [reqLoad, setReqLoad] = useState<boolean>(false);
   const loggedIn = Cookies.get("jwtToken");
 
   const setUserInfo = (
@@ -68,6 +69,7 @@ const App: () => JSX.Element = () => {
       return;
     }
     const { username, followingUsername } = followingData;
+    setReqLoad(true);
     try {
       await axios.post(
         `${apiUrl}/user/${username}/following`,
@@ -97,7 +99,9 @@ const App: () => JSX.Element = () => {
           },
         }),
       });
+      setReqLoad(false);
     } catch (error) {
+      setReqLoad(false);
       console.error(error);
     }
   };
@@ -106,6 +110,7 @@ const App: () => JSX.Element = () => {
     if (!loggedIn) {
       return;
     }
+    setReqLoad(true);
     try {
       await axios.delete(
         `${apiUrl}/user/${userData.username}/following/${followingUser}`,
@@ -128,18 +133,22 @@ const App: () => JSX.Element = () => {
           },
         }),
       });
+      setReqLoad(false);
     } catch (error) {
+      setReqLoad(false);
       console.error(error, "Could not unfollow user");
     }
   };
 
   const deleteQuack = async (quackId: string) => {
+    setReqLoad(true);
     try {
       await axios.delete(
         `${apiUrl}/user/${userData.username}/quacks/${quackId}`,
       );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      setReqLoad(false);
       showNotification({
         message: `Quack deleted`,
         icon: <DoneIcon />,
@@ -151,6 +160,7 @@ const App: () => JSX.Element = () => {
         }),
       });
     } catch (error) {
+      setReqLoad(false);
       console.error(error, "Could not delete quack");
     }
   };
@@ -164,6 +174,7 @@ const App: () => JSX.Element = () => {
       return;
     }
     const liked = !likesUsers.includes(userData.username);
+    setReqLoad(true);
     try {
       await axios.patch(
         `${apiUrl}/user/${username}/quacks/${quackId}`,
@@ -175,6 +186,7 @@ const App: () => JSX.Element = () => {
       );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      setReqLoad(false);
       showNotification({
         title: `Quack ${!liked ? "un-" : ""}liked!`,
         message: liked
@@ -191,6 +203,7 @@ const App: () => JSX.Element = () => {
         }),
       });
     } catch (error) {
+      setReqLoad(false);
       console.error(error, "Could not update quack status");
     }
   };
@@ -211,6 +224,7 @@ const App: () => JSX.Element = () => {
               deleteQuack,
               likeQuack,
               loggedIn,
+              reqLoad,
             }}
           >
             <BrowserRouter>

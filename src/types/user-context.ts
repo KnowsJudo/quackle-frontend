@@ -18,4 +18,5 @@ export interface IUserContext {
   deleteQuack: (quackId: string) => void;
   likeQuack: (username: string, quackId: string, likesUsers: string[]) => void;
   loggedIn?: string;
+  reqLoad: boolean;
 }

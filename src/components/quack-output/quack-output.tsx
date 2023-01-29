@@ -11,7 +11,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "./quack-output.css";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
-  const { userData, likeQuack } = useContext(QuackleContext);
+  const { userData, likeQuack, reqLoad } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const [likeList, setLikeList] = useState<string>("");
   const avatarSrc = useImage(props.avatar);
@@ -84,10 +84,11 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
                 color="dark"
                 variant="subtle"
                 size="xs"
+                loading={reqLoad}
                 sx={{ marginLeft: "auto" }}
                 onClick={() => setModal(true)}
               >
-                <DeleteIcon fontSize="small" />
+                {!reqLoad && <DeleteIcon fontSize="small" />}
               </Button>
             </Tooltip>
           )}
@@ -137,9 +138,12 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
               size="sm"
               color="dark"
               variant="subtle"
+              loading={reqLoad}
               onClick={() => likeQuack(props.username, props.id, props.likes)}
             >
-              {checkLiked ? (
+              {reqLoad ? (
+                ""
+              ) : checkLiked ? (
                 <FavoriteIcon
                   fontSize="small"
                   style={{
@@ -155,7 +159,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
                   }}
                 />
               )}
-              {`${props.likes.length}`}
+              {!reqLoad && `${props.likes.length}`}
             </Button>
           </Tooltip>
         </span>

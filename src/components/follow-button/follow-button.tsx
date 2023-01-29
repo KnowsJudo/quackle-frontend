@@ -14,7 +14,7 @@ interface IFollowButton {
 }
 
 export const FollowButton: React.FC<IFollowButton> = (props) => {
-  const { followUser, unFollowUser } = useContext(QuackleContext);
+  const { followUser, unFollowUser, reqLoad } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
 
   return props.isUserFollowing ? (
@@ -29,12 +29,13 @@ export const FollowButton: React.FC<IFollowButton> = (props) => {
         color="cyan"
         className="follow-button"
         disabled={props.disabled}
+        loading={reqLoad}
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.stopPropagation();
           setModal(true);
         }}
       >
-        UnFollow
+        {!reqLoad && "UnFollow"}
       </Button>
     </>
   ) : (
@@ -42,12 +43,13 @@ export const FollowButton: React.FC<IFollowButton> = (props) => {
       color="cyan"
       className="follow-button"
       disabled={props.disabled}
+      loading={reqLoad}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         followUser(props.followingData, props.followerData);
       }}
     >
-      Follow
+      {!reqLoad && "Follow"}
     </Button>
   );
 };
