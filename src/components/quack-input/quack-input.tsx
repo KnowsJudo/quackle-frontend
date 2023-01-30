@@ -15,6 +15,7 @@ import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { showNotification } from "@mantine/notifications";
 import { AiFillDingtalkCircle } from "react-icons/ai";
 import { stdHeader } from "../../helpers/api-header";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./quack-input.css";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {
@@ -23,6 +24,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
   const [error, setError] = useState<boolean>(false);
   const [checkClose, setCheckClose] = useState<boolean>(false);
   const [savedQuack, setSavedQuack] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const enterQuackContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     event.preventDefault();
@@ -49,6 +51,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
     if (error) {
       return;
     }
+    setLoading(true);
     try {
       await axios.post(
         `${apiUrl}/user/${userData.username}/quacks`,
@@ -65,6 +68,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
       setQuackContent("");
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      setLoading(false);
       showNotification({
         message: "Quacked!",
         icon: <AiFillDingtalkCircle />,
@@ -78,6 +82,17 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         }),
       });
     } catch (error) {
+      setLoading(false);
+      showNotification({
+        message: `Failed to post Quack.`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
       console.error(error);
     }
   };
@@ -160,8 +175,14 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
             sx={{ width: "25%" }}
             color={error ? "red" : "cyan"}
           />
-          <Button onClick={submitQuack} disabled={!quackContent} color="teal">
-            Quack!
+          <Button
+            onClick={submitQuack}
+            disabled={!quackContent}
+            color="teal"
+            loading={loading}
+            styles={{ leftIcon: { margin: "auto" } }}
+          >
+            {!loading && "Quack!"}
           </Button>
         </span>
       </div>

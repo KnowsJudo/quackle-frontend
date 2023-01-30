@@ -87,6 +87,7 @@ const App: () => JSX.Element = () => {
       );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      setReqLoad(false);
       showNotification({
         title: `Followed ${followingUsername}!`,
         message: "Your pond is expanding. QUACK!",
@@ -100,8 +101,8 @@ const App: () => JSX.Element = () => {
           },
         }),
       });
-      setReqLoad(false);
     } catch (error) {
+      setReqLoad(false);
       showNotification({
         message: `Failed to follow ${followingUsername}. Try logging in again.`,
         icon: <PriorityHighIcon />,
@@ -112,7 +113,6 @@ const App: () => JSX.Element = () => {
           },
         }),
       });
-      setReqLoad(false);
       console.error(error);
     }
   };
@@ -131,6 +131,7 @@ const App: () => JSX.Element = () => {
       );
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
       setUserData(res.data);
+      setReqLoad(false);
       showNotification({
         title: `Un-followed ${followingUser}`,
         message: "Removed from your pecking order",
@@ -144,8 +145,8 @@ const App: () => JSX.Element = () => {
           },
         }),
       });
-      setReqLoad(false);
     } catch (error) {
+      setReqLoad(false);
       showNotification({
         message: `Failed to Un-follow ${followingUser}. Try logging in again.`,
         icon: <PriorityHighIcon />,
@@ -156,7 +157,6 @@ const App: () => JSX.Element = () => {
           },
         }),
       });
-      setReqLoad(false);
       console.error(error, "Could not unfollow user");
     }
   };
@@ -181,6 +181,7 @@ const App: () => JSX.Element = () => {
         }),
       });
     } catch (error) {
+      setReqLoad(false);
       showNotification({
         message: `Failed to delete Quack. Try logging in again.`,
         icon: <PriorityHighIcon />,
@@ -191,7 +192,6 @@ const App: () => JSX.Element = () => {
           },
         }),
       });
-      setReqLoad(false);
       console.error(error, "Could not delete quack");
     }
   };
@@ -234,6 +234,7 @@ const App: () => JSX.Element = () => {
         }),
       });
     } catch (error) {
+      setReqLoad(false);
       showNotification({
         message: `Failed to ${
           !liked ? "un-" : ""
@@ -246,7 +247,6 @@ const App: () => JSX.Element = () => {
           },
         }),
       });
-      setReqLoad(false);
       console.error(error, "Could not update quack status");
     }
   };
