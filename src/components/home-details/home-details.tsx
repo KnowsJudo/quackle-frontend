@@ -5,7 +5,7 @@ import { IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
 import { QuackOutput } from "../quack-output/quack-output";
 import { Link } from "react-router-dom";
-import { getAvatars, getQuacks } from "../../helpers/quack-getters";
+import { getQuacks } from "../../helpers/quack-getters";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./home-details.css";
 
@@ -16,40 +16,16 @@ export interface IUserAvatar {
 
 export const HomeDetails: React.FC = () => {
   const { userData, deleteQuack } = useContext(QuackleContext);
-  const [friendResponse, setFriendResponse] = useState<IQuackResponse[]>([]);
-  const [friendAvatars, setFriendAvatars] = useState<IUserAvatar[]>([]);
   const [homeQuacks, setHomeQuacks] = useState<IQuackResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const getFriendQuacks = async () => {
+  const getHomeQuacks = async () => {
     const quacks = await getQuacks(userData.following, userData.username);
-    quacks && setFriendResponse(quacks);
-  };
-
-  const getFriendAvatars = async () => {
-    const avatars: IUserAvatar[] | undefined = await getAvatars(
-      userData.following,
-      userData.username,
-    );
-    avatars && setFriendAvatars(avatars);
-  };
-
-  useEffect(() => {
-    getFriendQuacks();
-    getFriendAvatars();
-  }, [userData.quacks, userData.following]);
-
-  useEffect(() => {
-    if (!friendResponse || !friendAvatars) {
+    if (!quacks) {
+      setLoading(false);
       return;
     }
-    const combinedArray = friendResponse.map((next) => {
-      const combined = friendAvatars.find(
-        (match) => match.username === next.username,
-      );
-      return { ...next, ...combined };
-    });
-    const sortedResults = combinedArray
+    const sortedResults = quacks
       .sort(
         (a: IQuackResponse, b: IQuackResponse) =>
           Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
@@ -57,7 +33,11 @@ export const HomeDetails: React.FC = () => {
       .reverse();
     setHomeQuacks(sortedResults);
     setLoading(false);
-  }, [friendResponse, friendAvatars, userData.quacks, userData.likedQuacks]);
+  };
+
+  useEffect(() => {
+    getHomeQuacks();
+  }, [userData.quacks, userData.following, userData.likedQuacks]);
 
   return (
     <section className="home-details">
@@ -71,9 +51,7 @@ export const HomeDetails: React.FC = () => {
             width: "100%",
           }}
         />
-        {loading ? (
-          <Loader color="cyan" sx={{ marginTop: "18vh" }} />
-        ) : !homeQuacks.length ? (
+        {!loading && !homeQuacks.length && (
           <>
             <h6>Your pond is quiet..</h6>
             <Badge
@@ -93,6 +71,9 @@ export const HomeDetails: React.FC = () => {
               </Link>
             </Badge>
           </>
+        )}
+        {loading ? (
+          <Loader color="cyan" sx={{ marginTop: "18vh" }} />
         ) : (
           homeQuacks.map((next) => (
             <QuackOutput
