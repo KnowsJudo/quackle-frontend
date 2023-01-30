@@ -47,7 +47,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
       const data = await axios.get(`${apiUrl}/user/${search}`);
       const user = data.data;
       const singleUser: IUserPreview = {
-        id: user.id,
+        _id: user._id,
         avatar: user.avatar,
         name: user.name,
         username: user.username,
@@ -113,7 +113,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
           selectData.map((next) => {
             return (
               <UserPreview
-                key={next.id}
+                key={next._id}
                 avatar={next.avatar}
                 name={next.name}
                 username={next.username}
@@ -153,7 +153,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
         selectData.map((next) => {
           return (
             <UserPreview
-              key={next.id}
+              key={next._id}
               avatar={next.avatar}
               name={next.name}
               username={next.username}

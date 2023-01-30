@@ -37,6 +37,6 @@ export interface IUserPreview {
   tagline?: string;
   followingSince?: Date;
   matchesUser?: boolean;
-  id?: string;
+  _id?: string;
   quacks?: number;
 }

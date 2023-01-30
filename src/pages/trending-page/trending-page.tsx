@@ -7,7 +7,7 @@ import { QuackleContext } from "../../context/user-context";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { apiUrl } from "../../helpers/api-url";
 import { Badge, Loader, Text, Tooltip } from "@mantine/core";
-import { IUser, IUserPreview } from "../../types/user-types";
+import { IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import "./trending-page.css";
@@ -15,65 +15,23 @@ import "./trending-page.css";
 export const TrendingPage: React.FC = () => {
   const { userData, initiateQuack, setInitiateQuack, loggedIn } =
     useContext(QuackleContext);
-  const [trending, setTrending] = useState<IUserPreview[]>([]);
-  const [trendingNames, setTrendingNames] = useState<string[]>([]);
+  const [trendingData, setTrendingData] = useState<IUserPreview[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const getTrendingNames = async () => {
+  const getTrendingData = async () => {
     try {
-      const data = await axios.get(`${apiUrl}/user`);
-      const response = data.data
-        .sort((a: IUser, b: IUser) => b.quacks - a.quacks)
-        .slice(0, 8);
-      setTrendingNames(response.map((next: IUser) => next.username));
+      const data = await axios.get(`${apiUrl}/trending`);
+      setTrendingData(data.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getTrendingNames();
+    getTrendingData();
   }, []);
-
-  const getTrendingAvatars = async () => {
-    try {
-      const promises = trendingNames.map(async (next) => {
-        const res = await axios.get(`${apiUrl}/user/${next}`);
-        return res.data;
-      });
-      const results = await Promise.all(promises);
-      const transformed: IUserPreview[] = results
-        .filter((a) => a)
-        .map((next) => {
-          return {
-            id: next.id,
-            name: next.name,
-            username: next.username,
-            avatar: next.avatar,
-            tagline: next.tagline,
-            matchesUser: next.username === userData.username,
-            quacks: next.quacks,
-          };
-        });
-      setTrending(transformed);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (!trendingNames) {
-      return;
-    }
-    getTrendingAvatars();
-  }, [trendingNames]);
-
-  useEffect(() => {
-    if (!trending.length) {
-      return;
-    }
-    setLoading(false);
-  }, [trending]);
 
   return (
     <div className="trending-container">
@@ -104,15 +62,15 @@ export const TrendingPage: React.FC = () => {
         {loading ? (
           <Loader sx={{ margin: "25vh auto auto auto" }} />
         ) : (
-          trending.map((next) => {
+          trendingData.map((next) => {
             return (
-              <span key={next.id} className="trending-stats">
+              <span key={next._id} className="trending-stats">
                 <UserPreview
                   name={next.name}
                   username={next.username}
                   avatar={next.avatar}
                   tagline={next.tagline}
-                  matchesUser={next.matchesUser}
+                  matchesUser={next.username === userData.username}
                 />
                 <Tooltip
                   label={`${next.quacks} Quack${next.quacks === 1 ? "" : "s"}`}

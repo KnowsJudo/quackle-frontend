@@ -22,7 +22,7 @@ export const ProfileFollowing: React.FC<IProfileFollow> = (props) => {
       const res = await axios.get(`${apiUrl}/user/${params.userId}/following`);
       const data: IUserPreview[] = res.data.map((next: IFollowingResponse) => {
         return {
-          id: next._id,
+          _id: next._id,
           avatar: next.followingAvatar,
           name: next.followingName,
           username: next.followingUsername,
@@ -53,7 +53,7 @@ export const ProfileFollowing: React.FC<IProfileFollow> = (props) => {
           <Loader sx={{ margin: " 20% auto" }} />
         ) : (
           followingData.map((next) => (
-            <UserPreview key={next.id} following={true} {...next} />
+            <UserPreview key={next._id} following={true} {...next} />
           ))
         )}
       </div>
