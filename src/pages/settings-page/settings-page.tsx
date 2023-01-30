@@ -109,7 +109,7 @@ export const SettingsPage: React.FC = () => {
         await axios.patch(
           `${apiUrl}/user/${userData.username}`,
           setting[option],
-          { ...stdHeader(true), maxContentLength: 2000000 },
+          { ...stdHeader(true), maxContentLength: 1536000 },
         );
       } else {
         await axios.patch(

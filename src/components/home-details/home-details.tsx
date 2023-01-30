@@ -18,7 +18,7 @@ export const HomeDetails: React.FC = () => {
   const { userData, deleteQuack } = useContext(QuackleContext);
   const [friendResponse, setFriendResponse] = useState<IQuackResponse[]>([]);
   const [friendAvatars, setFriendAvatars] = useState<IUserAvatar[]>([]);
-  const [friendQuacks, setFriendQuacks] = useState<IFriendQuacks[]>([]);
+  const [homeQuacks, setHomeQuacks] = useState<IFriendQuacks[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const getFriendQuacks = async () => {
@@ -35,6 +35,9 @@ export const HomeDetails: React.FC = () => {
   };
 
   useEffect(() => {
+    if (!userData.following.length && !userData.quacks) {
+      return;
+    }
     getFriendQuacks();
     getFriendAvatars();
   }, [userData.quacks, userData.likedQuacks]);
@@ -55,9 +58,15 @@ export const HomeDetails: React.FC = () => {
           Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
       )
       .reverse();
-    setFriendQuacks(sortedResults);
-    setLoading(false);
+    setHomeQuacks(sortedResults);
   }, [friendResponse, friendAvatars, userData.quacks, userData.likedQuacks]);
+
+  useEffect(() => {
+    if (userData.following.length && !homeQuacks.length) {
+      return;
+    }
+    setLoading(false);
+  }, [homeQuacks]);
 
   return (
     <section className="home-details">
@@ -71,7 +80,9 @@ export const HomeDetails: React.FC = () => {
             width: "100%",
           }}
         />
-        {!userData.following?.length ? (
+        {loading ? (
+          <Loader color="cyan" sx={{ marginTop: "18vh" }} />
+        ) : !homeQuacks.length ? (
           <>
             <h6>Your pond is quiet..</h6>
             <Badge
@@ -91,10 +102,8 @@ export const HomeDetails: React.FC = () => {
               </Link>
             </Badge>
           </>
-        ) : loading ? (
-          <Loader color="cyan" sx={{ marginTop: "18vh" }} />
         ) : (
-          friendQuacks.map((next) => (
+          homeQuacks.map((next) => (
             <QuackOutput
               key={next._id}
               id={next._id}

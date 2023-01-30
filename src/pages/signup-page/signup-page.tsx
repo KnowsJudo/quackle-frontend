@@ -9,8 +9,8 @@ import { initialSignUpError } from "../../helpers/error-states";
 import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 import { ISignUpError } from "../../types/errors";
 import { Filter } from "profanity-check";
+import { emailRegex, regex } from "../../helpers/regex";
 import "./signup-page.css";
-import { regex } from "../../helpers/regex";
 
 export const SignUpPage: React.FC = () => {
   const { userData } = useContext(QuackleContext);
@@ -100,7 +100,7 @@ export const SignUpPage: React.FC = () => {
       });
       return;
     }
-    if (!userData.email.includes("@")) {
+    if (!emailRegex.test(userData.email)) {
       setError((prev) => {
         return { ...prev, noEmail: true };
       });

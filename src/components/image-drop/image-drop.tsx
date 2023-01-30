@@ -31,7 +31,7 @@ export const ImageDrop: React.FC<IImageDrop> = (props) => {
         "image/gif",
         "image/webp",
       ]}
-      maxSize={props.imageType === "avatar" ? 500000 : 1000000}
+      maxSize={props.imageType === "avatar" ? 768000 : 1536000}
       sx={{
         borderRadius: props.imageType === "avatar" ? "50%" : "none",
         maxWidth: "75%",
@@ -53,7 +53,7 @@ export const ImageDrop: React.FC<IImageDrop> = (props) => {
             Drag images or click to select files
           </Text>
           <Text size="xs">
-            Max file size: {props.imageType === "avatar" ? "500kb" : "1mb"}
+            Max file size: {props.imageType === "avatar" ? "750kb" : "1.5mb"}
           </Text>
         </span>
       )}
