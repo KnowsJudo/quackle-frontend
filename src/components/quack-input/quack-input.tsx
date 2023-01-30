@@ -11,7 +11,6 @@ import {
 import { IQuackInput } from "../../types/quacks";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
-import { useImage } from "../../helpers/use-image";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { showNotification } from "@mantine/notifications";
 import { AiFillDingtalkCircle } from "react-icons/ai";
@@ -31,7 +30,6 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
   };
 
   const maxQuackLength = 300;
-  const avatarSrc = useImage(props.avatar);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("Unfinished Quack");
@@ -131,7 +129,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
           />
         )}
         <span className="quack-input-user">
-          <Avatar size="lg" src={avatarSrc} radius="xl" />
+          <Avatar size="lg" src={props.avatar} radius="xl" />
           <Text size="md" weight="bold">
             &nbsp;&nbsp;{`@${props.atUser}`}
           </Text>

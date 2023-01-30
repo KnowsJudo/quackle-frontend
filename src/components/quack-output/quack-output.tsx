@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { IQuackOutput } from "../../types/quacks";
 import { Avatar, Button, Text, Tooltip } from "@mantine/core";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
-import { useImage } from "../../helpers/use-image";
 import { Link } from "react-router-dom";
 import { QuackleContext } from "../../context/user-context";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,7 +13,6 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
   const { userData, likeQuack, reqLoad } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const [likeList, setLikeList] = useState<string>("");
-  const avatarSrc = useImage(props.avatar);
 
   const checkLiked = props.likes.includes(userData.username);
 
@@ -59,7 +57,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
       />
       <span className="quack-output-avatar">
         <Link to={`/profile/${props.username}`}>
-          <Avatar src={avatarSrc} alt="user avatar" radius="xl" size="lg" />
+          <Avatar src={props.avatar} alt="user avatar" radius="xl" size="lg" />
         </Link>
       </span>
       <div className="quack-content">
@@ -100,7 +98,7 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
             style={{
               textAlign: "initial",
               paddingBottom: "5px",
-              maxHeight: "220px",
+              maxHeight: "250px",
               overflowY: "auto",
             }}
           >

@@ -3,7 +3,6 @@ import { QuackleContext } from "../../context/user-context";
 import { Accordion, Button, Image, Text, Textarea } from "@mantine/core";
 import { ISettings, ISettingsOptions } from "../../types/settings";
 import { ImageDrop } from "../image-drop/image-drop";
-import { useImage } from "../../helpers/use-image";
 import { FileWithPath } from "@mantine/dropzone";
 import EditIcon from "@mui/icons-material/Edit";
 import "./settings-options.css";
@@ -11,9 +10,7 @@ import "./settings-options.css";
 export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
   const { userData } = useContext(QuackleContext);
   const imageSource = (option: keyof ISettings) => {
-    return option === "avatar" || option === "banner"
-      ? useImage(userData[option])
-      : "";
+    return option === "avatar" || option === "banner" ? userData[option] : "";
   };
   const [imagePreview, setImagePreview] = useState("");
 

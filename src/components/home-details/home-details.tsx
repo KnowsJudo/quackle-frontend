@@ -5,14 +5,13 @@ import { IFriendQuacks, IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
 import { QuackOutput } from "../quack-output/quack-output";
 import { Link } from "react-router-dom";
-import { IImage } from "../../types/user-types";
 import { getAvatars, getQuacks } from "../../helpers/quack-getters";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./home-details.css";
 
 export interface IUserAvatar {
   username: string;
-  avatar?: IImage;
+  avatar?: string;
 }
 
 export const HomeDetails: React.FC = () => {
@@ -74,7 +73,7 @@ export const HomeDetails: React.FC = () => {
         />
         {!userData.following?.length ? (
           <>
-            <h6>Your pond is empty!</h6>
+            <h6>Your pond is quiet..</h6>
             <Badge
               size="lg"
               radius="xl"

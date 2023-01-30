@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Avatar, Card, Group, Image, Text, Tooltip } from "@mantine/core";
 import { IProfileCard } from "../../types/profile-types";
 import { Link } from "react-router-dom";
-import { useImage } from "../../helpers/use-image";
 import { QuackleContext } from "../../context/user-context";
 import { FollowButton } from "../follow-button/follow-button";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -11,21 +10,18 @@ import "./profile-card.css";
 export const ProfileCard: React.FC<IProfileCard> = (props) => {
   const { userData, loggedIn } = useContext(QuackleContext);
 
-  const avatarSrc = useImage(props.avatar);
-  const bannerSrc = useImage(props.banner);
-
   const followingData = {
     username: userData.username,
     followingName: props.name,
     followingUsername: props.username,
-    followingAvatar: props.avatar?.data,
+    followingAvatar: props.avatar,
     followingTagline: props.tagline,
   };
 
   const followerData = {
     followerName: userData.name,
     followerUsername: userData.username,
-    followerAvatar: userData?.avatar?.data,
+    followerAvatar: userData?.avatar,
     followerTagline: userData?.tagline,
   };
 
@@ -39,7 +35,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
         <Image
           alt="This user has no banner"
           height={150}
-          src={bannerSrc}
+          src={props.banner}
           sx={{ objectFit: "contain" }}
           withPlaceholder
         />
@@ -49,7 +45,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
         <span className="card-avatar">
           <Avatar
             size="xl"
-            src={avatarSrc}
+            src={props.avatar}
             alt="This user has no avatar"
             style={{ border: "solid 4px white", borderRadius: "50%" }}
           />

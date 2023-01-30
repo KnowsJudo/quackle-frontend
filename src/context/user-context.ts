@@ -4,14 +4,14 @@ import { IUser } from "../types/user-types";
 
 export const clearUser = {
   id: "",
-  avatar: undefined,
+  avatar: "",
   name: "",
   username: "",
   email: "",
   dateOfBirth: new Date(),
   createdAt: new Date(),
   tagline: "",
-  banner: undefined,
+  banner: "",
   location: "",
   biography: "",
   quacks: 0,

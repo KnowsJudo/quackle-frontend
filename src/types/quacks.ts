@@ -1,5 +1,5 @@
 import { ILoading } from "./profile-types";
-import { IImage, IUser } from "./user-types";
+import { IUser } from "./user-types";
 
 export interface IQuacksMenu {
   paramId?: string;
@@ -15,7 +15,7 @@ export interface IQuackInput {
   fixed: boolean;
   setInitiateQuack?: React.Dispatch<React.SetStateAction<boolean>> | null;
   atUser?: string;
-  avatar?: IImage;
+  avatar?: string;
 }
 
 export interface IQuackResponse {
@@ -29,13 +29,13 @@ export interface IQuackResponse {
 }
 
 export interface IFriendQuacks extends IQuackResponse {
-  avatar?: IImage;
+  avatar?: string;
 }
 export interface IQuackOutput {
   id: string;
   name: string;
   username: string;
-  avatar?: IImage;
+  avatar?: string;
   quackedAt: string;
   content: string;
   atUser: string;

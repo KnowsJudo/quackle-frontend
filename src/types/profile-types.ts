@@ -1,11 +1,11 @@
 import { IFriendQuacks, IQuackResponse } from "./quacks";
-import { IImage, IUser } from "./user-types";
+import { IUser } from "./user-types";
 
 export interface IProfileCard {
   loggedIn: boolean;
   matchesUser: boolean;
-  avatar?: IImage;
-  banner?: IImage;
+  avatar?: string;
+  banner?: string;
   name: string;
   username: string;
   tagline: string;

@@ -6,14 +6,14 @@ export interface IFollowingData {
   username: string;
   followingName: string;
   followingUsername: string;
-  followingAvatar?: Buffer;
+  followingAvatar?: string;
   followingTagline?: string;
 }
 
 export interface IFollowerData {
   followerName: string;
   followerUsername: string;
-  followerAvatar?: Buffer;
+  followerAvatar?: string;
   followerTagline?: string;
 }
 export interface IFollowingResponse extends IFollowingData {

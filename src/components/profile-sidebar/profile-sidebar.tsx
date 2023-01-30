@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
 import { clearUser, QuackleContext } from "../../context/user-context";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
-import { useImage } from "../../helpers/use-image";
 import { SearchUsers } from "../search-users/search-users";
 import InputIcon from "@mui/icons-material/Input";
 import "./profile-sidebar.css";
@@ -14,8 +13,6 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  const avatarSrc = useImage(userData.avatar);
 
   const logout = () => {
     Cookies.remove("jwtToken");
@@ -38,7 +35,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
               <Avatar
                 size="sm"
                 radius="xl"
-                src={avatarSrc}
+                src={userData.avatar}
                 style={{ margin: "0 0 3px 5px" }}
               />
             </Link>
