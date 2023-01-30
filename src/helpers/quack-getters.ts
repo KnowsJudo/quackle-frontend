@@ -6,9 +6,6 @@ export const getQuacks = async (
   user?: string,
   id?: boolean,
 ) => {
-  if (!list.length) {
-    return;
-  }
   const newList = user ? [...list, user] : list;
   try {
     const promises = newList.map(async (next) => {

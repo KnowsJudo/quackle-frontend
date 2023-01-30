@@ -7,7 +7,7 @@ import { IUser } from "../../types/user-types";
 import { QuackleContext } from "../../context/user-context";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { ProfileDetails } from "../../components/profile-details/profile-details";
-import { IFriendQuacks, IQuackResponse } from "../../types/quacks";
+import { IQuackResponse } from "../../types/quacks";
 import { ILoading } from "../../types/profile-types";
 import { apiUrl } from "../../helpers/api-url";
 import { ProfileUser } from "../../components/profile-user/profile-user";
@@ -24,7 +24,7 @@ export const ProfilePage: React.FC = () => {
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
   const [likesResponse, setLikesResponse] = useState<IQuackResponse[]>([]);
   const [likesAvatars, setLikesAvatars] = useState<IUserAvatar[]>([]);
-  const [likedQuacks, setLikedQuacks] = useState<IFriendQuacks[]>([]);
+  const [likedQuacks, setLikedQuacks] = useState<IQuackResponse[]>([]);
   const [loading, setLoading] = useState<ILoading>({
     profile: true,
     quacks: true,
@@ -153,8 +153,10 @@ export const ProfilePage: React.FC = () => {
           setInitiateQuack={setInitiateQuack}
           fixed={true}
           avatar={userData.avatar}
-          atUser={
-            userData.username === params.userId ? "everyone" : params.userId
+          atUsers={
+            userData.username === profileData.username
+              ? []
+              : [profileData.username]
           }
         />
       )}

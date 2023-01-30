@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Badge, Loader } from "@mantine/core";
 import { QuackleContext } from "../../context/user-context";
-import { IFriendQuacks, IQuackResponse } from "../../types/quacks";
+import { IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
 import { QuackOutput } from "../quack-output/quack-output";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ export const HomeDetails: React.FC = () => {
   const { userData, deleteQuack } = useContext(QuackleContext);
   const [friendResponse, setFriendResponse] = useState<IQuackResponse[]>([]);
   const [friendAvatars, setFriendAvatars] = useState<IUserAvatar[]>([]);
-  const [homeQuacks, setHomeQuacks] = useState<IFriendQuacks[]>([]);
+  const [homeQuacks, setHomeQuacks] = useState<IQuackResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const getFriendQuacks = async () => {
@@ -35,12 +35,9 @@ export const HomeDetails: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!userData.following.length && !userData.quacks) {
-      return;
-    }
     getFriendQuacks();
     getFriendAvatars();
-  }, [userData.quacks, userData.likedQuacks]);
+  }, [userData.quacks, userData.following]);
 
   useEffect(() => {
     if (!friendResponse || !friendAvatars) {
@@ -71,7 +68,7 @@ export const HomeDetails: React.FC = () => {
   return (
     <section className="home-details">
       <h4>Home</h4>
-      <QuackInput fixed={false} atUser={"everyone"} avatar={userData.avatar} />
+      <QuackInput fixed={false} atUsers={[]} avatar={userData.avatar} />
       <div className="home-friend-quacks">
         <HorizontalRuleRoundedIcon
           preserveAspectRatio="none"
@@ -111,9 +108,9 @@ export const HomeDetails: React.FC = () => {
               username={next.username}
               avatar={next.avatar}
               quackedAt={next.quackedAt}
-              content={next.message}
-              atUser={next.atUser}
-              replies={[]}
+              content={next.content}
+              atUsers={next.atUsers}
+              replies={next.replies}
               requacks={0}
               likes={next.likes}
               loading={loading}

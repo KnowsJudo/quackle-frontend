@@ -161,7 +161,7 @@ export const SettingsPage: React.FC = () => {
           setInitiateQuack={setInitiateQuack}
           fixed={true}
           avatar={userData.avatar}
-          atUser={"everyone"}
+          atUsers={[]}
         />
       )}
       <ProfileUser setInitiateQuack={setInitiateQuack} loggedIn={true} />

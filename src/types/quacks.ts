@@ -14,7 +14,7 @@ export interface IQuacksMenu {
 export interface IQuackInput {
   fixed: boolean;
   setInitiateQuack?: React.Dispatch<React.SetStateAction<boolean>> | null;
-  atUser?: string;
+  atUsers?: string[];
   avatar?: string;
 }
 
@@ -22,24 +22,22 @@ export interface IQuackResponse {
   _id: string;
   name: string;
   username: string;
-  quackedAt: string;
-  message: string;
-  atUser: string;
-  likes: string[];
-}
-
-export interface IFriendQuacks extends IQuackResponse {
   avatar?: string;
+  content: string;
+  quackedAt: string;
+  atUsers: string[];
+  likes: string[];
+  replies: IQuackOutput[];
 }
 export interface IQuackOutput {
   id: string;
   name: string;
   username: string;
   avatar?: string;
-  quackedAt: string;
   content: string;
-  atUser: string;
-  replies: [];
+  quackedAt: string;
+  atUsers: string[];
+  replies: IQuackOutput[];
   requacks: number;
   likes: string[];
   deleteQuack?: (quackId: string) => void;

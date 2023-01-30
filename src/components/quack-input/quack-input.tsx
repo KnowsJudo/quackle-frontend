@@ -56,11 +56,12 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
       await axios.post(
         `${apiUrl}/user/${userData.username}/quacks`,
         {
-          user: userData.id,
+          userId: userData.id,
           name: userData.name,
           username: userData.username,
-          message: quackContent,
-          atUser: props.atUser ? props.atUser : "",
+          content: quackContent,
+          avatar: userData.avatar,
+          atUsers: props.atUsers ? props.atUsers : [],
         },
         stdHeader(),
       );
@@ -146,7 +147,8 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         <span className="quack-input-user">
           <Avatar size="lg" src={props.avatar} radius="xl" />
           <Text size="md" weight="bold">
-            &nbsp;&nbsp;{`@${props.atUser}`}
+            &nbsp;&nbsp;
+            {`@${!props.atUsers?.length ? "everyone" : props.atUsers[0]}`}
           </Text>
           {savedQuack && (
             <Button

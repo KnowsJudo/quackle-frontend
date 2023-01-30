@@ -1,4 +1,4 @@
-import { IFriendQuacks, IQuackResponse } from "./quacks";
+import { IQuackResponse } from "./quacks";
 import { IUser } from "./user-types";
 
 export interface IProfileCard {
@@ -23,7 +23,7 @@ export interface IProfileDetails {
   loggedIn: boolean;
   profileData: IUser;
   quackData: IQuackResponse[];
-  likesData: IFriendQuacks[];
+  likesData: IQuackResponse[];
   paramId?: string;
   deleteQuack?: (quackId: string) => Promise<void>;
   loading: ILoading;

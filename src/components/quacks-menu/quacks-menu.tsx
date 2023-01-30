@@ -3,7 +3,6 @@ import axios from "axios";
 import { Button, Loader, Tabs, Text, Textarea } from "@mantine/core";
 import {
   IEmptyQuackMenu,
-  IFriendQuacks,
   IQuackResponse,
   IQuacksMenu,
 } from "../../types/quacks";
@@ -140,9 +139,9 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 username={next.username}
                 avatar={props.profileData.avatar}
                 quackedAt={next.quackedAt}
-                content={next.message}
-                atUser={next.atUser}
-                replies={[]}
+                content={next.content}
+                atUsers={next.atUsers}
+                replies={next.replies}
                 requacks={0}
                 likes={next.likes}
                 deleteQuack={props.deleteQuack}
@@ -162,7 +161,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         ) : !props.likesData.length ? (
           <EmptyQuacks likes={true} />
         ) : (
-          props.likesData.map((next: IFriendQuacks, i) => {
+          props.likesData.map((next: IQuackResponse, i) => {
             return (
               <QuackOutput
                 key={i}
@@ -171,8 +170,8 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 username={next.username}
                 avatar={next.avatar}
                 quackedAt={next.quackedAt}
-                content={next.message}
-                atUser={next.atUser}
+                content={next.content}
+                atUsers={next.atUsers}
                 replies={[]}
                 requacks={0}
                 likes={next.likes}
