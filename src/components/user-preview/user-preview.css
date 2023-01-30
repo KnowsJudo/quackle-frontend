@@ -6,7 +6,7 @@
 .user-follow {
   display: flex;
   justify-content: space-between;
-  max-width: 190px;
+  max-width: 200px;
 }
 
 .user-preview {
