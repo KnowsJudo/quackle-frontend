@@ -147,6 +147,7 @@ export const SignUpPage: React.FC = () => {
           visible={loading}
           overlayBlur={3}
           overlayOpacity={0.05}
+          loaderProps={{ color: "cyan" }}
         />
         <QuackleTitle />
         <Text size="md">

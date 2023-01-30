@@ -193,7 +193,7 @@ export const SettingsPage: React.FC = () => {
         </section>
         <section className="settings-user">
           {loading ? (
-            <Loader sx={{ margin: "auto" }} />
+            <Loader color="cyan" sx={{ margin: "auto" }} />
           ) : (
             settingsOptions.map((next) => {
               return (

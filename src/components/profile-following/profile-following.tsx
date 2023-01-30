@@ -50,7 +50,7 @@ export const ProfileFollowing: React.FC<IProfileFollow> = (props) => {
       <Text size="xl">Following:</Text>
       <div className="following-list">
         {loading ? (
-          <Loader sx={{ margin: " 20% auto" }} />
+          <Loader color="cyan" sx={{ margin: "18vh auto" }} />
         ) : (
           followingData.map((next) => (
             <UserPreview key={next._id} following={true} {...next} />

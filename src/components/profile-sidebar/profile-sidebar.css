@@ -1,6 +1,7 @@
 .profile-logout {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20vh;
   align-items: center;
   width: 318px;
   color: black;

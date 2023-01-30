@@ -17,10 +17,10 @@ export interface IUserAvatar {
 
 export const HomeDetails: React.FC = () => {
   const { userData, deleteQuack } = useContext(QuackleContext);
-  const [loading, setLoading] = useState<boolean>(false);
   const [friendResponse, setFriendResponse] = useState<IQuackResponse[]>([]);
   const [friendAvatars, setFriendAvatars] = useState<IUserAvatar[]>([]);
   const [friendQuacks, setFriendQuacks] = useState<IFriendQuacks[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getFriendQuacks = async () => {
     const quacks = await getQuacks(userData.following, userData.username);
@@ -36,10 +36,8 @@ export const HomeDetails: React.FC = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
     getFriendQuacks();
     getFriendAvatars();
-    setLoading(false);
   }, [userData.quacks, userData.likedQuacks]);
 
   useEffect(() => {
@@ -95,7 +93,7 @@ export const HomeDetails: React.FC = () => {
             </Badge>
           </>
         ) : loading ? (
-          <Loader sx={{ marginTop: "25vh" }} />
+          <Loader color="cyan" sx={{ marginTop: "18vh" }} />
         ) : (
           friendQuacks.map((next) => (
             <QuackOutput

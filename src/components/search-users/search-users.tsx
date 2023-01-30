@@ -4,10 +4,10 @@ import { apiUrl } from "../../helpers/api-url";
 import {
   Alert,
   Button,
-  Input,
   Loader,
   LoadingOverlay,
   Modal,
+  TextInput,
 } from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
 import { UserPreview } from "../user-preview/user-preview";
@@ -26,11 +26,13 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const [searchError, setSearchError] = useState<boolean>(false);
+  const [userError, setUserError] = useState<boolean>(false);
   const [selectData, setSelectData] = useState<IUserPreview[]>([]);
   const params = useParams();
 
   useEffect(() => {
     setSearchError(false);
+    setUserError(false);
   }, [search, selectData]);
 
   useEffect(() => {
@@ -57,7 +59,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
       setSelectData([singleUser]);
       setLoading(false);
     } catch (error) {
-      setSearchError(true);
+      setUserError(true);
       console.error(error);
       setLoading(false);
     }
@@ -74,7 +76,6 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
         <SearchIcon sx={{ color: "white", fontSize: "30px" }} />
       </Button>
       <Modal
-        centered
         size={"90vw"}
         opened={modal}
         onClick={(e) => e.stopPropagation()}
@@ -84,7 +85,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
         withCloseButton={false}
       >
         <span className="menu-search">
-          <Input
+          <TextInput
             placeholder="Search Quackle Users"
             value={search}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -101,14 +102,15 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
             <SearchIcon sx={{ fontSize: "30px" }} />
           </Button>
         </span>
+        {userError && <Alert color="gray">No users found</Alert>}
+        {searchError && <Alert color="red">Enter at least 3 characters</Alert>}
         {loading ? (
           <LoadingOverlay
             visible={loading}
             overlayBlur={3}
             overlayOpacity={0.05}
+            loaderProps={{ color: "cyan" }}
           />
-        ) : searchError ? (
-          <Alert color="gray">No users found</Alert>
         ) : (
           selectData.map((next) => {
             return (
@@ -128,7 +130,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
   ) : (
     <div className="search-container">
       <span className="profile-search">
-        <Input
+        <TextInput
           placeholder="Search Quackle Users"
           value={search}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -145,10 +147,10 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
           <SearchIcon fontSize="large" />
         </Button>
       </span>
+      {userError && <Alert color="gray">No users found</Alert>}
+      {searchError && <Alert color="red">Enter at least 3 characters</Alert>}
       {loading ? (
-        <Loader style={{ margin: " 10px auto" }} />
-      ) : searchError ? (
-        <Alert color="gray">No users found</Alert>
+        <Loader color="cyan" sx={{ margin: "15px auto" }} />
       ) : (
         selectData.map((next) => {
           return (

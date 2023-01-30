@@ -92,7 +92,12 @@ export const LoginPage: React.FC = () => {
   return (
     <div className="login-container">
       <div className="login-background" />
-      <LoadingOverlay visible={loading} overlayBlur={3} overlayOpacity={0.05} />
+      <LoadingOverlay
+        visible={loading}
+        overlayBlur={3}
+        overlayOpacity={0.05}
+        loaderProps={{ color: "cyan" }}
+      />
       <section className="login-section">
         <QuackleTitle />
         <LoginForm

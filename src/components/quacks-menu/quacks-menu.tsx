@@ -127,7 +127,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
 
       <Tabs.Panel value="quacks">
         {props.loading.quacks ? (
-          <Loader sx={{ marginTop: "25vh" }} />
+          <Loader color="cyan" sx={{ margin: "18vh auto" }} />
         ) : !props.quackdata.length ? (
           <EmptyQuacks quack={true} />
         ) : (
@@ -158,7 +158,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       </Tabs.Panel>
       <Tabs.Panel value="likes">
         {props.loading.likes ? (
-          <Loader sx={{ marginTop: "25vh" }} />
+          <Loader color="cyan" sx={{ margin: "18vh auto" }} />
         ) : !props.likesData.length ? (
           <EmptyQuacks likes={true} />
         ) : (
@@ -186,7 +186,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       </Tabs.Panel>
       <Tabs.Panel value="bio">
         {loading ? (
-          <Loader sx={{ marginTop: "25vh" }} />
+          <Loader color="cyan" sx={{ margin: "18vh auto" }} />
         ) : !props.profileData.biography && !edit ? (
           <EmptyQuacks bio={true} />
         ) : (
