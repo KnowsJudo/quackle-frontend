@@ -56,14 +56,8 @@ export const HomeDetails: React.FC = () => {
       )
       .reverse();
     setHomeQuacks(sortedResults);
-  }, [friendResponse, friendAvatars, userData.quacks, userData.likedQuacks]);
-
-  useEffect(() => {
-    if (userData.following.length && !homeQuacks.length) {
-      return;
-    }
     setLoading(false);
-  }, [homeQuacks]);
+  }, [friendResponse, friendAvatars, userData.quacks, userData.likedQuacks]);
 
   return (
     <section className="home-details">
