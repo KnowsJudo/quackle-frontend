@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Text } from "@mantine/core";
+import "./username-info.css";
+
 interface IUsernameInfo {
   username: string;
   name: string;

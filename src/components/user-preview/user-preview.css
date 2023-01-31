@@ -1,20 +1,21 @@
 .user-avatar {
-  padding-right: 5%;
+  padding-right: 5px;
   margin: auto;
 }
 
 .user-follow {
   display: flex;
   justify-content: space-between;
-  max-width: 200px;
+  max-width: 240px;
 }
 
 .user-preview {
   display: flex;
   margin: 0 auto;
   width: 305px;
-  padding: 3%;
+  padding: 2.5% 3px;
   border-bottom: 1px solid grey;
+  word-wrap: break-word;
 }
 
 .user-preview:hover {

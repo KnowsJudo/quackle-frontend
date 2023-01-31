@@ -8,8 +8,8 @@ import { QuackInput } from "../../components/quack-input/quack-input";
 import { apiUrl } from "../../helpers/api-url";
 import { Badge, Loader, Text, Tooltip } from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
+import DuckPond from "../../img/pond.png";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
-import ShowChartIcon from "@mui/icons-material/ShowChart";
 import "./trending-page.css";
 
 export const TrendingPage: React.FC = () => {
@@ -48,8 +48,10 @@ export const TrendingPage: React.FC = () => {
       />
       <section className="trending-list">
         <span className="quacking-current">
-          <Text size="xl"> Currently Quacking</Text>
-          <ShowChartIcon />
+          <Text sx={{ fontSize: "28px" }}>
+            <b>Currently Quacking</b>
+          </Text>
+          <img src={DuckPond} className="trending-pond" />
         </span>
         <HorizontalRuleRoundedIcon
           preserveAspectRatio="none"

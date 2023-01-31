@@ -26,6 +26,7 @@ export const ProfilePage: React.FC = () => {
   const [loading, setLoading] = useState<ILoading>({
     profile: true,
     quacks: true,
+    pond: true,
     likes: true,
   });
 
@@ -38,7 +39,7 @@ export const ProfilePage: React.FC = () => {
       });
     } catch (error) {
       console.error(error);
-      setLoading({ profile: false, quacks: false, likes: false });
+      setLoading({ profile: false, quacks: false, pond: false, likes: false });
       setProfileData(null);
     }
   };
@@ -91,6 +92,7 @@ export const ProfilePage: React.FC = () => {
     setLoading({
       profile: true,
       quacks: true,
+      pond: true,
       likes: true,
     });
   }, [params.userId]);

@@ -1,21 +1,38 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Button, Loader, Tabs, Text, Textarea } from "@mantine/core";
-import {
-  IEmptyQuackMenu,
-  IQuackResponse,
-  IQuacksMenu,
-} from "../../types/quacks";
+import { IQuackResponse } from "../../types/quacks";
 import { QuackOutput } from "../quack-output/quack-output";
 import { QuackleContext } from "../../context/user-context";
 import { apiUrl } from "../../helpers/api-url";
 import { stdHeader } from "../../helpers/api-header";
 import { showNotification } from "@mantine/notifications";
+import { IUser } from "../../types/user-types";
+import { ILoading } from "../../types/profile-types";
 import EditIcon from "@mui/icons-material/Edit";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import DoneIcon from "@mui/icons-material/Done";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./quacks-menu.css";
+
+interface IQuacksMenu {
+  paramId?: string;
+  profileData: IUser;
+  quackdata: IQuackResponse[];
+  likesData: IQuackResponse[];
+  deleteQuack?: (quackId: string) => void;
+  loading: ILoading;
+  loggedIn: boolean;
+  selectedTab: string | null;
+  setSelectedTab: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+interface IEmptyQuackMenu {
+  quack?: boolean;
+  pond?: boolean;
+  likes?: boolean;
+  bio?: boolean;
+}
 
 export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
@@ -131,10 +148,10 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         ) : !props.quackdata.length ? (
           <EmptyQuacks quack={true} />
         ) : (
-          props.quackdata.map((next: IQuackResponse, i) => {
+          props.quackdata.map((next: IQuackResponse) => {
             return (
               <QuackOutput
-                key={i}
+                key={next._id}
                 id={next._id}
                 name={props.profileData.name}
                 username={next.username}
@@ -161,10 +178,10 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         ) : !props.likesData.length ? (
           <EmptyQuacks likes={true} />
         ) : (
-          props.likesData.map((next: IQuackResponse, i) => {
+          props.likesData.map((next: IQuackResponse) => {
             return (
               <QuackOutput
-                key={i}
+                key={next._id}
                 id={next._id}
                 name={next.name}
                 username={next.username}

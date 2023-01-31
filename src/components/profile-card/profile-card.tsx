@@ -47,7 +47,7 @@ export const ProfileCard: React.FC<IProfileCard> = (props) => {
             size="xl"
             src={props.avatar}
             alt="This user has no avatar"
-            style={{ border: "solid 4px white", borderRadius: "50%" }}
+            style={{ border: "solid 3px white", borderRadius: "50%" }}
           />
           &nbsp;
           <Text size="md" color="dimmed">

@@ -49,7 +49,7 @@ export const SignUpPage: React.FC = () => {
       });
       return;
     }
-    if (userData.name.length > 30) {
+    if (userData.name.length > 25) {
       setError((prev) => {
         return { ...prev, nameLength: true };
       });

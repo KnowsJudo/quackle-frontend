@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Badge, Loader } from "@mantine/core";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { apiUrl } from "../../helpers/api-url";
 import { QuackleContext } from "../../context/user-context";
 import { IQuackResponse } from "../../types/quacks";
 import { QuackInput } from "../quack-input/quack-input";
-import { QuackOutput } from "../quack-output/quack-output";
-import { Link } from "react-router-dom";
 import { getQuacks } from "../../helpers/quack-getters";
+import { HomeMenu } from "../home-menu/home-menu";
+import { Text } from "@mantine/core";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./home-details.css";
 
@@ -14,10 +15,20 @@ export interface IUserAvatar {
   avatar?: string;
 }
 
+export interface IHomeLoading {
+  pond: boolean;
+  focused: boolean;
+}
+
 export const HomeDetails: React.FC = () => {
-  const { userData, deleteQuack } = useContext(QuackleContext);
-  const [homeQuacks, setHomeQuacks] = useState<IQuackResponse[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { userData } = useContext(QuackleContext);
+  const [pondQuacks, setPondQuacks] = useState<IQuackResponse[]>([]);
+  const [focusedQuacks, setFocusedQuacks] = useState<IQuackResponse[]>([]);
+  const [selectedTab, setSelectedTab] = useState<string | null>("pond");
+  const [loading, setLoading] = useState<IHomeLoading>({
+    pond: true,
+    focused: true,
+  });
 
   const getHomeQuacks = async () => {
     const quacks = await getQuacks(
@@ -26,7 +37,12 @@ export const HomeDetails: React.FC = () => {
       userData.username,
     );
     if (!quacks) {
-      setLoading(false);
+      setLoading((prev) => {
+        return {
+          ...prev,
+          pond: false,
+        };
+      });
       return;
     }
     const sortedResults = quacks
@@ -35,17 +51,68 @@ export const HomeDetails: React.FC = () => {
           Date.parse(a.quackedAt) - Date.parse(b.quackedAt),
       )
       .reverse();
-    setHomeQuacks(sortedResults);
-    setLoading(false);
+    setPondQuacks(sortedResults);
+    setLoading((prev) => {
+      return {
+        ...prev,
+        pond: false,
+      };
+    });
   };
 
   useEffect(() => {
     getHomeQuacks();
   }, [userData.quacks, userData.following, userData.likedQuacks]);
 
+  const getFocusedQuacks = async () => {
+    try {
+      const quacks = await axios.get(
+        `${apiUrl}/focused/${userData.username}/quacks`,
+      );
+      setFocusedQuacks(quacks.data);
+      setLoading((prev) => {
+        return {
+          ...prev,
+          focused: false,
+        };
+      });
+    } catch (error) {
+      setLoading((prev) => {
+        return {
+          ...prev,
+          focused: false,
+        };
+      });
+      console.error(error);
+    }
+  };
+
+  const focusedRef = useRef("initalLoad");
+
+  useEffect(() => {
+    if (focusedRef.current !== "initalLoad") {
+      return;
+    }
+    if (selectedTab === "focused") {
+      getFocusedQuacks();
+      focusedRef.current = "loaded";
+    }
+  }, [selectedTab]);
+
+  useEffect(() => {
+    if (focusedRef.current === "initalLoad") {
+      return;
+    }
+    getFocusedQuacks();
+  }, [userData.quacks]);
+
   return (
     <section className="home-details">
-      <h4>Home</h4>
+      <span className="home-title">
+        <Text sx={{ fontSize: "28px" }}>
+          <b>Pond</b>
+        </Text>
+      </span>
       <QuackInput fixed={false} avatar={userData.avatar} />
       <div className="home-friend-quacks">
         <HorizontalRuleRoundedIcon
@@ -55,50 +122,13 @@ export const HomeDetails: React.FC = () => {
             width: "100%",
           }}
         />
-        {!loading && !homeQuacks.length && (
-          <>
-            <h6>Your pond is quiet..</h6>
-            <Badge
-              size="lg"
-              radius="xl"
-              style={{
-                margin: "auto",
-                padding: "25px",
-                backgroundColor: "#282c34",
-              }}
-            >
-              <Link
-                to="/trending"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                See popular ducks
-              </Link>
-            </Badge>
-          </>
-        )}
-        {loading ? (
-          <Loader color="cyan" sx={{ marginTop: "18vh" }} />
-        ) : (
-          homeQuacks.map((next) => (
-            <QuackOutput
-              key={next._id}
-              id={next._id}
-              name={next.name}
-              username={next.username}
-              avatar={next.avatar}
-              quackedAt={next.quackedAt}
-              content={next.content}
-              atUsers={next.atUsers}
-              replies={next.replies}
-              likes={next.likes}
-              loading={loading}
-              loggedIn={true}
-              deleteQuack={
-                next.username === userData.username ? deleteQuack : undefined
-              }
-            />
-          ))
-        )}
+        <HomeMenu
+          pondQuacks={pondQuacks}
+          focusedQuacks={focusedQuacks}
+          loading={loading}
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+        />
       </div>
     </section>
   );

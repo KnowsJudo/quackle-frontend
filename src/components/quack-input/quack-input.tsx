@@ -44,7 +44,6 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
   useEffect(() => {
     const stored = sessionStorage.getItem("Unfinished-Quack");
     stored && setSavedQuack(stored);
-    stored && console.log("test", JSON.parse(stored).atUsers);
   }, [savedQuack]);
 
   useEffect(() => {

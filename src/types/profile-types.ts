@@ -34,6 +34,7 @@ export interface IProfileDetails {
 export interface ILoading {
   profile: boolean;
   quacks: boolean;
+  pond: boolean;
   likes: boolean;
 }
 
