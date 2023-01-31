@@ -7,7 +7,6 @@ export const getQuacks = async (list: string[], id: boolean, user?: string) => {
     try {
       const promises = newList.map(async (next) => {
         const res = await axios.get(`${apiUrl}/user/${next}/quacks/`);
-        console.log(res.data.success);
         return res.data && res.data;
       });
       const results = await Promise.all(promises);

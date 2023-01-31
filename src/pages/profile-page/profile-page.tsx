@@ -123,7 +123,7 @@ export const ProfilePage: React.FC = () => {
   if (loading.profile) {
     return (
       <div className="profile-container">
-        <Loader sx={{ margin: "auto" }} />
+        <Loader sx={{ margin: "auto" }} color="cyan" />
       </div>
     );
   }

@@ -106,8 +106,9 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
           >
             {props.content}
           </Text>
-          {props.atUsers.length
-            ? props.atUsers.map((next) => (
+          {props.atUsers.length ? (
+            <span className="atusers-output">
+              {props.atUsers.map((next) => (
                 <Link
                   key={next}
                   to={`/profile/${next}`}
@@ -115,10 +116,14 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
                     textDecoration: "none",
                     fontSize: "14px",
                     textAlign: "initial",
+                    paddingRight: "5px",
                   }}
                 >{`@${next}`}</Link>
-              ))
-            : ""}
+              ))}
+            </span>
+          ) : (
+            ""
+          )}
         </span>
         <span className="quack-options">
           <Tooltip label="Reply">

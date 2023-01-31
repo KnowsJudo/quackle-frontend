@@ -1,7 +1,17 @@
+.at-input {
+  display: flex;
+  align-items: center;
+}
+
 .at-users {
   display: flex;
   align-items: center;
   font-size: 18px;
+}
+
+.chip-output {
+  display: flex;
+  align-items: center;
 }
 
 .quack-input-anywhere {
