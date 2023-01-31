@@ -184,7 +184,6 @@ export const SettingsPage: React.FC = () => {
             </Text>
             <br />
             <Text size="xs">Total Quacks: {userData.quacks}</Text>
-            <Text size="xs">Total Re-Quacks: {userData.reQuacks}</Text>
             <Text size="xs">Liked Quacks: {userData.likedQuacks.length}</Text>
             <Text size="xs">Following: {userData.following.length}</Text>
             <Text size="xs">Followers: {userData.followers.length}</Text>

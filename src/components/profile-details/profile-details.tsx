@@ -70,8 +70,8 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
               value: props.profileData.quacks,
             },
             {
-              title: "Re-Quacks",
-              value: props.profileData.reQuacks,
+              title: "Likes",
+              value: props.profileData.likedQuacks.length,
             },
             {
               title: "Hatched",

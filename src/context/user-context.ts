@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { IUserContext } from "../types/user-context";
 import { IUser } from "../types/user-types";
 
-export const clearUser = {
+export const clearUser: IUser = {
   id: "",
   avatar: "",
   name: "",
@@ -15,7 +15,6 @@ export const clearUser = {
   location: "",
   biography: "",
   quacks: 0,
-  reQuacks: 0,
   likedQuacks: [],
   following: [],
   followers: [],

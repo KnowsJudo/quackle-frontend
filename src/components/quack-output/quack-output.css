@@ -1,3 +1,8 @@
+.pond-image {
+  width: 30px;
+  height: 30px;
+}
+
 .quack-output:nth-child(2n -1) {
   background-color: #f1f1f1;
 }
@@ -41,5 +46,6 @@
 
 .quack-options {
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
 }

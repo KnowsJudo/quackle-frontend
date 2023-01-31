@@ -4,6 +4,7 @@ import { Avatar, Button, Text, Tooltip } from "@mantine/core";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { Link } from "react-router-dom";
 import { QuackleContext } from "../../context/user-context";
+import DuckPond from "../../img/pond.png";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -98,7 +99,8 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
             style={{
               textAlign: "initial",
               paddingBottom: "5px",
-              maxHeight: "250px",
+              minHeight: "130px",
+              maxHeight: "280px",
               overflowY: "auto",
             }}
           >
@@ -119,21 +121,13 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
             : ""}
         </span>
         <span className="quack-options">
-          <Tooltip label={`${props.replies.length} replies`}>
-            <Button
-              size="sm"
-              color="dark"
-              variant="subtle"
-              disabled
-            >{`🐤 ${props.replies.length}`}</Button>
+          <Tooltip label="Reply">
+            <Button size="sm" color="dark" variant="subtle">
+              🐔
+            </Button>
           </Tooltip>
-          <Tooltip label={`${props.requacks} re-quacks`}>
-            <Button
-              size="sm"
-              color="dark"
-              variant="subtle"
-              disabled
-            >{`🐔 ${props.requacks}`}</Button>
+          <Tooltip label={`${props.replies.length} replies`}>
+            <img className="pond-image" src={DuckPond} />
           </Tooltip>
           <Tooltip label={likeList}>
             <Button

@@ -71,11 +71,13 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       return (
         <h6>
           This user has no&nbsp;
-          {props.likes
+          {props.quack
+            ? "quacks"
+            : props.likes
             ? "likes"
-            : props.bio
-            ? "biography"
-            : `${props.requack ? "re-" : ""}quacks`}
+            : props.pond
+            ? "ponds"
+            : "biography"}
         </h6>
       );
     }
@@ -96,7 +98,7 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
     return (
       <h6>
         You havent&nbsp;
-        {props.likes ? "liked" : `${props.requack ? "re-" : ""}quacked`}
+        {props.quack ? "quacked" : props.likes ? "liked" : "pondered"}
         &nbsp;anything yet!
       </h6>
     );
@@ -112,8 +114,8 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         <Tabs.Tab color="cyan" value="quacks">
           Quacks
         </Tabs.Tab>
-        <Tabs.Tab color="cyan" value="requacks">
-          Re-Quacks
+        <Tabs.Tab color="cyan" value="pond">
+          Pond
         </Tabs.Tab>
         <Tabs.Tab color="cyan" value="likes">
           Likes
@@ -141,7 +143,6 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 content={next.content}
                 atUsers={next.atUsers}
                 replies={next.replies}
-                requacks={0}
                 likes={next.likes}
                 deleteQuack={props.deleteQuack}
                 loading={props.loading.quacks}
@@ -151,8 +152,8 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
           })
         )}
       </Tabs.Panel>
-      <Tabs.Panel value="requacks">
-        <EmptyQuacks requack={true} />
+      <Tabs.Panel value="pond">
+        <EmptyQuacks pond={true} />
       </Tabs.Panel>
       <Tabs.Panel value="likes">
         {props.loading.likes ? (
@@ -172,7 +173,6 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
                 content={next.content}
                 atUsers={next.atUsers}
                 replies={[]}
-                requacks={0}
                 likes={next.likes}
                 deleteQuack={undefined}
                 loading={props.loading.likes}

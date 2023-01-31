@@ -40,7 +40,6 @@ export interface IQuackOutput {
   quackedAt: string;
   atUsers: string[];
   replies: IQuackOutput[];
-  requacks: number;
   likes: string[];
   deleteQuack?: (quackId: string) => void;
   loading: boolean;
@@ -49,7 +48,7 @@ export interface IQuackOutput {
 
 export interface IEmptyQuackMenu {
   quack?: boolean;
-  requack?: boolean;
+  pond?: boolean;
   likes?: boolean;
   bio?: boolean;
 }

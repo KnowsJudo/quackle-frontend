@@ -86,7 +86,6 @@ export const HomeDetails: React.FC = () => {
               content={next.content}
               atUsers={next.atUsers}
               replies={next.replies}
-              requacks={0}
               likes={next.likes}
               loading={loading}
               loggedIn={true}
