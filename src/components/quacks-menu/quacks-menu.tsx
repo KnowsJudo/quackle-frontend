@@ -19,7 +19,6 @@ import "./quacks-menu.css";
 
 export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
-  const [selectedTab, setSelectedTab] = useState<string | null>("quacks");
   const [edit, setEdit] = useState<boolean>(false);
   const [biography, setBiography] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -105,8 +104,8 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
 
   return (
     <Tabs
-      value={selectedTab}
-      onTabChange={setSelectedTab}
+      value={props.selectedTab}
+      onTabChange={props.setSelectedTab}
       sx={{ flex: "1 1 auto", maxWidth: "100%" }}
     >
       <Tabs.List sx={{ justifyContent: "space-evenly" }}>

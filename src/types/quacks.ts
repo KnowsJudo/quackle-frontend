@@ -9,6 +9,8 @@ export interface IQuacksMenu {
   deleteQuack?: (quackId: string) => void;
   loading: ILoading;
   loggedIn: boolean;
+  selectedTab: string | null;
+  setSelectedTab: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface IQuackInput {

@@ -27,6 +27,8 @@ export interface IProfileDetails {
   paramId?: string;
   deleteQuack?: (quackId: string) => Promise<void>;
   loading: ILoading;
+  selectedTab: string | null;
+  setSelectedTab: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface ILoading {

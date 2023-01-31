@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../not-found-page/not-found-page";
@@ -21,6 +21,7 @@ export const ProfilePage: React.FC = () => {
     useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
+  const [selectedTab, setSelectedTab] = useState<string | null>("quacks");
   const [likedQuacks, setLikedQuacks] = useState<IQuackResponse[]>([]);
   const [loading, setLoading] = useState<ILoading>({
     profile: true,
@@ -99,7 +100,23 @@ export const ProfilePage: React.FC = () => {
     getProfileQuacks();
   }, [params.userId, userData.quacks, userData.likedQuacks]);
 
+  const likesRef = useRef("initalLoad");
+
+  //Initial likes fetch
   useEffect(() => {
+    if (likesRef.current !== "initalLoad") {
+      return;
+    }
+    if (selectedTab === "likes") {
+      getProfileLikes();
+      likesRef.current = "loaded";
+    }
+  }, [selectedTab]);
+
+  useEffect(() => {
+    if (likesRef.current === "initalLoad") {
+      return;
+    }
     getProfileLikes();
   }, [profileData?.likedQuacks, userData.likedQuacks]);
 
@@ -139,6 +156,8 @@ export const ProfilePage: React.FC = () => {
         likesData={likedQuacks}
         paramId={params.userId}
         loading={loading}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
       />
       <ProfileSideBar loggedIn={loggedIn ? true : false} />
     </div>
