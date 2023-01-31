@@ -44,9 +44,10 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
       setSearchError(true);
       return;
     }
+    setSelectData([]);
     setLoading(true);
     try {
-      const data = await axios.get(`${apiUrl}/user/${search}`);
+      const data = await axios.get(`${apiUrl}/search/${search}`);
       const user = data.data;
       const singleUser: IUserPreview = {
         _id: user._id,
