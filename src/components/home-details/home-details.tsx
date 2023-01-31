@@ -46,7 +46,7 @@ export const HomeDetails: React.FC = () => {
   return (
     <section className="home-details">
       <h4>Home</h4>
-      <QuackInput fixed={false} atUsers={[]} avatar={userData.avatar} />
+      <QuackInput fixed={false} avatar={userData.avatar} />
       <div className="home-friend-quacks">
         <HorizontalRuleRoundedIcon
           preserveAspectRatio="none"

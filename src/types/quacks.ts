@@ -16,7 +16,7 @@ export interface IQuacksMenu {
 export interface IQuackInput {
   fixed: boolean;
   setInitiateQuack?: React.Dispatch<React.SetStateAction<boolean>> | null;
-  atUsers?: string[];
+  targeted?: string;
   avatar?: string;
 }
 

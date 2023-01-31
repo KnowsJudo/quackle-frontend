@@ -40,7 +40,6 @@ export const TrendingPage: React.FC = () => {
           setInitiateQuack={setInitiateQuack}
           fixed={true}
           avatar={userData.avatar}
-          atUsers={[]}
         />
       )}
       <ProfileUser

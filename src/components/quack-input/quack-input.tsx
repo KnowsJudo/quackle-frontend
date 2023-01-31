@@ -3,10 +3,12 @@ import axios from "axios";
 import {
   Avatar,
   Button,
+  Chip,
   CloseButton,
   Progress,
-  Text,
   Textarea,
+  TextInput,
+  Tooltip,
 } from "@mantine/core";
 import { IQuackInput } from "../../types/quacks";
 import { QuackleContext } from "../../context/user-context";
@@ -21,6 +23,8 @@ import "./quack-input.css";
 export const QuackInput: React.FC<IQuackInput> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
   const [quackContent, setQuackContent] = useState<string>("");
+  const [atNextUser, setAtNextUser] = useState<string>("");
+  const [atUsers, setAtUsers] = useState<string[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [checkClose, setCheckClose] = useState<boolean>(false);
   const [savedQuack, setSavedQuack] = useState<string>("");
@@ -47,6 +51,49 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
     }
   }, [quackContent.length]);
 
+  const addNextUser = async (user: string, add: boolean) => {
+    if (!add) {
+      setAtUsers((prev) => prev.filter((match) => match !== user));
+      return;
+    }
+    if (atUsers.find((match) => match === user)) {
+      return;
+    }
+    if (atUsers.length > 5) {
+      showNotification({
+        message: `Maximum taggable users reached`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
+      return;
+    }
+    try {
+      const data = await axios.get(`${apiUrl}/search/${user}`);
+      if (atUsers.find((match) => match === data.data.username)) {
+        return;
+      }
+      setAtUsers((prev) => [...prev, data.data.username]);
+      setAtNextUser("");
+    } catch (error) {
+      showNotification({
+        message: `Could not find user`,
+        icon: <PriorityHighIcon />,
+        color: "red",
+        styles: () => ({
+          root: {
+            borderColor: "#282c34",
+          },
+        }),
+      });
+      console.error(error);
+    }
+  };
+
   const submitQuack = async () => {
     if (error) {
       return;
@@ -60,7 +107,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
           name: userData.name,
           content: quackContent,
           avatar: userData.avatar,
-          atUsers: props.atUsers ? props.atUsers : [],
+          // atUsers: props.atUsers ? props.atUsers : [],
         },
         stdHeader(),
       );
@@ -145,10 +192,56 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         )}
         <span className="quack-input-user">
           <Avatar size="lg" src={props.avatar} radius="xl" />
-          <Text size="md" weight="bold">
-            &nbsp;&nbsp;
-            {`@${!props.atUsers?.length ? "everyone" : props.atUsers[0]}`}
-          </Text>
+          &nbsp; &nbsp;
+          <span className="at-users">
+            @
+            <Tooltip
+              label="Edit quack recipients"
+              style={{ textAlign: "left" }}
+            >
+              <TextInput
+                size="md"
+                variant="unstyled"
+                onChange={(e) => setAtNextUser(e.target.value)}
+                placeholder={
+                  !props.targeted && !atUsers.length
+                    ? "everyone"
+                    : props.targeted && !atUsers.length
+                    ? props.targeted
+                    : ""
+                }
+                value={atNextUser}
+              />
+            </Tooltip>
+            {atNextUser.length > 2 && (
+              <Chip
+                checked={false}
+                color="dark"
+                value={atNextUser}
+                onClick={() => addNextUser(atNextUser, true)}
+              >
+                {atNextUser}
+              </Chip>
+            )}
+            &nbsp; &nbsp;
+            {atUsers.length ? (
+              <Chip.Group position="left">
+                {atUsers.map((next) => (
+                  <Chip
+                    key={next}
+                    value={next}
+                    defaultChecked
+                    color="dark"
+                    onClick={() => addNextUser(next, false)}
+                  >
+                    {next}
+                  </Chip>
+                ))}
+              </Chip.Group>
+            ) : (
+              ""
+            )}
+          </span>
           {savedQuack && (
             <Button
               sx={{ marginLeft: "auto" }}

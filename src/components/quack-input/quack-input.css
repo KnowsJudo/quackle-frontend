@@ -1,3 +1,9 @@
+.at-users {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
 .quack-input-anywhere {
   position: fixed;
   left: 0;
@@ -14,10 +20,10 @@
 .input-anywhere-inner {
   display: flex;
   flex-direction: column;
-  margin-bottom: 28%;
+  margin-bottom: 20%;
   padding: 1%;
   width: 55vw;
-  min-height: 35vh;
+  min-height: 45vh;
   height: max-content;
   background-color: white;
   color: black;
@@ -54,6 +60,11 @@
 }
 
 @media (max-width: 1300px) {
+  .at-users {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .input-anywhere-inner {
     width: 70vw;
   }
@@ -62,6 +73,6 @@
 @media (max-width: 750px) {
   .input-anywhere-inner {
     width: 95vw;
-    height: 40vh;
+    height: 80vh;
   }
 }

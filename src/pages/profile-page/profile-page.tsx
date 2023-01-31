@@ -137,10 +137,10 @@ export const ProfilePage: React.FC = () => {
           setInitiateQuack={setInitiateQuack}
           fixed={true}
           avatar={userData.avatar}
-          atUsers={
+          targeted={
             userData.username === profileData.username
-              ? []
-              : [profileData.username]
+              ? ""
+              : profileData.username
           }
         />
       )}
