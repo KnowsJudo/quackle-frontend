@@ -20,7 +20,11 @@ export const HomeDetails: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const getHomeQuacks = async () => {
-    const quacks = await getQuacks(userData.following, userData.username);
+    const quacks = await getQuacks(
+      userData.following,
+      false,
+      userData.username,
+    );
     if (!quacks) {
       setLoading(false);
       return;

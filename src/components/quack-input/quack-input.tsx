@@ -58,7 +58,6 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         {
           userId: userData.id,
           name: userData.name,
-          username: userData.username,
           content: quackContent,
           avatar: userData.avatar,
           atUsers: props.atUsers ? props.atUsers : [],

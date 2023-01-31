@@ -68,7 +68,7 @@ export const ProfilePage: React.FC = () => {
       });
       return;
     }
-    const likes = await getQuacks(profileData.likedQuacks, "", true);
+    const likes = await getQuacks(profileData.likedQuacks, true);
     if (!likes) {
       setLoading((prev) => {
         return { ...prev, likes: false };
