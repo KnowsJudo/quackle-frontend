@@ -14,7 +14,7 @@ export const UsernameInfo: React.FC<IUsernameInfo> = (props) => (
       to={`/profile/${props.username}`}
       style={{ textDecoration: "none", color: "black" }}
     >
-      <Text sx={{ fontSize: "28px" }}>
+      <Text sx={{ fontSize: "22px" }}>
         <b>{props.name}</b>
       </Text>
     </Link>

@@ -33,13 +33,15 @@
 
 @media (max-width: 1300px) {
   .profile-logout {
-    flex-direction: column;
-    padding: 8px;
-    width: 20vw;
-    justify-content: space-evenly;
+    display: none;
   }
+
+  .profile-prompt {
+    display: none;
+  }
+
   .profile-sidebar {
-    margin: auto auto auto 80%;
+    margin: auto auto auto 88%;
   }
 }
 

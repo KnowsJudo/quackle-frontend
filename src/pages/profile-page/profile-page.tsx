@@ -96,6 +96,7 @@ export const ProfilePage: React.FC = () => {
       pond: true,
       likes: true,
     });
+    setSelectedTab("quacks");
   }, [params.userId]);
 
   useEffect(() => {

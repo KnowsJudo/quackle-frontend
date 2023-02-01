@@ -276,7 +276,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
                       key={next}
                       value={next}
                       defaultChecked
-                      color="cyan"
+                      color="dark"
                       onClick={() => addNextUser(next, false)}
                     >
                       {next}

@@ -52,8 +52,20 @@
     color: black;
   }
 
+  .profile-user {
+    position: static;
+    width: 65px;
+  }
+
   .profile-user-list {
     display: none;
+  }
+
+  .user-logout {
+    display: block;
+    position: absolute;
+    top: 550px;
+    left: 25px;
   }
 
   .user-quack {
@@ -66,28 +78,16 @@
 
 @media (max-width: 750px) {
   .hamburger {
-    width: 50px;
-    height: 50px;
     top: 0;
     left: 4px;
   }
 
   .profile-user {
-    flex-direction: row;
-    background-color: #282c34;
-    position: static;
     margin: auto;
+    position: static;
     width: 65px;
   }
-
-  .profile-user-list {
-    display: none;
-  }
-
   .user-logout {
-    display: block;
-    position: absolute;
-    top: 550px;
     left: 4px;
   }
 

@@ -48,7 +48,7 @@ export const TrendingPage: React.FC = () => {
       />
       <section className="trending-list">
         <span className="quacking-current">
-          <Text sx={{ fontSize: "28px" }}>
+          <Text sx={{ fontSize: "22px" }}>
             <b>Currently Quacking</b>
           </Text>
           <img src={DuckPond} className="trending-pond" />

@@ -109,7 +109,7 @@ export const HomeDetails: React.FC = () => {
   return (
     <section className="home-details">
       <span className="home-title">
-        <Text sx={{ fontSize: "28px" }}>
+        <Text sx={{ fontSize: "22px" }}>
           <b>Pond</b>
         </Text>
       </span>
