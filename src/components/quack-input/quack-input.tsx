@@ -135,7 +135,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
       await axios.post(
         `${apiUrl}/user/${userData.username}/quacks`,
         {
-          userId: userData.id,
+          userId: userData._id,
           name: userData.name,
           content: quackContent,
           avatar: userData.avatar,

@@ -3,7 +3,7 @@ import { IUserContext } from "../types/user-context";
 import { IUser } from "../types/user-types";
 
 export const clearUser: IUser = {
-  id: "",
+  _id: "",
   avatar: "",
   name: "",
   username: "",
