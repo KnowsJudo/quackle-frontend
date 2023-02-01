@@ -9,6 +9,7 @@ import { IUserPreview } from "../../types/user-types";
 import { UserPreview } from "../user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import "./profile-following.css";
+import { TrendingBadge } from "../trending-badge/trending-badge";
 
 export const ProfileFollowing: React.FC<IProfileFollow> = (props) => {
   const params = useParams();
@@ -51,6 +52,8 @@ export const ProfileFollowing: React.FC<IProfileFollow> = (props) => {
       <div className="following-list">
         {loading ? (
           <Loader color="cyan" sx={{ margin: "18vh auto" }} />
+        ) : !followingData.length ? (
+          <TrendingBadge />
         ) : (
           followingData.map((next) => (
             <UserPreview key={next._id} following={true} {...next} />

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Badge, Loader, Tabs } from "@mantine/core";
+import { Loader, Tabs } from "@mantine/core";
 import { IQuackResponse } from "../../types/quacks";
 import { QuackOutput } from "../quack-output/quack-output";
 import { QuackleContext } from "../../context/user-context";
 import { IHomeLoading } from "../home-details/home-details";
+import { TrendingBadge } from "../trending-badge/trending-badge";
 
 interface IHomeMenu {
   pondQuacks: IQuackResponse[];
@@ -38,22 +38,7 @@ export const HomeMenu: React.FC<IHomeMenu> = (props) => {
         ) : !props.pondQuacks.length ? (
           <>
             <h6>Your pond is quiet..</h6>
-            <Badge
-              size="lg"
-              radius="xl"
-              style={{
-                margin: "auto",
-                padding: "25px",
-                backgroundColor: "#282c34",
-              }}
-            >
-              <Link
-                to="/trending"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                See popular ducks
-              </Link>
-            </Badge>
+            <TrendingBadge />
           </>
         ) : (
           props.pondQuacks.map((next: IQuackResponse) => {
