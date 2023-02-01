@@ -21,8 +21,9 @@ export const ProfilePage: React.FC = () => {
     useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
-  const [selectedTab, setSelectedTab] = useState<string | null>("quacks");
+  const [pondData, setPondData] = useState<IQuackResponse[]>([]);
   const [likedQuacks, setLikedQuacks] = useState<IQuackResponse[]>([]);
+  const [selectedTab, setSelectedTab] = useState<string | null>("quacks");
   const [loading, setLoading] = useState<ILoading>({
     profile: true,
     quacks: true,
@@ -122,6 +123,52 @@ export const ProfilePage: React.FC = () => {
     getProfileLikes();
   }, [profileData?.likedQuacks, userData.likedQuacks]);
 
+  const getPondQuacks = async () => {
+    if (!profileData) {
+      return;
+    }
+    try {
+      const quacks = await axios.get(
+        `${apiUrl}/focused/${profileData.username}/quacks`,
+      );
+      setPondData(quacks.data);
+      setLoading((prev) => {
+        return {
+          ...prev,
+          pond: false,
+        };
+      });
+    } catch (error) {
+      setLoading((prev) => {
+        return {
+          ...prev,
+          pond: false,
+        };
+      });
+      console.error(error);
+    }
+  };
+
+  const pondRef = useRef("initalPond");
+
+  //Initial pond fetch
+  useEffect(() => {
+    if (pondRef.current !== "initalPond") {
+      return;
+    }
+    if (selectedTab === "pond") {
+      getPondQuacks();
+      pondRef.current = "loaded";
+    }
+  }, [selectedTab]);
+
+  useEffect(() => {
+    if (pondRef.current === "initalPond") {
+      return;
+    }
+    getPondQuacks();
+  }, [profileData?.quacks, userData.quacks]);
+
   if (loading.profile) {
     return (
       <div className="profile-container">
@@ -155,6 +202,7 @@ export const ProfilePage: React.FC = () => {
         loggedIn={loggedIn ? true : false}
         profileData={profileData}
         quackData={quackData}
+        pondData={pondData}
         likesData={likedQuacks}
         paramId={params.userId}
         loading={loading}

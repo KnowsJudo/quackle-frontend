@@ -23,6 +23,7 @@ export interface IProfileDetails {
   loggedIn: boolean;
   profileData: IUser;
   quackData: IQuackResponse[];
+  pondData: IQuackResponse[];
   likesData: IQuackResponse[];
   paramId?: string;
   deleteQuack?: (quackId: string) => Promise<void>;

@@ -18,7 +18,8 @@ import "./quacks-menu.css";
 interface IQuacksMenu {
   paramId?: string;
   profileData: IUser;
-  quackdata: IQuackResponse[];
+  quackData: IQuackResponse[];
+  pondData: IQuackResponse[];
   likesData: IQuackResponse[];
   deleteQuack?: (quackId: string) => void;
   loading: ILoading;
@@ -87,14 +88,14 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
     if (!userData.username || userData.username !== paramId) {
       return (
         <h6>
-          This user has no&nbsp;
+          This user has no
           {props.quack
-            ? "quacks"
+            ? " quacks"
             : props.likes
-            ? "likes"
-            : props.pond
-            ? "ponds"
-            : "biography"}
+            ? " likes"
+            : props.bio
+            ? " biography"
+            : "t pondered anything"}
         </h6>
       );
     }
@@ -145,10 +146,10 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
       <Tabs.Panel value="quacks">
         {props.loading.quacks ? (
           <Loader color="cyan" sx={{ margin: "18vh auto" }} />
-        ) : !props.quackdata.length ? (
+        ) : !props.quackData.length ? (
           <EmptyQuacks quack={true} />
         ) : (
-          props.quackdata.map((next: IQuackResponse) => {
+          props.quackData.map((next: IQuackResponse) => {
             return (
               <QuackOutput
                 key={next._id}
@@ -170,7 +171,31 @@ export const QuacksMenu: React.FC<IQuacksMenu> = (props) => {
         )}
       </Tabs.Panel>
       <Tabs.Panel value="pond">
-        <EmptyQuacks pond={true} />
+        {props.loading.pond ? (
+          <Loader color="cyan" sx={{ margin: "18vh auto" }} />
+        ) : !props.pondData.length ? (
+          <EmptyQuacks pond={true} />
+        ) : (
+          props.pondData.map((next: IQuackResponse) => {
+            return (
+              <QuackOutput
+                key={next._id}
+                id={next._id}
+                name={next.name}
+                username={next.username}
+                avatar={next.avatar}
+                quackedAt={next.quackedAt}
+                content={next.content}
+                atUsers={next.atUsers}
+                replies={[]}
+                likes={next.likes}
+                deleteQuack={undefined}
+                loading={props.loading.pond}
+                loggedIn={props.loggedIn}
+              />
+            );
+          })
+        )}
       </Tabs.Panel>
       <Tabs.Panel value="likes">
         {props.loading.likes ? (
