@@ -59,7 +59,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
             <Button color="cyan">Sign Up</Button>
           </Link>
           <h5>Existing User?</h5>
-          <Link to="/">
+          <Link to="/login">
             <Button color="cyan">LOGIN</Button>
           </Link>
         </section>

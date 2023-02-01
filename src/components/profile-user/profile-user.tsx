@@ -72,7 +72,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
                 </Link>
               </Menu.Item>
               <Menu.Item color="dark">
-                <Link to="/" style={linkStyle}>
+                <Link to="/login" style={linkStyle}>
                   Login
                 </Link>
               </Menu.Item>

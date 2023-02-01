@@ -274,6 +274,12 @@ const App: () => JSX.Element = () => {
               <Routes>
                 <Route
                   path="/"
+                  element={
+                    loggedIn ? <Navigate to="/home" /> : <TrendingPage />
+                  }
+                />
+                <Route
+                  path="/login"
                   element={loggedIn ? <Navigate to="/home" /> : <LoginPage />}
                 />
                 <Route

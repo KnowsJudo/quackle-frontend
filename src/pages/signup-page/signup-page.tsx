@@ -122,7 +122,7 @@ export const SignUpPage: React.FC = () => {
         dateOfBirth: userData.dateOfBirth,
       });
       setLoading(false);
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       setLoading(false);
       const error = err as AxiosError;
