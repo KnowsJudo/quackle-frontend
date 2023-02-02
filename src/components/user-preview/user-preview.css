@@ -11,6 +11,7 @@
 
 .user-preview {
   display: flex;
+  color: black;
   margin: 0 auto;
   width: 305px;
   padding: 2.5% 3px;

@@ -1,20 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { apiUrl } from "../../helpers/api-url";
-import {
-  Alert,
-  Button,
-  Loader,
-  LoadingOverlay,
-  Modal,
-  TextInput,
-} from "@mantine/core";
+import { Alert, Button, Loader, Modal, TextInput } from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
 import { UserPreview } from "../user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { useParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import "./search-users.css";
+import { debounce } from "../../helpers/debounce";
 
 interface ISearch {
   compact: boolean;
@@ -26,45 +20,49 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const [searchError, setSearchError] = useState<boolean>(false);
-  const [userError, setUserError] = useState<boolean>(false);
   const [selectData, setSelectData] = useState<IUserPreview[]>([]);
   const params = useParams();
-
-  useEffect(() => {
-    setSearchError(false);
-    setUserError(false);
-  }, [search, selectData]);
 
   useEffect(() => {
     setModal(false);
   }, [params]);
 
-  const searchUsers = async () => {
-    if (search.length < 3) {
-      setSearchError(true);
-      return;
-    }
-    setSelectData([]);
-    setLoading(true);
-    try {
-      const data = await axios.get(`${apiUrl}/search/${search}`);
-      const user = data.data;
-      const singleUser: IUserPreview = {
-        _id: user._id,
-        avatar: user.avatar,
-        name: user.name,
-        username: user.username,
-        tagline: user.tagline,
-        matchesUser: user.username === userData.username,
-      };
-      setSelectData([singleUser]);
-      setLoading(false);
-    } catch (error) {
-      setUserError(true);
-      console.error(error);
-      setLoading(false);
-    }
-  };
+  const displayUsers = useMemo(
+    () =>
+      debounce(async (nextUser: string) => {
+        setSearchError(false);
+        setSelectData([]);
+        if (nextUser.length < 3 || nextUser.length > 15) {
+          return;
+        }
+        if (!selectData.length) {
+          setLoading(true);
+        }
+        try {
+          const data = await axios.get(`${apiUrl}/search/${nextUser}`);
+          const user = data.data;
+          const singleUser: IUserPreview = {
+            _id: user._id,
+            avatar: user.avatar,
+            name: user.name,
+            username: user.username,
+            tagline: user.tagline,
+            matchesUser: user.username === userData.username,
+          };
+          setSelectData([singleUser]);
+          setLoading(false);
+        } catch (error) {
+          setSearchError(true);
+          setLoading(false);
+          console.log(error);
+        }
+      }, 200),
+    [],
+  );
+
+  useEffect(() => {
+    displayUsers(search);
+  }, [search]);
 
   return props.compact ? (
     <div className="search-container-compact">
@@ -83,35 +81,24 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
         onClose={() => {
           setModal(false);
         }}
+        styles={{ body: { display: "flex", flexDirection: "column" } }}
         withCloseButton={false}
       >
         <span className="menu-search">
+          <SearchIcon style={{ fontSize: "30px", marginRight: "15px" }} />
           <TextInput
             placeholder="Search Quackle Users"
             value={search}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSearch(e.target.value)
             }
-            style={{ flex: "1 1 auto" }}
+            style={{ flex: "1 1 auto", marginRight: "5px" }}
           />
-          <Button
-            variant="subtle"
-            color="dark"
-            onClick={() => searchUsers()}
-            style={{ marginLeft: "auto", padding: "5px" }}
-          >
-            <SearchIcon sx={{ fontSize: "30px" }} />
-          </Button>
         </span>
-        {userError && <Alert color="gray">No users found</Alert>}
-        {searchError && <Alert color="red">Enter at least 3 characters</Alert>}
-        {loading ? (
-          <LoadingOverlay
-            visible={loading}
-            overlayBlur={3}
-            overlayOpacity={0.05}
-            loaderProps={{ color: "cyan" }}
-          />
+        {searchError ? (
+          <Alert color="gray">No users found</Alert>
+        ) : loading ? (
+          <Loader color="cyan" style={{ margin: "3% auto" }} />
         ) : (
           selectData.map((next) => {
             return (
@@ -131,6 +118,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
   ) : (
     <div className="search-container">
       <span className="profile-search">
+        <SearchIcon fontSize="large" style={{ marginRight: "5px" }} />
         <TextInput
           placeholder="Search Quackle Users"
           value={search}
@@ -139,18 +127,10 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
           }
           style={{ flex: "1 1 auto" }}
         />
-        <Button
-          variant="subtle"
-          color="dark"
-          onClick={() => searchUsers()}
-          style={{ marginLeft: "auto" }}
-        >
-          <SearchIcon fontSize="large" />
-        </Button>
       </span>
-      {userError && <Alert color="gray">No users found</Alert>}
-      {searchError && <Alert color="red">Enter at least 3 characters</Alert>}
-      {loading ? (
+      {searchError ? (
+        <Alert color="gray">No users found</Alert>
+      ) : loading ? (
         <Loader color="cyan" sx={{ margin: "15px auto" }} />
       ) : (
         selectData.map((next) => {

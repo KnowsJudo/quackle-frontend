@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   width: 318px;
+  padding: 5px;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .search-container-compact {
@@ -15,19 +19,12 @@
   padding: 5px;
   border-radius: 5px;
   align-items: center;
-  border: 1px solid #282c34;
 }
 
 @media (max-width: 1300px) {
   .menu-search {
     display: flex;
     width: 84vw;
-  }
-
-  .profile-search {
-    display: block;
-    width: 20vw;
-    padding: 0;
   }
 
   .search-container-compact {
