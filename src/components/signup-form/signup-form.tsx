@@ -25,8 +25,8 @@ export const SignUpForm: React.FC<ISignUp> = (props) => {
     if (field === "username" && props.error.userLength) {
       return "Username must be at between 3 and 20 characters long";
     }
-    if (field === "username" && props.error.userProfanity) {
-      return "Real ducks dont use such words";
+    if (field === "username" && props.error.userInvalid) {
+      return "Invalid username";
     }
     if (field === "password" && props.error.noPass) {
       return "Password must be at least 7 characters";

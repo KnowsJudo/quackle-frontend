@@ -11,8 +11,8 @@ export interface ISignUpError {
   nameProfanity: boolean;
   nameLength: boolean;
   noUser: boolean;
-  userProfanity: boolean;
   userLength: boolean;
+  userInvalid: boolean;
   noPass: boolean;
   passLength: boolean;
   noMatch: boolean;

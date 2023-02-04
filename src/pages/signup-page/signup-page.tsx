@@ -9,7 +9,7 @@ import { initialSignUpError } from "../../helpers/error-states";
 import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 import { ISignUpError } from "../../types/errors";
 import { Filter } from "profanity-check";
-import { emailRegex, regex } from "../../helpers/regex";
+import { emailRegex, regex, userRegex } from "../../helpers/regex";
 import "./signup-page.css";
 
 export const SignUpPage: React.FC = () => {
@@ -69,10 +69,11 @@ export const SignUpPage: React.FC = () => {
     }
     if (
       defaultFilter.isProfane(userData.username) ||
-      regex.test(userData.username)
+      regex.test(userData.username) ||
+      userRegex.test(userData.username)
     ) {
       setError((prev) => {
-        return { ...prev, userProfanity: true };
+        return { ...prev, userInvalid: true };
       });
       return;
     }
