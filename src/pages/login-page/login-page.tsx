@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { QuackleContext } from "../../context/user-context";
 import { Button, LoadingOverlay, Notification, Text } from "@mantine/core";
 import { stdHeader } from "../../helpers/api-header";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ILoginError } from "../../types/errors";
 import { apiUrl } from "../../helpers/api-url";
 import { initialLoginError } from "../../helpers/error-states";
@@ -24,14 +24,6 @@ export const LoginPage: React.FC = () => {
   useEffect(() => {
     setError(initialLoginError);
   }, [userData, pass]);
-
-  const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Enter") {
-      console.log("test");
-      event.preventDefault();
-      login();
-    }
-  };
 
   const login = async () => {
     setError(initialLoginError);
@@ -107,7 +99,7 @@ export const LoginPage: React.FC = () => {
           noUser={error.noUser}
           noPass={error.noPass}
           login={login}
-          onKeyDown={onKeyDown}
+          // onKeyDown={onKeyDown}
         />
         <br />
         {error.password && (
@@ -142,9 +134,11 @@ export const LoginPage: React.FC = () => {
         )}
         <span className="login-signup">
           <Text size="md">New to Quackle?&nbsp;</Text>
-          <Link to="/signup">
-            <Button color="cyan">Sign Up</Button>
-          </Link>
+          <span>
+            <Button color="cyan" onClick={() => navigate("/signup")}>
+              Sign Up
+            </Button>
+          </span>
         </span>
         <QuackleFooter />
       </section>

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, SetStateAction } from "react";
+import React, { SetStateAction, useContext, useRef } from "react";
 import { Button, TextInput } from "@mantine/core";
 import { QuackleContext } from "../../context/user-context";
 import "./login-form.css";
@@ -9,15 +9,23 @@ interface ILoginForm {
   noUser: boolean;
   noPass: boolean;
   login: () => void;
-  onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
 }
 
 export const LoginForm: React.FC<ILoginForm> = (props) => {
   const { userData, setUserInfo } = useContext(QuackleContext);
-  const buttonRef = useRef(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handlePass = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.setPass(event.target.value);
+  const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length > 0 && buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  };
+
+  const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      props.login();
+    }
   };
 
   return (
@@ -33,17 +41,17 @@ export const LoginForm: React.FC<ILoginForm> = (props) => {
         label="Password"
         placeholder="Password"
         autoComplete="off"
-        onChange={(e) => handlePass(e)}
+        onBlur={(e) => handleBlur(e)}
+        onChange={(e) => props.setPass(e.target.value)}
         type="password"
         value={props.pass}
         style={{ marginBottom: "15px" }}
         error={props.noPass && "Enter password"}
       />
       <Button
-        autoFocus
         ref={buttonRef}
         onClick={() => props.login()}
-        onKeyDown={props.onKeyDown}
+        onKeyDown={onKeyDown}
         color="cyan"
       >
         LOGIN
