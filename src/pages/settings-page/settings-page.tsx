@@ -43,7 +43,7 @@ export const SettingsPage: React.FC = () => {
   const defaultFilter = new Filter();
   const settingsOptions = Object.keys(setting);
   const maxTaglineLength = 65;
-  const maxDataLength = 25;
+  const maxDataLength = 30;
 
   useEffect(() => {
     setSettingsError(initialSettingsError);

@@ -18,7 +18,7 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
 
   const calcError = (option: string) => {
     if (option === "name" && props.settingsError.nameLength) {
-      return "Name must be less than 25 characters";
+      return "Maximum name length is 30 characters";
     }
     if (option === "name" && props.settingsError.nameProfanity) {
       return "Real ducks dont use such words";
@@ -30,7 +30,7 @@ export const SettingsOptions: React.FC<ISettingsOptions> = (props) => {
       return "Real ducks dont use such words";
     }
     if (option === "location" && props.settingsError.locationLength) {
-      return "Location must be less than 25 characters";
+      return "Location must be 30 characters or less";
     }
     if (option === "location" && props.settingsError.locationProfanity) {
       return "Real ducks dont use such words";
