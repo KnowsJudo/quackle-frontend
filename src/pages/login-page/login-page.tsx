@@ -99,7 +99,6 @@ export const LoginPage: React.FC = () => {
           noUser={error.noUser}
           noPass={error.noPass}
           login={login}
-          // onKeyDown={onKeyDown}
         />
         <br />
         {error.password && (

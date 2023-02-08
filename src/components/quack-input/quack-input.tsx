@@ -27,7 +27,9 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
   const [quackContent, setQuackContent] = useState<string>("");
   const [atNextUser, setAtNextUser] = useState<string>("");
   const [userToAdd, setUserToAdd] = useState<string>("");
-  const [atUsers, setAtUsers] = useState<string[]>([]);
+  const [atUsers, setAtUsers] = useState<string[]>(
+    props.targeted ? [props.targeted] : [],
+  );
   const [error, setError] = useState<boolean>(false);
   const [checkClose, setCheckClose] = useState<boolean>(false);
   const [savedQuack, setSavedQuack] = useState<string>("");

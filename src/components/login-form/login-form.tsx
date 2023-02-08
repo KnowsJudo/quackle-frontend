@@ -21,7 +21,9 @@ export const LoginForm: React.FC<ILoginForm> = (props) => {
     }
   };
 
-  const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+  const onKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement | HTMLInputElement>,
+  ) => {
     if (event.key === "Enter") {
       event.preventDefault();
       props.login();
@@ -43,6 +45,7 @@ export const LoginForm: React.FC<ILoginForm> = (props) => {
         autoComplete="off"
         onBlur={(e) => handleBlur(e)}
         onChange={(e) => props.setPass(e.target.value)}
+        onKeyDown={onKeyDown}
         type="password"
         value={props.pass}
         style={{ marginBottom: "15px" }}

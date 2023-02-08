@@ -11,7 +11,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "./quack-output.css";
 
 export const QuackOutput: React.FC<IQuackOutput> = (props) => {
-  const { userData, likeQuack, reqLoad } = useContext(QuackleContext);
+  const { userData, likeQuack, reqLoad, setInitiateQuack } =
+    useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
   const [likeList, setLikeList] = useState<string>("");
 
@@ -127,7 +128,13 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
         </span>
         <span className="quack-options">
           <Tooltip label="Reply">
-            <Button size="sm" color="dark" variant="subtle">
+            <Button
+              size="sm"
+              color="dark"
+              variant="subtle"
+              onClick={() => setInitiateQuack(true)}
+              disabled={!props.loggedIn}
+            >
               🐔
             </Button>
           </Tooltip>
