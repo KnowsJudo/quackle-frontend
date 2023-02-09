@@ -3,6 +3,7 @@ export interface IQuackInput {
   setInitiateQuack?: React.Dispatch<React.SetStateAction<boolean>> | null;
   targeted?: string;
   avatar?: string;
+  parentQuackId?: string;
 }
 
 export interface IQuackResponse {
