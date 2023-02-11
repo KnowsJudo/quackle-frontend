@@ -8,7 +8,7 @@ import { NotFoundPage } from "../not-found-page/not-found-page";
 import "./home-page.css";
 
 export const HomePage: React.FC = () => {
-  const { userData, initiateQuack, setInitiateQuack } =
+  const { userData, initiateQuack, replyData, setInitiateQuack } =
     useContext(QuackleContext);
 
   return !userData.username ? (
@@ -20,6 +20,8 @@ export const HomePage: React.FC = () => {
           setInitiateQuack={setInitiateQuack}
           fixed={true}
           avatar={userData.avatar}
+          parentQuackId={replyData.quackId}
+          parentUsername={replyData.username}
         />
       )}
       <ProfileUser setInitiateQuack={setInitiateQuack} loggedIn={true} />

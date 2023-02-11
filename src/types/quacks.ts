@@ -4,6 +4,7 @@ export interface IQuackInput {
   targeted?: string;
   avatar?: string;
   parentQuackId?: string;
+  parentUsername?: string;
 }
 
 export interface IQuackResponse {

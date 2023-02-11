@@ -1,6 +1,10 @@
 import { IFollowerData, IFollowingData } from "./follow-types";
 import { IUser } from "./user-types";
 
+export interface IReplyData {
+  quackId: string;
+  username: string;
+}
 export interface IUserContext {
   userData: IUser;
   setUserData: React.Dispatch<React.SetStateAction<IUser>>;
@@ -19,4 +23,6 @@ export interface IUserContext {
   likeQuack: (username: string, quackId: string, likesUsers: string[]) => void;
   loggedIn?: string;
   reqLoad: boolean;
+  replyToQuack: (quackId: string, username: string) => void;
+  replyData: IReplyData;
 }

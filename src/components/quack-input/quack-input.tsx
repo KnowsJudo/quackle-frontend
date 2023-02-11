@@ -225,76 +225,75 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         className={props.fixed ? "input-anywhere-inner" : "input-home-inner"}
         onMouseDown={props.fixed ? (e) => e.stopPropagation() : undefined}
       >
+        {props.parentQuackId && (
+          <Text size="sm">Replying to {props.parentUsername}</Text>
+        )}
         {props.fixed && (
           <CloseButton
             title="Close"
             size="xl"
-            sx={{ marginLeft: "-10px" }}
+            sx={{ marginLeft: "auto" }}
             onMouseDown={(e) => closeModal(e)}
           />
         )}
         <span className="quack-input-user">
           <Avatar size="lg" src={props.avatar} radius="xl" />
           &nbsp; &nbsp;
-          {props.parentQuackId ? (
-            <Text>Replying to {props.targeted}</Text>
-          ) : (
-            <span className="at-users">
-              <span className="at-input">
-                @
-                <Tooltip
-                  label="Edit quack recipients"
-                  style={{ textAlign: "left" }}
-                >
-                  <TextInput
-                    size="md"
-                    variant="unstyled"
-                    onChange={(e) => setAtNextUser(e.target.value)}
-                    placeholder={
-                      !props.targeted && !atUsers.length
-                        ? "everyone"
-                        : props.targeted
-                        ? props.targeted
-                        : ""
-                    }
-                    value={atNextUser}
-                  />
-                </Tooltip>
-                {searchLoad && <Loader color="cyan" size="xs" />}
-              </span>
-              <span className="chip-output">
-                {userToAdd && (
-                  <Chip
-                    checked={false}
-                    disabled={searchLoad}
-                    value={atNextUser}
-                    onClick={() => addNextUser(userToAdd, true)}
-                    sx={{ marginRight: 10 }}
-                  >
-                    {userToAdd}
-                  </Chip>
-                )}
-
-                {atUsers.length ? (
-                  <Chip.Group position="left">
-                    {atUsers.map((next) => (
-                      <Chip
-                        key={next}
-                        value={next}
-                        defaultChecked
-                        color="dark"
-                        onClick={() => addNextUser(next, false)}
-                      >
-                        {next}
-                      </Chip>
-                    ))}
-                  </Chip.Group>
-                ) : (
-                  ""
-                )}
-              </span>
+          <span className="at-users">
+            <span className="at-input">
+              @
+              <Tooltip
+                label="Edit quack recipients"
+                style={{ textAlign: "left" }}
+              >
+                <TextInput
+                  size="md"
+                  variant="unstyled"
+                  onChange={(e) => setAtNextUser(e.target.value)}
+                  placeholder={
+                    !props.targeted && !atUsers.length
+                      ? "everyone"
+                      : props.targeted
+                      ? props.targeted
+                      : ""
+                  }
+                  value={atNextUser}
+                />
+              </Tooltip>
+              {searchLoad && <Loader color="cyan" size="xs" />}
             </span>
-          )}
+            <span className="chip-output">
+              {userToAdd && (
+                <Chip
+                  checked={false}
+                  disabled={searchLoad}
+                  value={atNextUser}
+                  onClick={() => addNextUser(userToAdd, true)}
+                  sx={{ marginRight: 10 }}
+                >
+                  {userToAdd}
+                </Chip>
+              )}
+
+              {atUsers.length ? (
+                <Chip.Group position="left">
+                  {atUsers.map((next) => (
+                    <Chip
+                      key={next}
+                      value={next}
+                      defaultChecked
+                      color="dark"
+                      onClick={() => addNextUser(next, false)}
+                    >
+                      {next}
+                    </Chip>
+                  ))}
+                </Chip.Group>
+              ) : (
+                ""
+              )}
+            </span>
+          </span>
           {savedQuack && (
             <Button
               sx={{ marginLeft: "auto" }}

@@ -24,6 +24,7 @@ import { NotificationsProvider } from "@mantine/notifications";
 import { showNotification } from "@mantine/notifications";
 import { GiPlasticDuck, GiNestBirds } from "react-icons/gi";
 import { stdHeader } from "./helpers/api-header";
+import { IReplyData } from "./types/user-context";
 import DoneIcon from "@mui/icons-material/Done";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
@@ -33,6 +34,10 @@ import "./App.css";
 const App: () => JSX.Element = () => {
   const [userData, setUserData] = useState<IUser>(() => initialUserData());
   const [initiateQuack, setInitiateQuack] = useState<boolean>(false);
+  const [replyData, setReplyData] = useState<IReplyData>({
+    quackId: "",
+    username: "",
+  });
   const [reqLoad, setReqLoad] = useState<boolean>(false);
   const loggedIn = Cookies.get("jwtToken");
 
@@ -251,6 +256,11 @@ const App: () => JSX.Element = () => {
     }
   };
 
+  const replyToQuack = (quackId: string, username: string) => {
+    setReplyData({ quackId, username });
+    setInitiateQuack(true);
+  };
+
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <NotificationsProvider position="bottom-center">
@@ -268,6 +278,8 @@ const App: () => JSX.Element = () => {
               likeQuack,
               loggedIn,
               reqLoad,
+              replyToQuack,
+              replyData,
             }}
           >
             <BrowserRouter>

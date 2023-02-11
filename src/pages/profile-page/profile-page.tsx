@@ -17,7 +17,7 @@ import "./profile-page.css";
 
 export const ProfilePage: React.FC = () => {
   const params = useParams();
-  const { userData, initiateQuack, setInitiateQuack, loggedIn } =
+  const { userData, initiateQuack, replyData, setInitiateQuack, loggedIn } =
     useContext(QuackleContext);
   const [profileData, setProfileData] = useState<IUser | null>(null);
   const [quackData, setQuackData] = useState<IQuackResponse[]>([]);
@@ -192,7 +192,8 @@ export const ProfilePage: React.FC = () => {
               ? ""
               : profileData.username
           }
-          // parentQuackId={}
+          parentQuackId={replyData.quackId}
+          parentUsername={replyData.username}
         />
       )}
       <ProfileUser
