@@ -25,4 +25,5 @@ export interface IUserContext {
   reqLoad: boolean;
   replyToQuack: (quackId: string, username: string) => void;
   replyData: IReplyData;
+  setReplyData: React.Dispatch<React.SetStateAction<IReplyData>>;
 }

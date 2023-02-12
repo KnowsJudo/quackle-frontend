@@ -40,4 +40,5 @@ export const QuackleContext = createContext<IUserContext>({
   reqLoad: false,
   replyToQuack: () => null,
   replyData: { quackId: "", username: "" },
+  setReplyData: () => null,
 });

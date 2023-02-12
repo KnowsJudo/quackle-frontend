@@ -280,6 +280,7 @@ const App: () => JSX.Element = () => {
               reqLoad,
               replyToQuack,
               replyData,
+              setReplyData,
             }}
           >
             <BrowserRouter>

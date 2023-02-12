@@ -24,7 +24,7 @@ import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import "./quack-input.css";
 
 export const QuackInput: React.FC<IQuackInput> = (props) => {
-  const { userData, setUserData } = useContext(QuackleContext);
+  const { userData, setUserData, setReplyData } = useContext(QuackleContext);
   const [quackContent, setQuackContent] = useState<string>("");
   const [atNextUser, setAtNextUser] = useState<string>("");
   const [userToAdd, setUserToAdd] = useState<string>("");
@@ -147,6 +147,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
         stdHeader(),
       );
       props.setInitiateQuack?.(false);
+      setReplyData({ quackId: "", username: "" });
       setQuackContent("");
       setAtUsers([]);
       const res = await axios.get(`${apiUrl}/user/${userData.username}`);
@@ -184,6 +185,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
     event.preventDefault();
     if (!quackContent) {
       props.setInitiateQuack?.(false);
+      setReplyData({ quackId: "", username: "" });
       return;
     }
     if (!checkClose) setCheckClose(true);
@@ -196,6 +198,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
     );
     setCheckClose(false);
     props.setInitiateQuack?.(false);
+    setReplyData({ quackId: "", username: "" });
     setAtUsers([]);
     setQuackContent("");
   };
@@ -203,6 +206,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
   const discardQuack = () => {
     setCheckClose(false);
     props.setInitiateQuack?.(false);
+    setReplyData({ quackId: "", username: "" });
     setAtUsers([]);
     setQuackContent("");
     sessionStorage.removeItem("Unfinished-Quack");
