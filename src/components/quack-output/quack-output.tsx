@@ -16,8 +16,8 @@ export const QuackOutput: React.FC<IQuackOutput> = (props) => {
   const [modal, setModal] = useState<boolean>(false);
   const [likeList, setLikeList] = useState<string>("");
   const [showReplies, setShowReplies] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const [replies, setReplies] = useState<IQuackResponse[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const checkLiked = props.likes.includes(userData.username);
 

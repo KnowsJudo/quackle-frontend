@@ -143,6 +143,7 @@ export const QuackInput: React.FC<IQuackInput> = (props) => {
           content: quackContent,
           avatar: userData.avatar,
           atUsers,
+          parentQuackId: props.parentQuackId,
         },
         stdHeader(),
       );
