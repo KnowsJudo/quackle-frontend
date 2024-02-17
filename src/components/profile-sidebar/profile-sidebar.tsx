@@ -54,11 +54,11 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       )}
       {!props.loggedIn && (
         <section className="profile-prompt">
-          <h5>Not part of the pond?</h5>
+          <h6>Not part of the pond?</h6>
           <Link to="/signup">
             <Button color="cyan">Sign Up</Button>
           </Link>
-          <h5>Existing User?</h5>
+          <h6>Existing User?</h6>
           <Link to="/login">
             <Button color="cyan">LOGIN</Button>
           </Link>

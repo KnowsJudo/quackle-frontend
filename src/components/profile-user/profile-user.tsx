@@ -140,6 +140,9 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
       )}
 
       <nav className="profile-user-list">
+        <Link to="/" style={linkStyle}>
+          <GiDuck style={{ marginRight: "7px" }} />
+        </Link>
         {props.loggedIn && (
           <Link to="/home" style={linkStyle}>
             <WaterIcon style={{ marginRight: "7px" }} /> Home

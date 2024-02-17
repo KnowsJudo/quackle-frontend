@@ -57,7 +57,7 @@ export const UserPreview: React.FC<IUserPreview> = (props) => {
             />
           )}
         </div>
-        <Text size="xs">{props.tagline}</Text>
+        <Text style={{ fontSize: "10px" }}>{props.tagline}</Text>
       </span>
     </div>
   );

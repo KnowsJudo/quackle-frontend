@@ -1,8 +1,8 @@
 .quacking-current {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 1% 2%;
+  padding: 2% 0;
 }
 
 .trending-container {
@@ -21,7 +21,6 @@
   color: black;
   flex: 0.5 1 auto;
   margin: auto;
-  padding-top: 2%;
   min-height: 100vh;
   height: max-content;
   max-width: 45%;

@@ -8,7 +8,6 @@ import { QuackInput } from "../../components/quack-input/quack-input";
 import { apiUrl } from "../../helpers/api-url";
 import { Badge, Loader, Text, Tooltip } from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
-import DuckPond from "../../img/pond.png";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./trending-page.css";
 
@@ -48,16 +47,20 @@ export const TrendingPage: React.FC = () => {
       />
       <section className="trending-list">
         <span className="quacking-current">
-          <Text sx={{ fontSize: "22px" }}>
-            <b>Currently Quacking</b>
+          <Text variant="gradient" sx={{ fontSize: "30px" }}>
+            <b>Quackle</b>
           </Text>
-          <img src={DuckPond} className="trending-pond" />
+          <Text sx={{ fontSize: "12px" }}>
+            A premier social duck network (for ducks)
+          </Text>
         </span>
+        <Text sx={{ fontSize: "10px" }}>#Trending Ducks</Text>
         <HorizontalRuleRoundedIcon
           preserveAspectRatio="none"
           style={{
             height: "30px",
             width: "100%",
+            color: "#100c47",
           }}
         />
         {loading ? (
