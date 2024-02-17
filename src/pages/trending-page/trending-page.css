@@ -26,6 +26,11 @@
   max-width: 45%;
 }
 
+.trending-numbers {
+  margin: auto;
+  font-size: 11px;
+}
+
 .trending-pond {
   width: 65px;
   height: 65px;
@@ -34,12 +39,19 @@
 .trending-stats {
   display: flex;
   align-items: center;
+  margin: auto 25%;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1350px) {
   .trending-list {
     margin: auto;
     max-width: 45%;
+  }
+  .trending-numbers {
+    display: none;
+  }
+  .trending-stats {
+    margin: auto 10%;
   }
 }
 @media (max-width: 750px) {
@@ -52,5 +64,6 @@
     flex-direction: column;
     justify-content: center;
     padding: 3px 0;
+    margin: auto;
   }
 }

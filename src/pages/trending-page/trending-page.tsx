@@ -6,7 +6,7 @@ import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { QuackInput } from "../../components/quack-input/quack-input";
 import { apiUrl } from "../../helpers/api-url";
-import { Badge, Loader, Text, Tooltip } from "@mantine/core";
+import { Loader, Text } from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./trending-page.css";
@@ -68,7 +68,7 @@ export const TrendingPage: React.FC = () => {
         ) : (
           trendingData.map((next) => {
             return (
-              <span key={next._id} className="trending-stats">
+              <div key={next._id} className="trending-stats">
                 <UserPreview
                   name={next.name}
                   username={next.username}
@@ -76,19 +76,10 @@ export const TrendingPage: React.FC = () => {
                   tagline={next.tagline}
                   matchesUser={next.username === userData.username}
                 />
-                <Tooltip
-                  label={`${next.quacks} Quack${next.quacks === 1 ? "" : "s"}`}
-                >
-                  <Badge
-                    size="lg"
-                    radius="xl"
-                    color="cyan"
-                    style={{ margin: "auto", padding: "10px" }}
-                  >
-                    {next.quacks}🦆
-                  </Badge>
-                </Tooltip>
-              </span>
+                <p className="trending-numbers">{`${next.quacks} Quack${
+                  next.quacks === 1 ? "" : "s"
+                }`}</p>
+              </div>
             );
           })
         )}
