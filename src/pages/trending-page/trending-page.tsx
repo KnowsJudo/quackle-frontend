@@ -63,26 +63,28 @@ export const TrendingPage: React.FC = () => {
             color: "#100c47",
           }}
         />
-        {loading ? (
-          <Loader color="cyan" sx={{ margin: "25vh auto auto auto" }} />
-        ) : (
-          trendingData.map((next) => {
-            return (
-              <div key={next._id} className="trending-stats">
-                <UserPreview
-                  name={next.name}
-                  username={next.username}
-                  avatar={next.avatar}
-                  tagline={next.tagline}
-                  matchesUser={next.username === userData.username}
-                />
-                <p className="trending-numbers">{`${next.quacks} Quack${
-                  next.quacks === 1 ? "" : "s"
-                }`}</p>
-              </div>
-            );
-          })
-        )}
+        <div className="trending-info">
+          {loading ? (
+            <Loader color="cyan" sx={{ margin: "25vh auto auto auto" }} />
+          ) : (
+            trendingData.map((next) => {
+              return (
+                <div key={next._id} className="trending-stats">
+                  <UserPreview
+                    name={next.name}
+                    username={next.username}
+                    avatar={next.avatar}
+                    tagline={next.tagline}
+                    matchesUser={next.username === userData.username}
+                  />
+                  <p className="trending-numbers">{`${next.quacks} Quack${
+                    next.quacks === 1 ? "" : "s"
+                  }`}</p>
+                </div>
+              );
+            })
+          )}
+        </div>
       </section>
       <ProfileSideBar loggedIn={loggedIn ? true : false} />
     </div>

@@ -87,7 +87,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
         <span className="menu-search">
           <SearchIcon style={{ fontSize: "30px", marginRight: "15px" }} />
           <TextInput
-            placeholder="Search Quackle Users"
+            placeholder="Search Users"
             value={search}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSearch(e.target.value)
@@ -120,7 +120,7 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
       <span className="profile-search">
         <SearchIcon fontSize="large" style={{ marginRight: "5px" }} />
         <TextInput
-          placeholder="Search Quackle Users"
+          placeholder="Search Users"
           value={search}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setSearch(e.target.value)

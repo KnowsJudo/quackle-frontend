@@ -8,22 +8,28 @@
 .trending-container {
   display: flex;
   flex-direction: row;
+  flex-shrink: 0;
   height: 100vh;
   width: 100vw;
   overflow: auto;
   justify-content: space-evenly;
 }
 
+.trending-info {
+  display: flex;
+  flex-direction: column;
+  margin: auto 26%;
+}
+
 .trending-list {
   display: flex;
   flex-direction: column;
+  flex: 0 0 45%;
   background-color: white;
   color: black;
-  flex: 0.5 1 auto;
   margin: auto;
   min-height: 100vh;
   height: max-content;
-  max-width: 45%;
 }
 
 .trending-numbers {
@@ -39,27 +45,34 @@
 .trending-stats {
   display: flex;
   align-items: center;
-  margin: auto 25%;
+}
+@media (max-width: 1500px) {
+  .trending-info {
+    margin: auto 20%;
+  }
 }
 
-@media (max-width: 1350px) {
+@media (max-width: 1300px) {
+  .trending-info {
+    margin: auto 15%;
+  }
   .trending-list {
-    margin: auto;
-    max-width: 45%;
-  }
-  .trending-numbers {
-    display: none;
-  }
-  .trending-stats {
-    margin: auto 10%;
+    margin-left: 3%;
+    flex-basis: 60%;
   }
 }
+
 @media (max-width: 750px) {
+  .trending-info {
+    margin: auto;
+  }
   .trending-list {
     max-width: 100%;
     width: 100%;
   }
-
+  .trending-numbers {
+    display: none;
+  }
   .trending-stats {
     flex-direction: column;
     justify-content: center;

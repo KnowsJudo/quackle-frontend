@@ -4,18 +4,19 @@ import { Link } from "react-router-dom";
 
 export const TrendingBadge: React.FC = () => {
   return (
-    <Badge
-      size="lg"
-      radius="xl"
-      style={{
-        margin: "auto",
-        padding: "25px",
-        backgroundColor: "#282c34",
-      }}
-    >
-      <Link to="/trending" style={{ color: "white", textDecoration: "none" }}>
+    <Link to="/trending" style={{ color: "white", textDecoration: "none" }}>
+      <Badge
+        size="lg"
+        radius="xl"
+        style={{
+          margin: "auto",
+          padding: "25px",
+          backgroundColor: "#282c34",
+          color: "white",
+        }}
+      >
         See popular ducks
-      </Link>
-    </Badge>
+      </Badge>
+    </Link>
   );
 };
