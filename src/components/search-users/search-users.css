@@ -28,7 +28,7 @@
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1150px) {
   .search-container {
     display: none;
   }
@@ -36,6 +36,5 @@
     display: block;
     position: absolute;
     top: 110px;
-    left: -5px;
   }
 }

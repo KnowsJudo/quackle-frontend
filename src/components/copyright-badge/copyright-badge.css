@@ -1,0 +1,10 @@
+.lachie-anchor {
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 1300px) {
+  .lachie-anchor {
+    font-size: 6px;
+  }
+}

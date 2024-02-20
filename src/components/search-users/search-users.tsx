@@ -69,10 +69,10 @@ export const SearchUsers: React.FC<ISearch> = (props) => {
       <Button
         variant="subtle"
         color="dark"
-        size="xs"
+        style={{ padding: "6px" }}
         onClick={() => setModal(true)}
       >
-        <SearchIcon sx={{ color: "white", fontSize: "30px" }} />
+        <SearchIcon sx={{ color: "white", fontSize: "27px" }} />
       </Button>
       <Modal
         size={"90vw"}

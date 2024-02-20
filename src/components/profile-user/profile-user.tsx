@@ -12,8 +12,9 @@ import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import EggIcon from "@mui/icons-material/Egg";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import WaterIcon from "@mui/icons-material/Water";
-import InputIcon from "@mui/icons-material/Input";
+import LogoutIcon from "@mui/icons-material/Logout";
 import "./profile-user.css";
+import { CopyrightBadge } from "../copyright-badge/copyright-badge";
 
 export const ProfileUser: React.FC<IProfileUser> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
@@ -115,7 +116,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
         {props.loggedIn && (
           <Button
             color="teal"
-            size="xs"
+            style={{ padding: "7px", fontSize: "16px" }}
             onClick={() => props.setInitiateQuack(true)}
           >
             🦆
@@ -123,18 +124,18 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
         )}
       </span>
 
-      <SearchUsers compact={true} />
+      <SearchUsers compact />
 
       {props.loggedIn && (
         <span className="user-logout">
           <Button
-            size="xs"
+            color="cyan"
             onClick={() => {
               setModal(true);
             }}
-            color="cyan"
+            style={{ padding: "5px", fontSize: "14px" }}
           >
-            <InputIcon sx={{ fontSize: "16px" }} />
+            <LogoutIcon style={{ transform: "rotate(180deg)" }} />
           </Button>
         </span>
       )}
@@ -180,7 +181,11 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
             </Button>
           )}
         </span>
+        <CopyrightBadge compact />
       </nav>
+      <a href="https://lachieb.dev" className="copyright-mobile">
+        &copy;
+      </a>
     </section>
   );
 };
