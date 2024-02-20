@@ -11,7 +11,7 @@ export const CopyrightBadge: React.FC<ICopyrightBadge> = (props) => {
     <Badge
       style={{
         margin: props.compact ? "auto auto 0 0" : "30% auto",
-        padding: "15px 0",
+        padding: props.compact ? 0 : "15px",
         backgroundColor: "#282c34",
       }}
     >
