@@ -33,9 +33,9 @@
     display: none;
   }
   .search-container-compact {
-    display: flex;
-    position: fixed;
-    top: 200px;
-    left: 0;
+    display: block;
+    position: absolute;
+    top: 110px;
+    left: -5px;
   }
 }
