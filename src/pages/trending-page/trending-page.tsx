@@ -65,7 +65,7 @@ export const TrendingPage: React.FC = () => {
         />
         <div className="trending-info">
           {loading ? (
-            <Loader color="cyan" sx={{ margin: "25vh auto auto auto" }} />
+            <Loader color="cyan" sx={{ margin: "auto auto 50vh" }} />
           ) : (
             trendingData.map((next) => {
               return (

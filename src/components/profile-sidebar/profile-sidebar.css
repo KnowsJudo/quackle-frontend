@@ -36,12 +36,14 @@
     display: none;
   }
 
-  .profile-prompt {
-    display: none;
-  }
-
   .profile-sidebar {
     margin: auto auto auto 82%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .profile-prompt {
+    display: none;
   }
 }
 

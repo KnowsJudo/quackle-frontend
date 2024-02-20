@@ -24,12 +24,13 @@
 .trending-list {
   display: flex;
   flex-direction: column;
-  flex: 0 0 45%;
+  flex: 0 0 auto;
   background-color: white;
   color: black;
   margin: auto;
   min-height: 100vh;
   height: max-content;
+  width: 750px;
 }
 
 .trending-numbers {
@@ -46,6 +47,7 @@
   display: flex;
   align-items: center;
 }
+
 @media (max-width: 1500px) {
   .trending-info {
     margin: auto 20%;
@@ -56,9 +58,16 @@
   .trending-info {
     margin: auto 15%;
   }
+
   .trending-list {
     margin-left: 3%;
-    flex-basis: 60%;
+  }
+}
+
+@media (max-width: 830px) {
+  .trending-list {
+    width: 45%;
+    flex-grow: 1;
   }
 }
 
@@ -66,13 +75,11 @@
   .trending-info {
     margin: auto;
   }
-  .trending-list {
-    max-width: 100%;
-    width: 100%;
-  }
+
   .trending-numbers {
     display: none;
   }
+
   .trending-stats {
     flex-direction: column;
     justify-content: center;

@@ -36,11 +36,11 @@
   .hamburger {
     display: block;
     background: url("../../img/hamburger.svg");
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     position: absolute;
-    top: 40px;
-    left: 24px;
+    top: 25px;
+    left: 5px;
     z-index: 5;
   }
 
@@ -53,8 +53,7 @@
   }
 
   .profile-user {
-    position: static;
-    width: 65px;
+    width: 45px;
   }
 
   .profile-user-list {
@@ -77,16 +76,6 @@
 }
 
 @media (max-width: 750px) {
-  .hamburger {
-    top: 0;
-    left: 4px;
-  }
-
-  .profile-user {
-    margin: auto;
-    position: static;
-    width: 65px;
-  }
   .user-logout {
     left: 4px;
   }
