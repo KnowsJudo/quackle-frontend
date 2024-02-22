@@ -18,6 +18,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
     Cookies.remove("jwtToken");
     setUserData(clearUser);
     navigate("/");
+    setModal(false);
   };
 
   return (

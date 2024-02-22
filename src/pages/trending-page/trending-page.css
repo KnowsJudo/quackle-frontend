@@ -7,7 +7,6 @@
 
 .trending-container {
   display: flex;
-  flex-direction: row;
   flex-shrink: 0;
   height: 100vh;
   width: 100vw;
@@ -18,7 +17,7 @@
 .trending-info {
   display: flex;
   flex-direction: column;
-  margin: auto 26%;
+  margin: auto 25%;
 }
 
 .trending-list {
@@ -64,9 +63,9 @@
   }
 }
 
-@media (max-width: 830px) {
+@media (max-width: 810px) {
   .trending-list {
-    width: 45%;
+    width: 50%;
     flex-grow: 1;
   }
 }

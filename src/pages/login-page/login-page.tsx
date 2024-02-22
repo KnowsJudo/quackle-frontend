@@ -91,7 +91,7 @@ export const LoginPage: React.FC = () => {
         overlayOpacity={0.05}
         loaderProps={{ color: "cyan" }}
       />
-      <section className="login-section">
+      <section className="login-details">
         <QuackleTitle />
         <LoginForm
           setPass={setPass}
@@ -131,13 +131,13 @@ export const LoginPage: React.FC = () => {
             User does not exist
           </Notification>
         )}
+      </section>
+      <section className="login-footer">
         <span className="login-signup">
           <Text size="md">New to Quackle?&nbsp;</Text>
-          <span>
-            <Button color="cyan" onClick={() => navigate("/signup")}>
-              Sign Up
-            </Button>
-          </span>
+          <Button color="cyan" onClick={() => navigate("/signup")}>
+            Sign Up
+          </Button>
         </span>
         <QuackleFooter />
       </section>

@@ -7,26 +7,24 @@
 .profile-followers {
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   background-color: white;
   color: black;
-  flex: 0.5 1 auto;
   margin: auto;
   min-height: 100vh;
   height: max-content;
-  max-width: 38%;
+  width: 750px;
 }
 
 @media (max-width: 1300px) {
   .profile-followers {
-    max-width: 70%;
-    width: 60%;
-    margin-left: auto;
+    margin-left: 3%;
   }
 }
-@media (max-width: 750px) {
+
+@media (max-width: 800px) {
   .profile-followers {
-    max-width: 100%;
-    width: 100%;
-    margin: auto;
+    width: 50%;
+    flex-grow: 1;
   }
 }

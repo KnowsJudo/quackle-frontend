@@ -11,10 +11,12 @@
 .signup-container {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .signup-section {
   display: flex;
+  margin-top: 20%;
   flex-direction: column;
   background-color: white;
   opacity: 0.95;

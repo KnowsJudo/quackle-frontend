@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Text } from "@mantine/core";
+import Quack from "../../img/quackk.png";
 import "./quackle-title.css";
 
 export const QuackleTitle: React.FC = () => {
   return (
     <Link to="/login" style={{ color: "black", textDecoration: "none" }}>
       <span className="quackle-head">
-        🦆
-        <Text style={{ marginLeft: "7px" }}>Quackle</Text>
+        <img src={Quack} height={80} width={80} />
+        <p className="quackle-title">Quackle</p>
       </span>
     </Link>
   );

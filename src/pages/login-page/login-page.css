@@ -1,11 +1,4 @@
-.login-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-}
-
 .login-background {
-  width: 100vw;
   background: url("../../img/quack2.webp");
   background-size: cover;
   position: absolute;
@@ -15,12 +8,18 @@
   height: 100vh;
 }
 
-.login-section {
+.login-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.login-details {
   display: flex;
   flex: 0 0 auto;
-  margin: 25% auto;
+  margin-top: 25%;
   flex-direction: column;
-  height: 320px;
+  height: 360px;
   width: 550px;
   background-color: white;
   color: black;
@@ -30,22 +29,28 @@
   z-index: 1;
 }
 
+.login-footer {
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+  z-index: 1;
+}
+
 .login-signup {
   display: flex;
+  margin: auto;
   flex-direction: column;
   color: white;
 }
 
-@media (max-width: 750px) {
-  .login-section {
-    margin: 30% auto;
-    height: 280px;
-    width: 96vw;
+@media (max-width: 600px) {
+  .login-container {
+    margin-top: 10%;
+    width: 100%;
   }
-}
 
-@media (max-width: 550px) {
-  .login-signup {
-    margin: 15% auto;
+  .login-details {
+    width: 100%;
+    height: auto;
   }
 }

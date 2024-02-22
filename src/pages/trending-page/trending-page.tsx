@@ -10,6 +10,7 @@ import { Loader, Text } from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./trending-page.css";
+import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 
 export const TrendingPage: React.FC = () => {
   const { userData, initiateQuack, setInitiateQuack, loggedIn } =
@@ -47,9 +48,7 @@ export const TrendingPage: React.FC = () => {
       />
       <section className="trending-list">
         <span className="quacking-current">
-          <Text variant="gradient" sx={{ fontSize: "30px" }}>
-            <b>Quackle</b>
-          </Text>
+          <QuackleTitle />
           <Text sx={{ fontSize: "12px" }}>
             A premier social duck network (for ducks)
           </Text>

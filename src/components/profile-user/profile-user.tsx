@@ -25,6 +25,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
     Cookies.remove("jwtToken");
     setUserData(clearUser);
     navigate("/");
+    setModal(false);
   };
 
   const linkStyle = {

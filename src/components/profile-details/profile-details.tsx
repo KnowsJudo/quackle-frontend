@@ -28,13 +28,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
   ) : (
     <section className="profile-details">
       <div className="user-info">
-        <span
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <section className="profile-name">
           <UsernameInfo
             name={props.profileData.name}
             username={props.profileData.username}
@@ -52,7 +46,7 @@ export const ProfileDetails: React.FC<IProfileDetails> = (props) => {
               </Tooltip>
             </span>
           )}
-        </span>
+        </section>
         <ProfileCard
           loggedIn={props.loggedIn}
           matchesUser={props.matchesUser}
