@@ -16,7 +16,7 @@
   width: 750px;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1460px) {
   .profile-following {
     margin-left: 3%;
   }

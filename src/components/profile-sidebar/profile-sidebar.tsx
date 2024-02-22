@@ -8,6 +8,7 @@ import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { SearchUsers } from "../search-users/search-users";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./profile-sidebar.css";
+import { NewUsersList } from "../new-users-list/new-users-list";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
@@ -53,19 +54,8 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
           </Button>
         </span>
       )}
-      {!props.loggedIn && (
-        <section className="profile-prompt">
-          <h6>Not part of the pond?</h6>
-          <Link to="/signup">
-            <Button color="cyan">Sign Up</Button>
-          </Link>
-          <h6>Existing User?</h6>
-          <Link to="/login">
-            <Button color="cyan">LOGIN</Button>
-          </Link>
-        </section>
-      )}
       <SearchUsers compact={false} />
+      <NewUsersList />
     </section>
   );
 };

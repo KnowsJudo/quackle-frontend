@@ -1,23 +1,18 @@
+.profile-id {
+  display: flex;
+  align-items: center;
+}
+
 .profile-logout {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20vh;
+  margin-bottom: 10px;
   align-items: center;
   width: 318px;
   color: black;
   background-color: white;
   border-radius: 5px;
   border: 1px solid #282c34;
-}
-
-.profile-id {
-  display: flex;
-  align-items: center;
-}
-
-.profile-prompt {
-  margin-right: 18%;
-  margin-bottom: 13%;
 }
 
 .profile-sidebar {
@@ -27,21 +22,22 @@
   height: 100vh;
   width: 20%;
   position: fixed;
-  margin: auto 10% auto 83%;
+  right: 1%;
+  top: 2%;
   padding: 2%;
 }
 
-@media (max-width: 1300px) {
-  .profile-logout {
-    display: none;
-  }
-
+@media (max-width: 1460px) {
   .profile-sidebar {
     margin: auto auto auto 82%;
   }
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1165px) {
+  .profile-logout {
+    display: none;
+  }
+
   .profile-prompt {
     display: none;
   }

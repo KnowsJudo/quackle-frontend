@@ -69,7 +69,7 @@
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1460px) {
   .at-users {
     flex-direction: column;
     align-items: flex-start;

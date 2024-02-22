@@ -14,27 +14,26 @@
 
 .profile-search {
   display: flex;
-  justify-content: space-between;
   background-color: white;
   padding: 5px;
   border-radius: 5px;
-  align-items: center;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1460px) {
   .menu-search {
     display: flex;
     width: 84vw;
   }
-}
 
-@media (max-width: 1150px) {
-  .search-container {
-    display: none;
-  }
   .search-container-compact {
     display: block;
     position: absolute;
     top: 110px;
+  }
+}
+
+@media (max-width: 1165px) {
+  .search-container {
+    display: none;
   }
 }

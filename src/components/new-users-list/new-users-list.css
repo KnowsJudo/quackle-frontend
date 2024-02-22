@@ -1,0 +1,16 @@
+.new-users-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  width: 318px;
+  height: 500px;
+}
+
+@media (max-width: 1165px) {
+  .new-users-container {
+    display: none;
+  }
+}

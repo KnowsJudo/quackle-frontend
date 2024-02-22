@@ -6,6 +6,13 @@
   display: none;
 }
 
+.profile-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+}
+
 .profile-user {
   display: flex;
 }
@@ -25,6 +32,10 @@
   margin-top: 12%;
 }
 
+.prompt-headings {
+  margin-bottom: 0;
+}
+
 .hamburger-menu {
   display: none;
 }
@@ -37,7 +48,7 @@
   display: none;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1460px) {
   .copyright-mobile {
     display: block;
     position: absolute;

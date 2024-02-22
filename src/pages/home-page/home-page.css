@@ -6,11 +6,12 @@
   justify-content: space-evenly;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1460px) {
   .home-container {
     justify-content: start;
   }
 }
+
 @media (max-width: 750px) {
   .home-container {
     justify-content: space-evenly;

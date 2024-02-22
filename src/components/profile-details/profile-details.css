@@ -35,7 +35,7 @@
   flex: 1 1 auto;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1460px) {
   .profile-details {
     margin-left: 3%;
   }

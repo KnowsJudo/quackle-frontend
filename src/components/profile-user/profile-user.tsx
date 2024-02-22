@@ -136,7 +136,7 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
             }}
             style={{ padding: "5px", fontSize: "14px" }}
           >
-            <LogoutIcon style={{ transform: "rotate(180deg)" }} />
+            <LogoutIcon />
           </Button>
         </span>
       )}
@@ -182,6 +182,18 @@ export const ProfileUser: React.FC<IProfileUser> = (props) => {
             </Button>
           )}
         </span>
+        {!props.loggedIn && (
+          <section className="profile-prompt">
+            <h6 className="prompt-headings">Not part of the pond?</h6>
+            <Link to="/signup">
+              <Button color="cyan">Sign Up</Button>
+            </Link>
+            <h6 className="prompt-headings">Existing User?</h6>
+            <Link to="/login">
+              <Button color="cyan">LOGIN</Button>
+            </Link>
+          </section>
+        )}
         <CopyrightBadge compact />
       </nav>
       <a href="https://lachieb.dev" className="copyright-mobile">
