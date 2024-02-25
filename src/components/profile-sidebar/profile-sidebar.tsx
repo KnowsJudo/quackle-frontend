@@ -75,7 +75,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
         </span>
       )}
       <SearchUsers compact={false} />
-      <NewUsersList loading={loading} newUserData={newUserData} />
+      {/* <NewUsersList loading={loading} newUserData={newUserData} /> */}
     </section>
   );
 };
