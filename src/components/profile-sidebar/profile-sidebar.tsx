@@ -1,18 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import axios from "axios";
+import { apiUrl } from "../../helpers/api-url";
 import { Avatar, Button, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { IProfileSideBar } from "../../types/profile-types";
 import { clearUser, QuackleContext } from "../../context/user-context";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
 import { SearchUsers } from "../search-users/search-users";
+import { NewUsersList } from "../new-users-list/new-users-list";
+import { IUserPreview } from "../../types/user-types";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./profile-sidebar.css";
-import { NewUsersList } from "../new-users-list/new-users-list";
 
 export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
   const { userData, setUserData } = useContext(QuackleContext);
   const [modal, setModal] = useState<boolean>(false);
+  const [newUserData, setNewUserData] = useState<IUserPreview[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -21,6 +26,21 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
     navigate("/");
     setModal(false);
   };
+
+  const getNewUserData = async () => {
+    try {
+      const data = await axios.get(`${apiUrl}/new`);
+      setNewUserData(data.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getNewUserData();
+  }, []);
 
   return (
     <section className="profile-sidebar">
@@ -55,7 +75,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
         </span>
       )}
       <SearchUsers compact={false} />
-      <NewUsersList />
+      <NewUsersList loading={loading} newUserData={newUserData} />
     </section>
   );
 };

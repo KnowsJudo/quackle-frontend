@@ -18,6 +18,6 @@ h4 {
   font-size: calc(10px + 2vmin);
   color: white;
   text-align: center;
-  --small-screen: 1460px;
+  --extraLargeScreen: 1460px;
   --mobile: 750px;
 }

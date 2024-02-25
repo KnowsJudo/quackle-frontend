@@ -5,12 +5,12 @@ import { ProfileUser } from "../../components/profile-user/profile-user";
 import { UserPreview } from "../../components/user-preview/user-preview";
 import { QuackleContext } from "../../context/user-context";
 import { QuackInput } from "../../components/quack-input/quack-input";
+import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 import { apiUrl } from "../../helpers/api-url";
 import { Loader, Text } from "@mantine/core";
 import { IUserPreview } from "../../types/user-types";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 import "./trending-page.css";
-import { QuackleTitle } from "../../components/quackle-title/quackle-title";
 
 export const TrendingPage: React.FC = () => {
   const { userData, initiateQuack, setInitiateQuack, loggedIn } =
