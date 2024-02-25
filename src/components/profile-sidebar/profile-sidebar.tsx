@@ -38,9 +38,9 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   getNewUserData();
-  // }, []);
+  useEffect(() => {
+    getNewUserData();
+  }, []);
 
   return (
     <section className="profile-sidebar">
@@ -75,7 +75,7 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
         </span>
       )}
       <SearchUsers compact={false} />
-      {/* <NewUsersList loading={loading} newUserData={newUserData} /> */}
+      <NewUsersList loading={loading} newUserData={newUserData} />
     </section>
   );
 };

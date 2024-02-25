@@ -16,7 +16,7 @@ export const NewUsersList: React.FC<INewUsersList> = (props) => {
   return (
     <div className="new-users-container">
       <h6> Newest Users</h6>
-      {props.loading ? (
+      {/* {props.loading ? (
         <Loader color="cyan" sx={{ margin: "7vh auto" }} />
       ) : (
         props.newUserData.map((next) => {
@@ -32,7 +32,7 @@ export const NewUsersList: React.FC<INewUsersList> = (props) => {
             </div>
           );
         })
-      )}
+      )} */}
     </div>
   );
 };
