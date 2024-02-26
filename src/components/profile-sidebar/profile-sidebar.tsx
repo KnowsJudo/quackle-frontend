@@ -77,7 +77,9 @@ export const ProfileSideBar: React.FC<IProfileSideBar> = (props) => {
       <SearchUsers compact={false} />
       <NewUsersList loading={loading} newUserData={newUserData} />
       <span className="version-text"></span>
-      <Text size="xs">Version 1.01</Text>
+      <Link to={"/changes"} style={{ color: "white", textDecoration: "none" }}>
+        <Text size="xs">Version 1.01</Text>
+      </Link>
     </section>
   );
 };

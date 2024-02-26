@@ -8,12 +8,7 @@ h4 {
 }
 
 .App {
-  background: url("./img/quack2.webp");
-  background-size: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
+  background-color: #282c34;
   height: 100vh;
   overflow: auto;
   display: flex;
